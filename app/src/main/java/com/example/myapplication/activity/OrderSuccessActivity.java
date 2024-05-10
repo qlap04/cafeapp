@@ -1,0 +1,164 @@
+package com.example.myapplication.activity;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.example.myapplication.R;
+import com.example.myapplication.adapter.TrackingAdapter;
+import com.example.myapplication.api.APIService;
+import com.example.myapplication.model.Address;
+import com.example.myapplication.model.Cart;
+import com.example.myapplication.modelResponse.AddressResponse;
+import com.example.myapplication.modelResponse.TotalPriceResponse;
+
+import java.text.DecimalFormat;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class OrderSuccessActivity extends AppCompatActivity {
+    private TextView priceTxt, nameTxt, phoneNumTxt, addressTxt;
+    private RecyclerView rcProduct;
+    private List<Cart> productListInCart;
+    private Address address;
+    private String username;
+    private String strName, strPhone, strAddress;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        setContentView(R.layout.activity_order_success);
+        rcProduct = findViewById(R.id.rcProduct);
+        priceTxt = findViewById(R.id.priceTxt);
+        nameTxt = findViewById(R.id.nameTxt);
+        phoneNumTxt = findViewById(R.id.phoneNumTxt);
+        addressTxt = findViewById(R.id.addressTxt);
+        ImageView backBtn = findViewById(R.id.backBtn);
+        GridLayoutManager linearLayoutManager = new GridLayoutManager(this, 1);
+        rcProduct.setLayoutManager(linearLayoutManager);
+        getUsernameFromSharedPreferences();
+        callApiGetProductsInTraking();
+        callApitGetAddress();
+        getTotalPrice();
+        backBtn.setOnClickListener(v -> {
+            finish();
+            Intent intent = new Intent(OrderSuccessActivity.this, HomeActivity.class);
+            startActivity(intent);
+        });
+    }
+    private void getUsernameFromSharedPreferences() {
+        SharedPreferences sharedPreferences = getSharedPreferences("user_prefs", MODE_PRIVATE);
+        username = sharedPreferences.getString("username", "");
+    }
+    private void getTotalPrice() {
+        if (username.isEmpty()) {
+            return;
+        }
+        APIService.apiService.getTotalPriceForBill(username)
+                .enqueue(new Callback<TotalPriceResponse>() {
+                    @Override
+                    public void onResponse(@NonNull Call<TotalPriceResponse> call, @NonNull Response<TotalPriceResponse> response) {
+                        if (response.isSuccessful() && response.body() != null) {
+                            DecimalFormat decimalFormat = new DecimalFormat("#,### đ");
+                            TotalPriceResponse totalPriceResponse = response.body();
+                            double totalPrice = totalPriceResponse.getTotalPrice() * 1000;
+                            priceTxt.setText(decimalFormat.format(totalPrice));
+                        } else {
+                            Toast.makeText(OrderSuccessActivity.this, "Failed to get total price", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(@NonNull Call<TotalPriceResponse> call, @NonNull Throwable t) {
+                        Log.e("API Error", "Call API error: " + t.getMessage(), t);
+                    }
+                });
+    }
+    private void callApiGetProductsInTraking() {
+        if (username.isEmpty()) {
+            return;
+        }
+        APIService.apiService.getProductInTracking(username, -1)
+                .enqueue(new Callback<List<Cart>>() {
+                    @Override
+                    public void onResponse(@NonNull Call<List<Cart>> call, @NonNull Response<List<Cart>> response) {
+                        if (response.isSuccessful()) {
+                            Log.e("Success", "Success" + "Success");
+                        } else {
+                            Log.e("Failed", "Failed" + "Failed");
+                        }
+                        productListInCart = response.body();
+                        TrackingAdapter trackingAdapter = new TrackingAdapter(productListInCart);
+                        rcProduct.setAdapter(trackingAdapter);
+                    }
+
+                    @Override
+                    public void onFailure(@NonNull Call<List<Cart>> call, @NonNull Throwable t) {
+                        Log.e("API Error", "Call API error: " + t.getMessage(), t);
+                    }
+                });
+    }
+    private void callApitGetAddress() {
+        if (username.isEmpty()) {
+            return;
+        }
+        APIService.apiService.getAddress(username).enqueue(new Callback<Address>() {
+            @Override
+            public void onResponse(@NonNull Call<Address> call, @NonNull Response<Address> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    address = response.body();
+                    nameTxt.setText(address.getName());
+                    phoneNumTxt.setText(address.getPhone());
+                    addressTxt.setText(address.getAddress());
+                    strName = address.getName();
+                    strPhone = address.getPhone();
+                    strAddress = address.getAddress();
+                    saveAddressForBill();
+                } else {
+                    Toast.makeText(OrderSuccessActivity.this, "Failed to get address", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<Address> call, @NonNull Throwable t) {
+                Log.e("API Error", "Call API error: " + t.getMessage(), t);
+            }
+        });
+    }
+    private void saveAddressForBill() {
+        AddressResponse requestBody = new AddressResponse(strName, strPhone, strAddress);
+        APIService.apiService.saveAddressForCart(username, -1, requestBody).enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
+                if (response.isSuccessful()) {
+                    Log.e("Save address", "Save address for cart succesfully" );
+                } else {
+                    Log.e("Save address", "Save address for cart succesfully" );
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
+                Log.e("API Error", "Call API error: " + t.getMessage(), t);
+            }
+        });
+    }
+}

@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/backBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/arrow"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"/>
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcTracking"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:paddingBottom="16dp">
+        </androidx.recyclerview.widget.RecyclerView>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:padding="20dp">
+
+            <ImageView
+                android:id="@+id/imageView7"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:src="@drawable/ic_circle_icon"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/md_green_500" />
+
+            <ImageView
+                android:id="@+id/imageView8"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_marginTop="50dp"
+                android:src="@drawable/ic_circle_icon"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/imageView7"
+                app:layout_constraintTop_toBottomOf="@+id/imageView7"
+                app:tint="@color/md_grey_500" />
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="80dp"
+                android:layout_height="0dp"
+                android:progress="100"
+                android:progressTint="@color/md_grey_500"
+                android:rotation="90"
+                app:layout_constraintBottom_toTopOf="@+id/imageView8"
+                app:layout_constraintEnd_toEndOf="@+id/imageView7"
+                app:layout_constraintStart_toStartOf="@+id/imageView7"
+                app:layout_constraintTop_toBottomOf="@+id/imageView7" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/materialTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="Đặt hàng"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/imageView7"
+                app:layout_constraintTop_toTopOf="@+id/imageView7" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="Đặt hàng"
+                android:textColor="@color/md_grey_500"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/materialTextView"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/imageView7"
+                app:layout_constraintTop_toBottomOf="@+id/materialTextView" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/orderDateTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="Monda Sep, 2022"
+                android:textColor="@color/md_grey_500"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/materialTextView"
+                app:layout_constraintTop_toTopOf="@+id/materialTextView" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/materialTextView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="Giao hàng"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/imageView8"
+                app:layout_constraintTop_toTopOf="@+id/imageView8" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="Giao hàng thành công"
+                android:textColor="@color/md_grey_500"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/imageView8"
+                app:layout_constraintTop_toBottomOf="@+id/materialTextView1" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/deliverDateTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="Monda Sep, 2022"
+                android:textColor="@color/md_grey_500"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/materialTextView1"
+                app:layout_constraintTop_toTopOf="@+id/materialTextView1" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="@color/md_grey_500"/>
+        <LinearLayout
+            android:padding="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="Please Provide your rating"
+                android:textAllCaps="true"
+                android:textStyle="bold"
+                android:textColor="@color/md_grey_500"/>
+            <RatingBar
+                android:layout_marginTop="20dp"
+                android:layout_gravity="center"
+                android:progressTint="#FFC106"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:stepSize="5"/>
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Submit Rating"
+                android:layout_marginTop="20dp"
+                app:cornerRadius="10dp"
+                android:background="@drawable/brown_button_background"
+                android:textColor="@color/white"
+                android:layout_marginHorizontal="20dp" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:gravity="bottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/receiveOrderBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Đã nhận hàng"
+                android:layout_weight="1"
+                android:layout_marginTop="20dp"
+                app:cornerRadius="5dp"
+                android:background="@drawable/grey_button_background"
+                android:layout_marginHorizontal="20dp" />
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/cancelOrderBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Hủy đặt hàng"
+                android:layout_weight="1"
+                android:layout_marginTop="20dp"
+                app:cornerRadius="5dp"
+                android:background="@drawable/grey_button_background"
+                android:layout_marginHorizontal="20dp" />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>
