@@ -34,7 +34,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class BillActivity extends AppCompatActivity {
-    private TextView priceTxt, nameTxt, phoneNumTxt, addressTxt;
+    private TextView priceTxt, nameTxt, phoneNumTxt, addressTxt, paymentMethodTxt;
     private RecyclerView rcProduct;
     private List<Cart> productListInCart;
     private AddressResponse address;
@@ -54,6 +54,7 @@ public class BillActivity extends AppCompatActivity {
         nameTxt = findViewById(R.id.nameTxt);
         phoneNumTxt = findViewById(R.id.phoneNumTxt);
         addressTxt = findViewById(R.id.addressTxt);
+        paymentMethodTxt = findViewById(R.id.paymentMethodTxt);
         backBtn = findViewById(R.id.backBtn);
         evaluateBtn = findViewById(R.id.evaluateBtn);
         productListInCart = new ArrayList<>();
@@ -63,8 +64,9 @@ public class BillActivity extends AppCompatActivity {
         if (intent != null && intent.hasExtra("ID-PRODUCT")) {
             int idValue = intent.getIntExtra("ID-PRODUCT", 1);
             callApiGetProductForBill(idValue);
-            callApitGetAddress(idValue);
             getPriceForBill(idValue);
+            getPaymentMethodForBill(idValue);
+            callApitGetAddress(idValue);
         }
         backBtn.setOnClickListener(v -> {
             navigateToHome();
@@ -73,8 +75,6 @@ public class BillActivity extends AppCompatActivity {
     }
     private void navigateToHome() {
         finish();
-        Intent intent = new Intent(BillActivity.this, HomeActivity.class);
-        startActivity(intent);
     }
     private void navigateToEvaluate() {
         finish();
@@ -86,11 +86,7 @@ public class BillActivity extends AppCompatActivity {
         return sharedPreferences.getString("username", "");
     }
     private void callApiGetProductForBill(int id) {
-        String username = getUsernameFromSharedPreferences();
-        if (username.isEmpty()) {
-            return;
-        }
-        APIService.apiService.getProductForBill(username, id).enqueue(new Callback<List<Cart>>() {
+        APIService.apiService.getProductForBill(id).enqueue(new Callback<List<Cart>>() {
             @Override
             public void onResponse(@NonNull Call<List<Cart>> call, @NonNull Response<List<Cart>> response) {
                 if (response.isSuccessful() && response.body() != null) {
@@ -110,11 +106,7 @@ public class BillActivity extends AppCompatActivity {
         });
     }
     private void getPriceForBill(int id) {
-        String username = getUsernameFromSharedPreferences();
-        if (username.isEmpty()) {
-            return;
-        }
-        APIService.apiService.getPriceForBill(username, id).enqueue(new Callback<TotalPriceResponse>() {
+        APIService.apiService.getPriceForBill(id).enqueue(new Callback<TotalPriceResponse>() {
             @Override
             public void onResponse(@NonNull Call<TotalPriceResponse> call, @NonNull Response<TotalPriceResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
@@ -135,11 +127,7 @@ public class BillActivity extends AppCompatActivity {
         });
     }
     private void callApitGetAddress(int id) {
-        String username = getUsernameFromSharedPreferences();
-        if (username.isEmpty()) {
-            return;
-        }
-        APIService.apiService.getAddressForBill(username, id).enqueue(new Callback<AddressResponse>() {
+        APIService.apiService.getAddressForBill(id).enqueue(new Callback<AddressResponse>() {
             @Override
             public void onResponse(@NonNull Call<AddressResponse> call, @NonNull Response<AddressResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
@@ -154,6 +142,23 @@ public class BillActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(@NonNull Call<AddressResponse> call, @NonNull Throwable t) {
+                Log.e("API Error", "Call API error: " + t.getMessage(), t);
+            }
+        });
+    }
+    private void getPaymentMethodForBill(int id) {
+        APIService.apiService.getPaymentMethodForBill(getUsernameFromSharedPreferences(), id).enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(@NonNull Call<String> call, @NonNull Response<String> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    paymentMethodTxt.setText(response.body());
+                } else {
+                    Log.e("BillActivity", "Get payment methoid from api: Failed");
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<String> call, @NonNull Throwable t) {
                 Log.e("API Error", "Call API error: " + t.getMessage(), t);
             }
         });

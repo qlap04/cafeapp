@@ -63,16 +63,14 @@ public class AddressActivity extends AppCompatActivity {
                 }
             }
             if (selectedAddress != null) {
-                setProductInCartIsOdered();
                 updateDataAddress(selectedAddress);
                 finish();
-                Intent intent = new Intent(AddressActivity.this, OrderSuccessActivity.class);
+                Intent intent = new Intent(AddressActivity.this, PaymentMethodsActivity.class);
                 startActivity(intent);
             } else {
                 if(addressList == null ) {
                     Toast.makeText(AddressActivity.this, "Vui lòng chọn địa chỉ", Toast.LENGTH_SHORT).show();
                 } else {
-                    setProductInCartIsOdered();
                     updateDataAddress(addressList.get(0));
                 }
             }
@@ -126,27 +124,5 @@ public class AddressActivity extends AppCompatActivity {
                 Log.e("API Error", "Call API error: " + t.getMessage(), t);
             }
         });
-    }
-    private void setProductInCartIsOdered() {
-        String username = getUsernameFromSharedPreferences();
-        if (username.isEmpty()) {
-            return;
-        }
-        APIService.apiService.setProductInCartIsOdered(username)
-                .enqueue(new Callback<Void>() {
-                    @Override
-                    public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
-                        if (response.isSuccessful()) {
-
-                        } else {
-                            Toast.makeText(AddressActivity.this, "Failed to get total price", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
-                        Log.e("API Error", "Call API error: " + t.getMessage(), t);
-                    }
-                });
     }
 }

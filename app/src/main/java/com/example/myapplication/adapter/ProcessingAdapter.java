@@ -40,7 +40,7 @@ public class ProcessingAdapter extends RecyclerView.Adapter<ProcessingAdapter.Pr
             return;
         }
         Picasso.get().load(product.getImage()).into(holder.image);
-        holder.codeOrderTxt.setText(String.valueOf(product.get_id()));
+        holder.codeOrderTxt.setText(String.valueOf(product.getOrderId()));
         holder.nameTxt.setText(product.getTitle());
         holder.priceTxt.setText(String.format("Giá: %s", decimalFormat.format(product.getPrice() * 1000)));
         holder.quantityTxt.setText(String.format("SL:%s", String.valueOf(product.getQuantity())));

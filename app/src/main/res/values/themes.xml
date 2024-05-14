@@ -15,4 +15,9 @@
         <item name="android:textSize">18sp</item>
         <item name="android:textStyle">bold</item>
     </style>
+    <style name="nightModeSwitch" parent="Theme.AppCompat.Light">
+        <item name="android:colorForeground">#99FFFFFF</item>
+        <item name="colorSwitchThumbNormal">#FFFFFF</item>
+        <item name="colorControlActivated">#7CCD7C</item>
+    </style>
 </resources>

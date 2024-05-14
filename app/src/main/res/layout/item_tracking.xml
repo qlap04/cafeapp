@@ -17,7 +17,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0">
+        <androidx.cardview.widget.CardView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginEnd="18dp"
+            app:cardCornerRadius="10dp">
+            <ImageView
+                android:id="@+id/image"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_launcher_background" />
 
+        </androidx.cardview.widget.CardView>
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -26,7 +38,7 @@
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/titleTxt"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:text="Cafe"
@@ -48,7 +60,7 @@
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/dateTxt"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Ngày giao: 12 - 01 - 2024"
                 android:textAllCaps="false"
@@ -88,18 +100,7 @@
             </LinearLayout>
 
         </LinearLayout>
-        <androidx.cardview.widget.CardView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            app:cardCornerRadius="10dp">
-            <ImageView
-                android:id="@+id/image"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/ic_launcher_background" />
 
-        </androidx.cardview.widget.CardView>
     </LinearLayout>
 
     <View

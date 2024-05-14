@@ -19,12 +19,16 @@ import java.util.List;
 public class PaymentMethodAdapter extends RecyclerView.Adapter<PaymentMethodAdapter.ViewHolder> {
 
     private final List<PaymentMethod> paymentMethods;
+    private final OnItemClickListener listener;
     private int selectedPosition = -1;
-
-    public PaymentMethodAdapter(List<PaymentMethod> paymentMethods) {
-        this.paymentMethods = paymentMethods;
+    public interface OnItemClickListener {
+        void onItemClick(String title);
     }
 
+    public PaymentMethodAdapter(List<PaymentMethod> paymentMethods, OnItemClickListener listener) {
+        this.paymentMethods = paymentMethods;
+        this.listener = listener;
+    }
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -43,12 +47,14 @@ public class PaymentMethodAdapter extends RecyclerView.Adapter<PaymentMethodAdap
 
         holder.itemView.setOnClickListener(v -> {
             selectedPosition = holder.getAdapterPosition();
-            notifyDataSetChanged();
+            listener.onItemClick(paymentMethod.getTitle());
+            notifyItemChanged(selectedPosition);
         });
 
         holder.radioButton.setOnClickListener(v -> {
             selectedPosition = holder.getAdapterPosition();
-            notifyDataSetChanged();
+            listener.onItemClick(paymentMethod.getTitle());
+            notifyItemChanged(selectedPosition);
         });
     }
 

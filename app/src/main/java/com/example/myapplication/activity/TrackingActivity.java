@@ -31,8 +31,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class TrackingActivity extends AppCompatActivity {
-    private RecyclerView rcTracking;
+    private String role;
     private ImageView backBtn;
+    private RecyclerView rcTracking;
     private Button cancelOrderBtn, receiveOrderBtn;
     private TextView orderDateTxt, deliverDateTxt;
     private List<Cart> productListInCart;
@@ -45,21 +46,31 @@ public class TrackingActivity extends AppCompatActivity {
         }
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_tracking);
+
         backBtn = findViewById(R.id.backBtn);
         orderDateTxt = findViewById(R.id.orderDateTxt);
         deliverDateTxt = findViewById(R.id.deliverDateTxt);
         cancelOrderBtn = findViewById(R.id.cancelOrderBtn);
         receiveOrderBtn = findViewById(R.id.receiveOrderBtn);
         rcTracking = findViewById(R.id.rcTracking);
+
         GridLayoutManager linearLayoutManager = new GridLayoutManager(this, 1);
         rcTracking.setLayoutManager(linearLayoutManager);
+
+        getRoleFromSharedPreferences();
         Intent intent = getIntent();
+
         if (intent != null && intent.hasExtra("ID-PRODUCT")) {
             int idValue = intent.getIntExtra("ID-PRODUCT", 1);
-            callApiGetProductsInTraking(idValue);
+            if (role.equals("client")) {
+                callApiGetProductsInTraking(idValue);
+            }else {
+                callApiGetProductsInTrakingForStaff(idValue);
+            }
             cancelOrderBtn.setOnClickListener(v -> cancelOrder(idValue));
             receiveOrderBtn.setOnClickListener(v -> receiveOrder(idValue));
         }
+
         backBtn.setOnClickListener(v -> {
             navigateToHome();
         });
@@ -68,17 +79,17 @@ public class TrackingActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("user_prefs", MODE_PRIVATE);
         return sharedPreferences.getString("username", "");
     }
+    private void getRoleFromSharedPreferences() {
+        SharedPreferences sharedPreferences = getSharedPreferences("user_prefs", MODE_PRIVATE);
+        role = sharedPreferences.getString("userRole", "");
+    }
     private void navigateToHome() {
         finish();
         Intent intent = new Intent(TrackingActivity.this, HomeActivity.class);
         startActivity(intent);
     }
     private void cancelOrder(int id) {
-        String username = getUsernameFromSharedPreferences();
-        if (username.isEmpty()) {
-            return;
-        }
-        APIService.apiService.cancelOrder(username, id)
+        APIService.apiService.cancelOrder(id)
                 .enqueue(new Callback<Void>() {
                     @Override
                     public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
@@ -97,11 +108,7 @@ public class TrackingActivity extends AppCompatActivity {
                 });
     }
     private void receiveOrder(int id) {
-        String username = getUsernameFromSharedPreferences();
-        if (username.isEmpty()) {
-            return;
-        }
-        APIService.apiService.receiveOrder(username, id)
+        APIService.apiService.receiveOrder(id)
                 .enqueue(new Callback<Void>() {
                     @Override
                     public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
@@ -129,14 +136,22 @@ public class TrackingActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(@NonNull Call<List<Cart>> call, @NonNull Response<List<Cart>> response) {
                         productListInCart = response.body();
-//                        Date orderedDate = productListInCart.get(0).getOrderedAt();
-//                        if (orderedDate != null) {
-//                            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
-//                            String orderedDateString = dateFormat.format(orderedDate);
-//                            deliverDateTxt.setText(orderedDateString);
-//                        } else {
-//                            deliverDateTxt.setText("Không có ngày đặt hàng");
-//                        }
+                        TrackingAdapter trackingAdapter = new TrackingAdapter(productListInCart);
+                        rcTracking.setAdapter(trackingAdapter);
+                    }
+
+                    @Override
+                    public void onFailure(@NonNull Call<List<Cart>> call, @NonNull Throwable t) {
+                        Log.e("API Error", "Call API error: " + t.getMessage(), t);
+                    }
+                });
+    }
+    private void callApiGetProductsInTrakingForStaff(int id) {
+        APIService.apiService.getProductInTrackingForStaff(id)
+                .enqueue(new Callback<List<Cart>>() {
+                    @Override
+                    public void onResponse(@NonNull Call<List<Cart>> call, @NonNull Response<List<Cart>> response) {
+                        productListInCart = response.body();
                         TrackingAdapter trackingAdapter = new TrackingAdapter(productListInCart);
                         rcTracking.setAdapter(trackingAdapter);
                     }

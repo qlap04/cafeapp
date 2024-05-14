@@ -21,6 +21,8 @@ import com.example.myapplication.api.APIService;
 import com.example.myapplication.model.Cart;
 import com.example.myapplication.R;
 import com.example.myapplication.modelResponse.TotalPriceResponse;
+import com.example.myapplication.token.TokenManager;
+import com.example.myapplication.token.TokenValidator;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -59,11 +61,13 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.OnQua
                 Toast.makeText(CartActivity.this, "Vui lòng thêm sản phẩm trước khi đặt hàng", Toast.LENGTH_SHORT).show();
             } else {
                 finish();
+                setOrderIdForProductInCart();
                 Intent intent = new Intent(CartActivity.this, AddressActivity.class);
                 startActivity(intent);
             }
         });
     }
+
     private void backBtnOnClick() {
         Intent intent = new Intent(CartActivity.this, HomeActivity.class);
         startActivity(intent);
@@ -126,7 +130,7 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.OnQua
     }
     @Override
     public void onDelete(int position, Cart cart) {
-        deleteItemFromDatabase(cart.getTitle());
+        deleteItemFromDatabase(cart.get_id());
     }
     private void updateCartItem(int position, int newQuantity) {
         Cart cart = productListInCart.get(position);
@@ -157,9 +161,9 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.OnQua
         }
     }
 
-    private void deleteItemFromDatabase(String title) {
+    private void deleteItemFromDatabase(int id) {
         String username = getUsernameFromSharedPreferences();
-        APIService.apiService.deleteProduct(username, title)
+        APIService.apiService.deleteProduct(username, id)
                 .enqueue(new Callback<Void>() {
                     @Override
                     public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
@@ -178,5 +182,22 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.OnQua
                     }
                 });
     }
+    private void setOrderIdForProductInCart() {
+        String username = getUsernameFromSharedPreferences();
+        APIService.apiService.setOrderIdProduct(username).enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
+                if (response.isSuccessful()) {
+                    Log.d("CartActivity", "Set orderId product successfully");
+                } else {
+                    Log.d("CartActivity", "Set orderId product failed");
 
+                }
+            }
+            @Override
+            public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
+                Log.e("Call api error", "Error: " + t.getMessage());
+            }
+        });
+    }
 }

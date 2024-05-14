@@ -19,6 +19,8 @@ import com.example.myapplication.api.APIService;
 import com.example.myapplication.model.User;
 import com.example.myapplication.R;
 
+import com.example.myapplication.token.TokenManager;
+import com.example.myapplication.token.TokenProvider;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.security.MessageDigest;
@@ -104,6 +106,10 @@ public class LoginActivity extends AppCompatActivity {
     private void clickLogin() {
         String strUsername = username.getText().toString().trim();
         String strPassword = password.getText().toString().trim();
+        if (strUsername.isEmpty() || strPassword.isEmpty()) {
+            Toast.makeText(LoginActivity.this, "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_LONG).show();
+            return;
+        }
         if (mListUser == null || mListUser.isEmpty()) {
             return;
         }
@@ -117,6 +123,7 @@ public class LoginActivity extends AppCompatActivity {
         }
         if (isHasUser) {
             saveUsername(strUsername);
+            saveRole(mUser.getRole());
             Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
             Bundle bundle = new Bundle();
             bundle.putSerializable("object_user", mUser);
@@ -126,6 +133,7 @@ public class LoginActivity extends AppCompatActivity {
             Toast.makeText(this, "Username or password incorrect!", Toast.LENGTH_SHORT).show();
         }
     }
+
 
     private boolean validatePassword(String inputPassword, String storedPassword) {
         try {
@@ -185,5 +193,12 @@ public class LoginActivity extends AppCompatActivity {
         editor.putString("username", username);
         editor.apply();
     }
+    private void saveRole(String userRole) {
+        SharedPreferences sharedPreferences = getSharedPreferences("user_prefs", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("userRole", userRole);
+        editor.apply();
+    }
+
 }
 

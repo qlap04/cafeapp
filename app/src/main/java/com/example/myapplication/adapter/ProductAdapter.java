@@ -42,12 +42,9 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         holder.title.setText(product.getTitle());
         holder.price.setText(product.getPrice() + "00đ");
         holder.star.setText(product.getStar().toString());
-        holder.addToCartBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (addToCartClickListener != null) {
-                    addToCartClickListener.onAddToCartClick(product);
-                }
+        holder.addToCartBtn.setOnClickListener(v -> {
+            if (addToCartClickListener != null) {
+                addToCartClickListener.onAddToCartClick(product);
             }
         });
     }

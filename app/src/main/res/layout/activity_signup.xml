@@ -54,8 +54,8 @@
                 android:id="@+id/userContainer"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 android:layout_marginHorizontal="30dp"
-                app:helperText="@string/required"
                 app:helperTextTextColor="#CC0000"
+                app:startIconDrawable="@drawable/ic_person"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="18dp"
@@ -67,7 +67,8 @@
                     android:layout_height="match_parent"
                     android:lines="1"
                     android:inputType="text"
-                    android:hint="Username/email..."
+                    android:hint="Username"
+                    android:paddingStart="48dp"
                     android:textColor="@color/brown"
                     android:textColorHint="@color/brown"
                     >
@@ -75,13 +76,70 @@
                 </com.google.android.material.textfield.TextInputEditText>
 
             </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/emailContainer"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_marginHorizontal="30dp"
+                app:helperTextTextColor="#CC0000"
+                app:endIconMode="custom"
+                app:endIconDrawable="@drawable/ic_checkmark"
+                app:startIconDrawable="@drawable/ic_email"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="18dp"
+                app:boxStrokeColor="@color/brown"
+                >
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/emailEdt"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:lines="1"
+                    android:inputType="text"
+                    android:hint="Enter your email..."
+                    android:paddingStart="48dp"
+                    android:textColor="@color/brown"
+                    android:textColorHint="@color/brown"
+                    >
 
+                </com.google.android.material.textfield.TextInputEditText>
+
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/phoneNumContainer"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_marginHorizontal="30dp"
+                app:helperTextTextColor="#CC0000"
+                app:endIconMode="custom"
+                app:startIconDrawable="@drawable/ic_phone"
+                app:prefixText="+84"
+                app:prefixTextColor="@color/md_grey_500"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="18dp"
+                app:boxStrokeColor="@color/brown"
+                >
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/phoneNumEdt"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:lines="1"
+                    android:inputType="number"
+                    android:hint="Phone number..."
+                    android:paddingStart="48dp"
+                    android:paddingEnd="4dp"
+                    android:textColor="@color/brown"
+                    android:textColorHint="@color/brown"
+                    >
+
+                </com.google.android.material.textfield.TextInputEditText>
+
+            </com.google.android.material.textfield.TextInputLayout>
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/passwordContainer"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 android:layout_marginHorizontal="30dp"
-                app:helperText="@string/required"
                 app:helperTextTextColor="#CC0000"
+                app:startIconDrawable="@drawable/ic_password"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:passwordToggleEnabled="true"
@@ -98,6 +156,7 @@
                     android:maxLength="16"
                     android:inputType="textPassword"
                     android:hint="Enter your password..."
+                    android:paddingStart="48dp"
                     android:textColor="@color/brown"
                     android:textColorHint="@color/brown"
                     >
@@ -124,8 +183,6 @@
                 android:id="@+id/textLogin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="4dp"
-                android:layout_marginTop="32dp"
                 android:text="Đã có tài khoản?"
                 android:textAlignment="center"
                 android:textSize="16sp" />

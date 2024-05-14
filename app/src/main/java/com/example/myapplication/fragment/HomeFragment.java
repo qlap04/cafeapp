@@ -32,6 +32,7 @@ import android.widget.Toast;
 import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.models.SlideModel;
+import com.example.myapplication.activity.LoginActivity;
 import com.example.myapplication.api.APIService;
 import com.example.myapplication.activity.CartActivity;
 import com.example.myapplication.activity.ListProductActivity;
@@ -43,6 +44,7 @@ import com.example.myapplication.model.Cart;
 import com.example.myapplication.model.Category;
 import com.example.myapplication.model.Product;
 import com.example.myapplication.R;
+import com.example.myapplication.token.TokenManager;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -74,12 +76,11 @@ public class HomeFragment extends Fragment implements CategoryAdapter.OnCategory
         prBestCafe = rootView.findViewById(R.id.prBestCafe);
         prBestCake = rootView.findViewById(R.id.prBestCake);
         TextView viewAllTxt = rootView.findViewById(R.id.viewAllTxt);
-        ImageView backBtn = rootView.findViewById(R.id.back);
+        ImageView backBtn = rootView.findViewById(R.id.backBtn);
         ImageView cartBtn = rootView.findViewById(R.id.cartBtn);
         ImageView searchBtn = rootView.findViewById(R.id.searchBtn);
         searchTxt = rootView.findViewById(R.id.searchTxt);
         ImageView micBtn = rootView.findViewById(R.id.micBtn);
-        Spinner locateSp = rootView.findViewById(R.id.locateSp);
         Spinner evaluateSp = rootView.findViewById(R.id.timeSp);
         Spinner priceSp = rootView.findViewById(R.id.priceSp);
         TextView nameTxt = rootView.findViewById(R.id.nameTxt);
@@ -92,12 +93,9 @@ public class HomeFragment extends Fragment implements CategoryAdapter.OnCategory
 
         productCafeList = new ArrayList<>();
         productCakeList = new ArrayList<>();
-        List<String> locations = new ArrayList<>();
         List<String> evaluates = new ArrayList<>();
         List<String> prices = new ArrayList<>();
 
-        locations.add("Thủ Đức");
-        locations.add("Bình Thạnh");
 
         evaluates.add("Đánh giá");
         evaluates.add("Đánh giá tăng dần");
@@ -109,17 +107,14 @@ public class HomeFragment extends Fragment implements CategoryAdapter.OnCategory
 
         nameTxt.setText(getUsernameFromSharedPreferences());
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(), R.layout.spinner_item_layout, locations);
         ArrayAdapter<String> adapter1 = new ArrayAdapter<>(requireContext(), R.layout.spinner_item_layout, evaluates);
         ArrayAdapter<String> adapter2 = new ArrayAdapter<>(requireContext(), R.layout.spinner_item_layout, prices);
 
 
 
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        locateSp.setAdapter(adapter);
         evaluateSp.setAdapter(adapter1);
         priceSp.setAdapter(adapter2);
 
@@ -215,7 +210,8 @@ public class HomeFragment extends Fragment implements CategoryAdapter.OnCategory
 
     private void backBtnOnclick() {
         clearSavedUsername();
-        Intent intent = new Intent(requireContext(), MainActivity.class);
+        clearSavedUserRole();
+        Intent intent = new Intent(requireContext(), LoginActivity.class);
         startActivity(intent);
     }
 
@@ -240,6 +236,12 @@ public class HomeFragment extends Fragment implements CategoryAdapter.OnCategory
         SharedPreferences sharedPreferences = requireContext().getSharedPreferences("user_prefs", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.remove("username");
+        editor.apply();
+    }
+    private void clearSavedUserRole() {
+        SharedPreferences sharedPreferences = requireContext().getSharedPreferences("user_prefs", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.remove("userRole");
         editor.apply();
     }
     private String getUsernameFromSharedPreferences() {

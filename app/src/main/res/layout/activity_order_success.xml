@@ -14,9 +14,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <ImageView
                 android:id="@+id/backBtn"
-                android:layout_width="40dp"
+                android:layout_width="20dp"
                 android:layout_height="40dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="24dp"
@@ -31,9 +32,9 @@
                 android:id="@+id/textView15"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
+                android:layout_gravity="center"
                 android:src="@drawable/icon_check"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_gravity="center"
                 app:layout_constraintHorizontal_bias="0.497"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -193,7 +194,7 @@
                             android:textStyle="bold" />
 
                         <TextView
-                            android:id="@+id/textView43"
+                            android:id="@+id/paymentMethodTxt"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"

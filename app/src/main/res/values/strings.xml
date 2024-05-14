@@ -1,6 +1,18 @@
 <resources>
     <string name="app_name">My Application</string>
     <string name="required">Required</string>
+    <color name="brown_light">#FFE4C4</color>
+    <color name="primary">#1B023B</color>
+    <color name="night_mode">#98FB98</color>
+    <color name="blue">#6495ED</color>
+    <color name="private_account">#CD9B1D</color>
+    <color name="policy_and_security">#CD5C5C</color>
+    <color name="language">#838B8B</color>
+    <color name="feedback">#9F79EE</color>
+    <color name="logout">#CD5C5C</color>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="select">Select role</string>
+
 </resources>

@@ -7,6 +7,7 @@ import java.util.Date;
 
 public class Cart implements Serializable {
     private int _id;
+    private String orderId;
     private String user;
     private String image;
     private String title;
@@ -14,10 +15,12 @@ public class Cart implements Serializable {
     private int quantity;
     private Double total;
     private ArrayList<String> options;
+    private String paymentMethod;
     private Boolean isOrdered;
     private Boolean isCompleted;
-    public Cart(int _id, String user, String image, String title, Double price, int quantity, Double total, ArrayList<String> options, Boolean isOrdered, Boolean isCompleted, Date updatedAt) {
+    public Cart(int _id, String orderId, String user, String image, String title, Double price, int quantity, Double total, ArrayList<String> options, String paymentMethod, Boolean isOrdered, Boolean isCompleted, Date updatedAt) {
         this._id = _id;
+        this.orderId = orderId;
         this.user = user;
         this.image = image;
         this.title = title;
@@ -25,6 +28,7 @@ public class Cart implements Serializable {
         this.quantity = quantity;
         this.total = total;
         this.options = options;
+        this.paymentMethod = paymentMethod;
         this.isOrdered = isOrdered;
         this.isCompleted = isCompleted;
     }
@@ -44,6 +48,13 @@ public class Cart implements Serializable {
 
     public void set_id(int _id) {
         this._id = _id;
+    }
+    public String getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
     }
     public String getUser() {
         return user;
@@ -98,6 +109,13 @@ public class Cart implements Serializable {
 
     public void setOptions(ArrayList<String> options) {
         this.options = options;
+    }
+    public String getPaymentMethod() {
+        return paymentMethod;
+    }
+
+    public void setPaymentMethod(String paymentMethod) {
+        this.paymentMethod = paymentMethod;
     }
     public Boolean getOrdered() {
         return isOrdered;

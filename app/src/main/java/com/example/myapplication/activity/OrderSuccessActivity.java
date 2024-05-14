@@ -31,12 +31,13 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class OrderSuccessActivity extends AppCompatActivity {
-    private TextView priceTxt, nameTxt, phoneNumTxt, addressTxt;
+    private TextView priceTxt, nameTxt, phoneNumTxt, addressTxt, paymentMethodTxt;
     private RecyclerView rcProduct;
     private List<Cart> productListInCart;
     private Address address;
     private String username;
     private String strName, strPhone, strAddress;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,23 +52,25 @@ public class OrderSuccessActivity extends AppCompatActivity {
         nameTxt = findViewById(R.id.nameTxt);
         phoneNumTxt = findViewById(R.id.phoneNumTxt);
         addressTxt = findViewById(R.id.addressTxt);
+        paymentMethodTxt = findViewById(R.id.paymentMethodTxt);
         ImageView backBtn = findViewById(R.id.backBtn);
         GridLayoutManager linearLayoutManager = new GridLayoutManager(this, 1);
         rcProduct.setLayoutManager(linearLayoutManager);
         getUsernameFromSharedPreferences();
         callApiGetProductsInTraking();
-        callApitGetAddress();
         getTotalPrice();
+        getPaymentMethodForBill(-1);
+        callApiGetAddress();
         backBtn.setOnClickListener(v -> {
             finish();
-            Intent intent = new Intent(OrderSuccessActivity.this, HomeActivity.class);
-            startActivity(intent);
         });
     }
+
     private void getUsernameFromSharedPreferences() {
         SharedPreferences sharedPreferences = getSharedPreferences("user_prefs", MODE_PRIVATE);
         username = sharedPreferences.getString("username", "");
     }
+
     private void getTotalPrice() {
         if (username.isEmpty()) {
             return;
@@ -92,6 +95,7 @@ public class OrderSuccessActivity extends AppCompatActivity {
                     }
                 });
     }
+
     private void callApiGetProductsInTraking() {
         if (username.isEmpty()) {
             return;
@@ -100,14 +104,14 @@ public class OrderSuccessActivity extends AppCompatActivity {
                 .enqueue(new Callback<List<Cart>>() {
                     @Override
                     public void onResponse(@NonNull Call<List<Cart>> call, @NonNull Response<List<Cart>> response) {
-                        if (response.isSuccessful()) {
-                            Log.e("Success", "Success" + "Success");
+                        if (response.isSuccessful() && response.body() != null ) {
+                            Log.e("OrderSuccessActivity", "Success" + "Success");
+                            productListInCart = response.body();
+                            TrackingAdapter trackingAdapter = new TrackingAdapter(productListInCart);
+                            rcProduct.setAdapter(trackingAdapter);
                         } else {
                             Log.e("Failed", "Failed" + "Failed");
                         }
-                        productListInCart = response.body();
-                        TrackingAdapter trackingAdapter = new TrackingAdapter(productListInCart);
-                        rcProduct.setAdapter(trackingAdapter);
                     }
 
                     @Override
@@ -116,7 +120,8 @@ public class OrderSuccessActivity extends AppCompatActivity {
                     }
                 });
     }
-    private void callApitGetAddress() {
+
+    private void callApiGetAddress() {
         if (username.isEmpty()) {
             return;
         }
@@ -149,14 +154,31 @@ public class OrderSuccessActivity extends AppCompatActivity {
             @Override
             public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
                 if (response.isSuccessful()) {
-                    Log.e("Save address", "Save address for cart succesfully" );
+                    Log.e("Save address", "Save address for cart succesfully");
                 } else {
-                    Log.e("Save address", "Save address for cart succesfully" );
+                    Log.e("Save address", "Save address for cart succesfully");
                 }
             }
 
             @Override
             public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
+                Log.e("API Error", "Call API error: " + t.getMessage(), t);
+            }
+        });
+    }
+    private void getPaymentMethodForBill(int id) {
+        APIService.apiService.getPaymentMethodForBill(username, id).enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(@NonNull Call<String> call, @NonNull Response<String> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    paymentMethodTxt.setText(response.body());
+                } else {
+                    Log.e("BillActivity", "Get payment methoid from api: Failed");
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<String> call, @NonNull Throwable t) {
                 Log.e("API Error", "Call API error: " + t.getMessage(), t);
             }
         });

@@ -12,59 +12,116 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.example.myapplication.activity.AttendanceActivity;
 import com.example.myapplication.activity.ChangePasswordActivity;
 import com.example.myapplication.activity.ContactActivity;
+import com.example.myapplication.activity.EditProfileActivity;
 import com.example.myapplication.activity.LoginActivity;
 import com.example.myapplication.activity.ReplyActivity;
 import com.example.myapplication.R;
+import com.example.myapplication.activity.StaffInforActivity;
+import com.example.myapplication.activity.StaffInforEditActivity;
 
 public class AccountFragment extends Fragment {
     private TextView usernameTxt;
-    private LinearLayout replyTxT, contactTxt, changePassTxt, logoutTxT;
+    private Button editBtn;
+    private LinearLayout linearLayout1;
+    private RelativeLayout addTxt, attendanceTxt, listStaffTxt, replyTxT, contactTxt, changePassTxt, logoutTxT;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_account, container, false);
+
+        linearLayout1 = rootView.findViewById(R.id.linearLayout1);
         usernameTxt = rootView.findViewById(R.id.usernameTxT);
+        editBtn = rootView.findViewById(R.id.editBtn);
+        addTxt = rootView.findViewById(R.id.addTxt);
+        attendanceTxt = rootView.findViewById(R.id.attendanceTxt);
+        listStaffTxt = rootView.findViewById(R.id.listStaffTxt);
         replyTxT = rootView.findViewById(R.id.replyTxt);
         contactTxt = rootView.findViewById(R.id.contactTxt);
         changePassTxt = rootView.findViewById(R.id.changePassTxt);
         logoutTxT = rootView.findViewById(R.id.logoutTxt);
+
         String username = getUsernameFromSharedPreferences();
         usernameTxt.setText(username);
+
+        editBtn.setOnClickListener(v -> {
+            Intent intent = new Intent(requireContext(), EditProfileActivity.class);
+            startActivity(intent);
+        });
+
+        attendanceTxt.setOnClickListener(v -> {
+            Intent intent = new Intent(requireContext(), AttendanceActivity.class);
+            startActivity(intent);
+        });
+
+        listStaffTxt.setOnClickListener(v -> {
+            Intent intent = new Intent(requireContext(), StaffInforActivity.class);
+            startActivity(intent);
+        });
+
         replyTxT.setOnClickListener(v -> {
             Intent intent = new Intent(requireContext(), ReplyActivity.class);
             startActivity(intent);
         });
-//        contactTxT.setOnClickListener(v -> {
-//
-//        });
+
         contactTxt.setOnClickListener(v -> {
             Intent intent = new Intent(requireContext(), ContactActivity.class);
             startActivity(intent);
         });
+
         changePassTxt.setOnClickListener(v -> {
             Intent intent = new Intent(requireContext(), ChangePasswordActivity.class);
             startActivity(intent);
         });
+
         logoutTxT.setOnClickListener(v -> {
             clearSavedUsername();
+            clearSavedUserRole();
             Intent intent = new Intent(requireContext(), LoginActivity.class);
             startActivity(intent);
         });
+
+        String userRole = getUsernameRoleSharedPreferences();
+
+        if ("client".equals(userRole)) {
+            linearLayout1.setVisibility(View.GONE);
+        } else {
+            if ("staff".equals(userRole)) {
+                addTxt.setVisibility(View.GONE);
+                listStaffTxt.setVisibility(View.GONE);
+            } else if ("admin".equals(userRole)) {
+                attendanceTxt.setVisibility(View.GONE);
+            }
+        }
+
         return rootView;
     }
     private String getUsernameFromSharedPreferences() {
         SharedPreferences sharedPreferences = requireContext().getSharedPreferences("user_prefs", MODE_PRIVATE);
         return sharedPreferences.getString("username", "");
     }
+    private String getUsernameRoleSharedPreferences() {
+        SharedPreferences sharedPreferences = requireContext().getSharedPreferences("user_prefs", MODE_PRIVATE);
+        return sharedPreferences.getString("userRole", "");
+    }
     private void clearSavedUsername() {
         SharedPreferences sharedPreferences = requireContext().getSharedPreferences("user_prefs", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.remove("username");
+        editor.apply();
+    }
+    private void clearSavedUserRole() {
+        SharedPreferences sharedPreferences = requireContext().getSharedPreferences("user_prefs", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.remove("userRole");
         editor.apply();
     }
 }

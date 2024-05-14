@@ -37,12 +37,21 @@ public class ProcessingFragment extends Fragment {
         rcProcessing = rootView.findViewById(R.id.rcProcessing);
         GridLayoutManager linearLayoutManager = new GridLayoutManager(requireContext(), 1);
         rcProcessing.setLayoutManager(linearLayoutManager);
-        callApiGetProductsInCart();
+        String role = getRoleFromSharedPreferences();
+        if (!role.equals("client")) {
+            callApiGetProductsInCartForStaff();
+        } else {
+            callApiGetProductsInCart();
+        }
         return rootView;
     }
     private String getUsernameFromSharedPreferences() {
         SharedPreferences sharedPreferences = requireContext().getSharedPreferences("user_prefs", MODE_PRIVATE);
         return sharedPreferences.getString("username", "");
+    }
+    private String getRoleFromSharedPreferences() {
+        SharedPreferences sharedPreferences = requireContext().getSharedPreferences("user_prefs", MODE_PRIVATE);
+        return sharedPreferences.getString("userRole", "");
     }
     private void callApiGetProductsInCart() {
         String username = getUsernameFromSharedPreferences();
@@ -50,6 +59,22 @@ public class ProcessingFragment extends Fragment {
             return;
         }
         APIService.apiService.getProductInProcessing(username)
+                .enqueue(new Callback<List<Cart>>() {
+                    @Override
+                    public void onResponse(@NonNull Call<List<Cart>> call, @NonNull Response<List<Cart>> response) {
+                        productListInCart = response.body();
+                        ProcessingAdapter processingAdapter = new ProcessingAdapter(productListInCart);
+                        rcProcessing.setAdapter(processingAdapter);
+                    }
+
+                    @Override
+                    public void onFailure(@NonNull Call<List<Cart>> call, @NonNull Throwable t) {
+                        Log.e("API Error", "Call API error: " + t.getMessage(), t);
+                    }
+                });
+    }
+    private void callApiGetProductsInCartForStaff() {
+        APIService.apiService.getProductInProcessingForStaff()
                 .enqueue(new Callback<List<Cart>>() {
                     @Override
                     public void onResponse(@NonNull Call<List<Cart>> call, @NonNull Response<List<Cart>> response) {

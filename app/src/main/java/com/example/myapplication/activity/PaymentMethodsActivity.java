@@ -1,27 +1,38 @@
 package com.example.myapplication.activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.myapplication.R;
 import com.example.myapplication.adapter.PaymentMethodAdapter;
+import com.example.myapplication.api.APIService;
 import com.example.myapplication.model.PaymentMethod;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class PaymentMethodsActivity extends AppCompatActivity {
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class PaymentMethodsActivity extends AppCompatActivity implements PaymentMethodAdapter.OnItemClickListener{
 
     private RecyclerView recyclerView;
     private PaymentMethodAdapter adapter;
     private List<PaymentMethod> paymentMethods;
+    private String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,10 +56,65 @@ public class PaymentMethodsActivity extends AppCompatActivity {
         paymentMethods.add(new PaymentMethod(R.drawable.ic_bank_transfer, "Chuyển khoản ngân hàng", "Tự động xác nhận"));
         paymentMethods.add(new PaymentMethod(R.drawable.ic_zalopay, "ZaloPay", "Tự động xác nhận"));
 
-        adapter = new PaymentMethodAdapter(paymentMethods);
+        adapter = new PaymentMethodAdapter(paymentMethods, this);
         recyclerView.setAdapter(adapter);
-
+        getUsernameFromSharedPreferences();
         ImageView backButton = findViewById(R.id.backButton);
         backButton.setOnClickListener(v -> onBackPressed());
+    }
+
+    @Override
+    public void onItemClick(String title) {
+        setProductInCartIsOdered();
+        setPaymentMethodInCart(title);
+        finish();
+        Intent intent = new Intent(PaymentMethodsActivity.this, OrderSuccessActivity.class);
+        startActivity(intent);
+    }
+    private void getUsernameFromSharedPreferences() {
+        SharedPreferences sharedPreferences = getSharedPreferences("user_prefs", MODE_PRIVATE);
+        username = sharedPreferences.getString("username", "");
+    }
+    private void setProductInCartIsOdered() {
+        if (username.isEmpty()) {
+            return;
+        }
+        APIService.apiService.setProductInCartIsOdered(username)
+                .enqueue(new Callback<Void>() {
+                    @Override
+                    public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
+                        if (response.isSuccessful()) {
+                            Log.e("PaymentMethodActivity", "Set is ordered:  " + "Successfully");
+                        } else {
+                            Log.e("PaymentMethodActivity", "Set is ordered:  " + "Failed");
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
+                        Log.e("API Error", "Call API error: " + t.getMessage(), t);
+                    }
+                });
+    }
+    private void setPaymentMethodInCart(String title) {
+        if (username.isEmpty()) {
+            return;
+        }
+        APIService.apiService.setPaymentMethodInCart(username, title)
+                .enqueue(new Callback<Void>() {
+                    @Override
+                    public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
+                        if (response.isSuccessful()) {
+                            Log.e("PaymentMethodActivity", "Save payment method:  " + "Successfully");
+                        } else {
+                            Log.e("PaymentMethodActivity", "Save payment method:  " + "Failed");
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
+                        Log.e("API Error", "Call API error: " + t.getMessage(), t);
+                    }
+                });
     }
 }

@@ -11,7 +11,7 @@
 
         <ImageView
             android:id="@+id/backBtn"
-            android:layout_width="wrap_content"
+            android:layout_width="20dp"
             android:layout_height="wrap_content"
             app:srcCompat="@drawable/arrow"
             android:layout_marginTop="16dp"

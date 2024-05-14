@@ -31,6 +31,7 @@ public class CompleteFragment extends Fragment {
 
     private RecyclerView rcComplete;
     private List<Cart> productListInCart;
+    private String role;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -38,12 +39,21 @@ public class CompleteFragment extends Fragment {
         rcComplete = rootView.findViewById(R.id.rcComplete);
         GridLayoutManager linearLayoutManager = new GridLayoutManager(requireContext(), 1);
         rcComplete.setLayoutManager(linearLayoutManager);
-        callApiGetProductsInCart();
+        getRoleFromSharedPreferences();
+        if (role.equals("client")) {
+            callApiGetProductsInCart();
+        } else {
+            callApiGetProductsInCartForStaff();
+        }
         return rootView;
     }
     private String getUsernameFromSharedPreferences() {
         SharedPreferences sharedPreferences = requireContext().getSharedPreferences("user_prefs", MODE_PRIVATE);
         return sharedPreferences.getString("username", "");
+    }
+    private void getRoleFromSharedPreferences() {
+        SharedPreferences sharedPreferences = requireContext().getSharedPreferences("user_prefs", MODE_PRIVATE);
+        role = sharedPreferences.getString("userRole", "");
     }
     private void callApiGetProductsInCart() {
         String username = getUsernameFromSharedPreferences();
@@ -51,6 +61,22 @@ public class CompleteFragment extends Fragment {
             return;
         }
         APIService.apiService.getProductInComplete(username)
+                .enqueue(new Callback<List<Cart>>() {
+                    @Override
+                    public void onResponse(@NonNull Call<List<Cart>> call, @NonNull Response<List<Cart>> response) {
+                        productListInCart = response.body();
+                        CompleteAdapter completeAdapter = new CompleteAdapter(productListInCart);
+                        rcComplete.setAdapter(completeAdapter);
+                    }
+
+                    @Override
+                    public void onFailure(@NonNull Call<List<Cart>> call, @NonNull Throwable t) {
+                        Log.e("API Error", "Call API error: " + t.getMessage(), t);
+                    }
+                });
+    }
+    private void callApiGetProductsInCartForStaff() {
+        APIService.apiService.getProductInCompleteForStaff()
                 .enqueue(new Callback<List<Cart>>() {
                     @Override
                     public void onResponse(@NonNull Call<List<Cart>> call, @NonNull Response<List<Cart>> response) {

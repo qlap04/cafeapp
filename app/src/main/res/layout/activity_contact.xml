@@ -14,13 +14,11 @@
         android:gravity="center_vertical">
 
 
-        <ImageButton
+        <ImageView
             android:id="@+id/backBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="Back"
-            android:src="@drawable/arrow" />
+            android:layout_width="20dp"
+            android:layout_height="40dp"
+            app:srcCompat="@drawable/arrow" />
 
 
         <TextView
