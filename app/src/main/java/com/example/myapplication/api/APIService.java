@@ -65,6 +65,8 @@ public interface APIService {
     Call<List<Product>> getListProductsWithSearchValue(@Query("searchValue") String searchValue);
     @GET("/products/products-in-category")
     Call<List<Product>> getProductsByCategory(@Query("category") String category);
+    @GET("/products/set-best-product")
+    Call<Void> updateProductPopularStatus(@Query("title") String title, @Query("popular") String popular);
     @GET("/cart/products-in-cart")
     Call<List<Cart>> getListProductsIncart(@Query("username") String username);
     @GET("/cart/set-orderId-product")

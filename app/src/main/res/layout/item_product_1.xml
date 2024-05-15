@@ -2,7 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="16dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,10 +17,13 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             app:cardCornerRadius="100dp">
+
             <ImageView
                 android:id="@+id/image"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:scaleType="centerCrop"
+                />
         </androidx.cardview.widget.CardView>
 
         <LinearLayout
@@ -41,14 +45,15 @@
                     android:layout_height="wrap_content"
                     android:text="Tên:"
                     android:textColor="@color/brown"
-                    android:textStyle="bold"
-                    android:textSize="16dp"/>
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/nameProductTxt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
+                    android:textSize="18dp"
                     android:text="TextView" />
             </LinearLayout>
 
@@ -65,14 +70,15 @@
                     android:layout_height="wrap_content"
                     android:text="Giá:"
                     android:textColor="@color/brown"
-                    android:textStyle="bold"
-                    android:textSize="16dp"/>
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/priceProductTxt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
+                    android:textSize="18dp"
                     android:text="TextView" />
             </LinearLayout>
 
@@ -85,17 +91,18 @@
                     android:id="@+id/textView48"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Popular"
+                    android:text="Best:"
                     android:textColor="@color/brown"
-                    android:textStyle="bold"
-                    android:textSize="16dp"/>
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/popularProductTxt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:text="TextView" />
+               <Switch
+                   android:id="@+id/switchBest"
+                   android:layout_width="wrap_content"
+                   android:layout_height="match_parent"
+                   >
+
+               </Switch>
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

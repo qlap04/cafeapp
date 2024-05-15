@@ -90,7 +90,7 @@
                         android:layout_weight="1"
                         android:background="@drawable/brown_background"
                         android:ems="10"
-                        android:hint="Search cafe..."
+                        android:hint="Bạn muốn uống gì..."
                         android:inputType="text"
                         android:padding="8dp"
                         android:textAlignment="center"

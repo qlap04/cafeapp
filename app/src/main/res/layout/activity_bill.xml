@@ -318,7 +318,7 @@
                 android:background="@drawable/brown_button_background"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
-                android:text="Theo dõi đơn hàng"
+                android:text="Đánh giá đơn hàng"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:textSize="12sp"

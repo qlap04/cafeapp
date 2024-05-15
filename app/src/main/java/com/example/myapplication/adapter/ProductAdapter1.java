@@ -1,14 +1,17 @@
 package com.example.myapplication.adapter;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.myapplication.api.APIService;
 import com.example.myapplication.model.Product;
 import com.example.myapplication.R;
 import com.squareup.picasso.Picasso;
@@ -16,9 +19,14 @@ import com.squareup.picasso.Picasso;
 import java.text.DecimalFormat;
 import java.util.List;
 
-public class Product1Adapter extends RecyclerView.Adapter<Product1Adapter.Product1ViewHolder> {
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class ProductAdapter1 extends RecyclerView.Adapter<ProductAdapter1.Product1ViewHolder> {
     private final List<Product> productList;
-    public Product1Adapter(List<Product> productList) {
+
+    public ProductAdapter1(List<Product> productList) {
         this.productList = productList;
     }
 
@@ -39,9 +47,17 @@ public class Product1Adapter extends RecyclerView.Adapter<Product1Adapter.Produc
         Picasso.get().load(product.getImage()).into(holder.image);
         holder.nameProductTxt.setText(product.getTitle());
         holder.priceProductTxt.setText(decimalFormat.format(product.getPrice() * 1000));
-        holder.popularProductTxt.setText(product.getPopular());
 
+        holder.switchBest.setOnCheckedChangeListener(null);
+
+        holder.switchBest.setChecked("best".equals(product.getPopular()));
+
+        holder.switchBest.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            String popularStatus = isChecked ? "best" : "";
+            updatePopularStatus(product.getTitle(), popularStatus);
+        });
     }
+
 
     @Override
     public int getItemCount() {
@@ -55,13 +71,33 @@ public class Product1Adapter extends RecyclerView.Adapter<Product1Adapter.Produc
         private ImageView image;
         private TextView nameProductTxt;
         private TextView priceProductTxt;
-        private TextView popularProductTxt;
+        private Switch switchBest;
+
         public Product1ViewHolder(@NonNull View itemView) {
             super(itemView);
             image = itemView.findViewById(R.id.image);
             nameProductTxt = itemView.findViewById(R.id.nameProductTxt);
             priceProductTxt = itemView.findViewById(R.id.priceProductTxt);
-            popularProductTxt = itemView.findViewById(R.id.popularProductTxt);
+            switchBest = itemView.findViewById(R.id.switchBest);
         }
     }
+
+    private void updatePopularStatus(String productTitle, String popularStatus) {
+        APIService.apiService.updateProductPopularStatus(productTitle, popularStatus).enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
+                if (response.isSuccessful()) {
+                    Log.e("ProductAdapter1", "Set popular product successfully");
+                } else {
+                    Log.e("ProductAdapter1", "Set popular product failed: " + response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
+                Log.e("API Error", "Call API error: " + t.getMessage(), t);
+            }
+        });
+    }
+
 }

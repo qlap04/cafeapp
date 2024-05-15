@@ -15,6 +15,9 @@
         android:theme="@style/Theme.MyApplication"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+<!--        <activity-->
+<!--            android:name=".activity.ListProduct1Activity"-->
+<!--            android:exported="false" />-->
         <activity
             android:name=".activity.EditProfileActivity"
             android:exported="false" />
@@ -67,7 +70,7 @@
             android:name=".activity.ListProductCategory"
             android:exported="false" />
         <activity
-            android:name=".activity.SplashActivity"
+            android:name=".activity.ListProduct1Activity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

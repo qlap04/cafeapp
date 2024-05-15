@@ -35,7 +35,7 @@ public class TrackingActivity extends AppCompatActivity {
     private ImageView backBtn;
     private RecyclerView rcTracking;
     private Button cancelOrderBtn, receiveOrderBtn;
-    private TextView orderDateTxt, deliverDateTxt;
+    private TextView orderDateTxt, deliverDateTxt, billTxt;
     private List<Cart> productListInCart;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +52,7 @@ public class TrackingActivity extends AppCompatActivity {
         deliverDateTxt = findViewById(R.id.deliverDateTxt);
         cancelOrderBtn = findViewById(R.id.cancelOrderBtn);
         receiveOrderBtn = findViewById(R.id.receiveOrderBtn);
+        billTxt = findViewById(R.id.billTxt);
         rcTracking = findViewById(R.id.rcTracking);
 
         GridLayoutManager linearLayoutManager = new GridLayoutManager(this, 1);
@@ -69,11 +70,17 @@ public class TrackingActivity extends AppCompatActivity {
             }
             cancelOrderBtn.setOnClickListener(v -> cancelOrder(idValue));
             receiveOrderBtn.setOnClickListener(v -> receiveOrder(idValue));
+            billTxt.setOnClickListener(v -> {
+                Intent intent1 = new Intent(v.getContext(), BillActivity.class);
+                intent1.putExtra("ID-PRODUCT", idValue);
+                v.getContext().startActivity(intent1);
+            });
         }
 
         backBtn.setOnClickListener(v -> {
-            navigateToHome();
+            finish();
         });
+
     }
     private String getUsernameFromSharedPreferences() {
         SharedPreferences sharedPreferences = getSharedPreferences("user_prefs", MODE_PRIVATE);

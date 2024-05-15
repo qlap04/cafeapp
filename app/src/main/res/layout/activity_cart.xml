@@ -35,7 +35,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center_horizontal"
-                    android:text="Cart"
+                    android:text="Giỏ hàng"
                     android:textAlignment="center"
                     android:textColor="@color/brown"
                     android:textSize="24sp"
@@ -76,9 +76,9 @@
                     android:layout_width="100dp"
                     android:layout_height="40dp"
                     android:layout_weight="1"
-                    android:textColor="@color/white"
                     android:background="@drawable/brown_button_background"
-                    android:text="Apply Coupon" />
+                    android:text="Áp dụng"
+                    android:textColor="@color/white" />
             </LinearLayout>
 
             <TextView
@@ -86,7 +86,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="Order summary"
+                android:text="Tóm tắt hóa đơn"
                 android:textColor="@color/brown"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -105,7 +105,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
-                    android:text="Subtotal"
+                    android:text="Tạm tính"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -115,7 +115,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="Delivery"
+                    android:text="Phí ship"
                     app:layout_constraintStart_toStartOf="@+id/textView14"
                     app:layout_constraintTop_toBottomOf="@+id/textView14" />
 
@@ -125,7 +125,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="Total tax"
+                    android:text="Thuế"
                     app:layout_constraintStart_toStartOf="@+id/textView16"
                     app:layout_constraintTop_toBottomOf="@+id/textView16" />
 
@@ -177,7 +177,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="Total"
+                    android:text="Tổng"
                     app:layout_constraintStart_toStartOf="@+id/textView18"
                     app:layout_constraintTop_toBottomOf="@+id/view2" />
 
