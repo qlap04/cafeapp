@@ -70,7 +70,7 @@
             android:name=".activity.ListProductCategory"
             android:exported="false" />
         <activity
-            android:name=".activity.ListProduct1Activity"
+            android:name=".activity.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
