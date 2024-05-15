@@ -113,7 +113,7 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.OnQua
                     @Override
                     public void onResponse(@NonNull Call<TotalPriceResponse> call, @NonNull Response<TotalPriceResponse> response) {
                         if (response.isSuccessful() && response.body() != null) {
-                            DecimalFormat decimalFormat = new DecimalFormat("#,### đ");
+                            DecimalFormat decimalFormat = new DecimalFormat("#,###đ");
                             TotalPriceResponse totalPriceResponse = response.body();
                             double totalPrice = totalPriceResponse.getTotalPrice() * 1000;
                             totalTxt.setText(decimalFormat.format(totalPrice));

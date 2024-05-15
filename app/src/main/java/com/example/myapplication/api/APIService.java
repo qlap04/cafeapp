@@ -45,10 +45,14 @@ public interface APIService {
     Call<User> getInforUserForAdmin(@Query("userId") int userId);
     @GET("/users/get-infor-user")
     Call<User> getInforUser(@Query("username") String username);
+    @GET("/users/get-working-status-user")
+    Call<Boolean> getWorkingStatusUser(@Query("username") String username);
     @PATCH("/users/set-online-for-user-for-admin")
     Call<Void> setOnLineForUserForAdmin(@Query("userId") int userId);
     @PATCH("/users/set-online-for-user")
     Call<Void> setOnLineForUser(@Query("userId") int userId);
+    @PATCH("/users/set-offline-for-user")
+    Call<Void> setOffLineForUser(@Query("userId") int userId);
     @PATCH("/users/update-role-for-user-for-admin")
     Call<Void> updateRoleForUserForAdmin(@Query("userId") int userId, @Query("role") String role);
     @GET("/products/products")
