@@ -33,7 +33,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class CartActivity extends AppCompatActivity implements CartAdapter.OnQuantityChangeListener, CartAdapter.OnDeleteListener {
-    private TextView totalTxt;
+    private TextView totalTxt, subTotalTxt;
     private Button orderBtn;
     private RecyclerView rcProductsInCart;
     private List<Cart> productListInCart;
@@ -46,12 +46,16 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.OnQua
         }
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_cart);
+
         totalTxt = findViewById(R.id.totalTxt);
+        subTotalTxt = findViewById(R.id.subTotalTxt);
         rcProductsInCart = findViewById(R.id.cardView);
         orderBtn = findViewById(R.id.orderBtn);
+
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
         rcProductsInCart.setLayoutManager(linearLayoutManager);
         productListInCart = new ArrayList<>();
+
         callApiGetProductsInCart();
         getTotalPrice();
         ImageView backBtn = findViewById(R.id.logoutBtn);
@@ -109,10 +113,11 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.OnQua
                     @Override
                     public void onResponse(@NonNull Call<TotalPriceResponse> call, @NonNull Response<TotalPriceResponse> response) {
                         if (response.isSuccessful() && response.body() != null) {
-                            DecimalFormat decimalFormat = new DecimalFormat("Total Price: #,### đ");
+                            DecimalFormat decimalFormat = new DecimalFormat("#,### đ");
                             TotalPriceResponse totalPriceResponse = response.body();
                             double totalPrice = totalPriceResponse.getTotalPrice() * 1000;
                             totalTxt.setText(decimalFormat.format(totalPrice));
+                            subTotalTxt.setText(decimalFormat.format(totalPrice));
                         } else {
                             Toast.makeText(CartActivity.this, "Failed to get total price", Toast.LENGTH_SHORT).show();
                         }
@@ -148,14 +153,12 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.OnQua
                                 getTotalPrice();
                             } else {
                                 Log.e("API Error", "Update cart item failed: " + response.message());
-                                Toast.makeText(CartActivity.this, "Cập nhật số lượng thành công", Toast.LENGTH_SHORT).show();
                             }
                         }
 
                         @Override
                         public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
                             Log.e("API Error", "Call API error: " + t.getMessage(), t);
-                            Toast.makeText(CartActivity.this, "Cập nhật số lượng thất bại", Toast.LENGTH_SHORT).show();
                         }
                     });
         }

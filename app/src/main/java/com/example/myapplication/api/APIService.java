@@ -125,7 +125,7 @@ public interface APIService {
     Call<Cart> addToCart(@Body Cart cart, @Query("selectedOptions") ArrayList<String> selectedOptions);
     @POST("/users/change-password")
     Call<Void> updatePassword(@Query("username") String username, @Query("password") String password);
-    @POST("update-cart-item/{username}/{cartId}")
+    @POST("/cart/update-cart-item/{username}/{cartId}")
     Call<Void> updateCartItem(@Path("username") String username, @Path("cartId") int cartId, @Body Cart cart);
     @POST("/orders/save-address-for-cart")
     Call<Void> saveAddressForCart(@Query("username") String username, @Query("_id") int _id, @Body AddressResponse addressResponse);

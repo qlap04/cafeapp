@@ -69,9 +69,12 @@ public class AddressActivity extends AppCompatActivity {
                 startActivity(intent);
             } else {
                 if(addressList == null ) {
-                    Toast.makeText(AddressActivity.this, "Vui lòng chọn địa chỉ", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddressActivity.this, "Vui lòng thêm địa chỉ", Toast.LENGTH_SHORT).show();
                 } else {
                     updateDataAddress(addressList.get(0));
+                    finish();
+                    Intent intent = new Intent(AddressActivity.this, PaymentMethodsActivity.class);
+                    startActivity(intent);
                 }
             }
         });
