@@ -61,7 +61,13 @@
                 app:srcCompat="@drawable/user" />
 
         </androidx.cardview.widget.CardView>
-
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/uploadBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Upload"
+            android:layout_gravity="center"
+            android:layout_marginTop="8dp"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -213,33 +219,6 @@
                 android:ems="10"
                 android:inputType="text"
                 android:hint="Phone num"/>
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/linearLayoutImage"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:layout_marginStart="30dp"
-            android:layout_marginEnd="30dp"
-            android:layout_marginTop="8dp"
-            android:visibility="gone"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:textSize="16sp"
-                android:textColor="@color/brown"
-                android:layout_marginEnd="4dp"
-                android:text="Image url:" />
-
-            <EditText
-                android:id="@+id/imageEdt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="text" />
         </LinearLayout>
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/saveBtn"

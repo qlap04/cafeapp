@@ -80,6 +80,8 @@ public class ProcessingFragment extends Fragment {
                     } else {
                         if (role.equals("client")) {
                             callApiGetProductsInCart();
+                        } else if (role.equals("admin")) {
+                            callApiGetProductsInCartForStaff();
                         }
                     }
                 } else {

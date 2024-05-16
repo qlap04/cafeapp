@@ -79,6 +79,8 @@ public class CompleteFragment extends Fragment {
                     } else {
                         if (role.equals("client")) {
                             callApiGetProductsInCart();
+                        } else if (role.equals("admin")) {
+                            callApiGetProductsInCartForStaff();
                         }
                     }
                 } else {
