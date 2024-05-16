@@ -1,19 +1,22 @@
 package com.example.myapplication.adapter;
 
-import android.util.Log;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.myapplication.R;
 import com.example.myapplication.api.APIService;
 import com.example.myapplication.model.Product;
-import com.example.myapplication.R;
 import com.squareup.picasso.Picasso;
 
 import java.text.DecimalFormat;
@@ -25,6 +28,7 @@ import retrofit2.Response;
 
 public class ProductAdapter1 extends RecyclerView.Adapter<ProductAdapter1.Product1ViewHolder> {
     private final List<Product> productList;
+    private Context context;
 
     public ProductAdapter1(List<Product> productList) {
         this.productList = productList;
@@ -56,8 +60,18 @@ public class ProductAdapter1 extends RecyclerView.Adapter<ProductAdapter1.Produc
             String popularStatus = isChecked ? "best" : "";
             updatePopularStatus(product.getTitle(), popularStatus);
         });
-    }
+        holder.btnEdit.setOnClickListener(v -> {
+            Toast.makeText(context, "click edit", Toast.LENGTH_SHORT).show();
+            // Optional: Hide buttons after click
+            // hideButtons(holder);
+        });
 
+        holder.btnDelete.setOnClickListener(v -> {
+            Toast.makeText(context, "click delete", Toast.LENGTH_SHORT).show();
+            // Optional: Hide buttons after click
+            // hideButtons(holder);
+        });
+    }
 
     @Override
     public int getItemCount() {
@@ -72,6 +86,8 @@ public class ProductAdapter1 extends RecyclerView.Adapter<ProductAdapter1.Produc
         private TextView nameProductTxt;
         private TextView priceProductTxt;
         private Switch switchBest;
+        public LinearLayout swipeButtons;
+        public Button btnEdit, btnDelete;
 
         public Product1ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -79,25 +95,34 @@ public class ProductAdapter1 extends RecyclerView.Adapter<ProductAdapter1.Produc
             nameProductTxt = itemView.findViewById(R.id.nameProductTxt);
             priceProductTxt = itemView.findViewById(R.id.priceProductTxt);
             switchBest = itemView.findViewById(R.id.switchBest);
+            swipeButtons = itemView.findViewById(R.id.swipe_buttons);
+            btnEdit = itemView.findViewById(R.id.btnEdit);
+            btnDelete = itemView.findViewById(R.id.btnDelete);
         }
     }
 
-    private void updatePopularStatus(String productTitle, String popularStatus) {
-        APIService.apiService.updateProductPopularStatus(productTitle, popularStatus).enqueue(new Callback<Void>() {
-            @Override
-            public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
-                if (response.isSuccessful()) {
-                    Log.e("ProductAdapter1", "Set popular product successfully");
-                } else {
-                    Log.e("ProductAdapter1", "Set popular product failed: " + response.message());
-                }
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
-                Log.e("API Error", "Call API error: " + t.getMessage(), t);
-            }
-        });
+    public void showButtons(Product1ViewHolder viewHolder) {
+        viewHolder.swipeButtons.setVisibility(View.VISIBLE);
     }
 
+    public void hideButtons(Product1ViewHolder viewHolder) {
+        viewHolder.swipeButtons.setVisibility(View.GONE);
+    }
+
+    private void updatePopularStatus(String productName, String popularStatus) {
+        APIService.apiService.updatePopularStatus(productName, popularStatus)
+                .enqueue(new Callback<Void>() {
+                    @Override
+                    public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
+                        if (response.isSuccessful()) {
+                            // Handle success
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
+                        // Handle failure
+                    }
+                });
+    }
 }

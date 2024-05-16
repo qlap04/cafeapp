@@ -6,6 +6,7 @@ import com.example.myapplication.model.Email;
 import com.example.myapplication.model.Product;
 import com.example.myapplication.model.Reply;
 import com.example.myapplication.model.User;
+import com.example.myapplication.modelRequest.ProductRequest;
 import com.example.myapplication.modelResponse.AddressResponse;
 import com.example.myapplication.modelResponse.TotalPriceResponse;
 import com.google.gson.Gson;
@@ -14,15 +15,21 @@ import com.google.gson.GsonBuilder;
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.Retrofit;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -31,10 +38,11 @@ public interface APIService {
             .setDateFormat("yyyy-MM-dd HH:mm:ss")
             .create();
     APIService apiService = new Retrofit.Builder()
-            .baseUrl("http://192.168.56.1:3001/")
+            .baseUrl("http://192.168.1.3:3001/")
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
             .create(APIService.class);
+
     @GET("/login/login")
     Call<List<User>> getListUsers();
     @GET("/users/list-user-online")
@@ -73,12 +81,16 @@ public interface APIService {
     Call<Void> updateProductPopularStatus(@Query("title") String title, @Query("popular") String popular);
     @GET("/cart/products-in-cart")
     Call<List<Cart>> getListProductsIncart(@Query("username") String username);
+    @POST("/products/add-product")
+    Call<Void> addProduct(@Body ProductRequest productRequest);
     @GET("/cart/set-orderId-product")
     Call<Void> setOrderIdProduct(@Query("username") String username);
     @GET("/address/get-address-for-user")
     Call<Address> getAddress(@Query("username") String username);
     @GET("/users/get-password")
     Call<User> getUserByUsername(@Query("username") String username);
+    @GET("/users/get-password")
+    Call<User> addStaff(@Body User user);
     @GET("/address/get-address")
     Call<List<Address>> getListAddress(@Query("username") String username);
     @GET("/cart/get-product-in-complete")
@@ -116,9 +128,12 @@ public interface APIService {
     @POST("/reply/save-content-reply")
     Call<Void> saveDataReply(@Body Reply reply);
     @POST("/users/save-infor-user")
-    Call<Void> savaInforUser(@Query("username") String username, @Query("fullname") String fullname, @Query("email") String email, @Query("phoneNumber") String phoneNumber);
+    Call<Void> saveInforUser(@Query("username") String username, @Query("fullname") String fullname, @Query("email") String email, @Query("phoneNumber") String phoneNumber);
     @POST("/users/save-image-user")
     Call<Void> saveImageUser(@Query("username") String username, @Query("imageUrl") String imageUrl);
+    @Multipart
+    @POST("/users/upload-image")
+    Call<Void> uploadImage(@Part("username") String username, @Part MultipartBody.Part image);
     @POST("/address/save-data-address")
     Call<Void> saveDataAddress(@Body Address address);
     @POST("/emails/reset-password")
@@ -137,4 +152,7 @@ public interface APIService {
     Call<Void> deleteProduct(@Query("user") String user, @Query("_id") int _id);
     @DELETE("/cart/delete-all-products-in-cart")
     Call<Void> cancelOrder(@Query("_id") int _id);
+    @FormUrlEncoded
+    @POST("/updatePopularStatus")
+    Call<Void> updatePopularStatus(@Field("productTitle") String productTitle, @Field("popularStatus") String popularStatus);
 }

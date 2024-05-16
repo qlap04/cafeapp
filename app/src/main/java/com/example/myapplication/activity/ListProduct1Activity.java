@@ -3,6 +3,7 @@ package com.example.myapplication.activity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
@@ -28,6 +29,7 @@ public class ListProduct1Activity extends AppCompatActivity {
     private List<Product> productList;
     private ProgressBar progressBar1;
     private ImageView backBtn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,18 +50,25 @@ public class ListProduct1Activity extends AppCompatActivity {
 
         backBtn.setOnClickListener(v -> finish());
     }
+
     private void callApiGetProducts() {
         APIService.apiService.getListProducts()
                 .enqueue(new Callback<List<Product>>() {
                     @Override
                     public void onResponse(@NonNull Call<List<Product>> call, @NonNull Response<List<Product>> response) {
-                       if (response.isSuccessful() && response.body() != null) {
-                           productList = response.body();
-                           ProductAdapter1 product1Adapter = new ProductAdapter1(productList);
-                           rcProducts.setAdapter(product1Adapter);
-                           progressBar1.setVisibility(View.GONE);
-                       }
+                        if (response.isSuccessful() && response.body() != null) {
+                            productList = response.body();
+                            ProductAdapter1 product1Adapter = new ProductAdapter1(productList);
+                            rcProducts.setAdapter(product1Adapter);
+
+                            // Khởi tạo ItemTouchHelper và gắn vào RecyclerView
+                            ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new SwipeActivity(product1Adapter));
+                            itemTouchHelper.attachToRecyclerView(rcProducts);
+
+                            progressBar1.setVisibility(View.GONE);
+                        }
                     }
+
                     @Override
                     public void onFailure(@NonNull Call<List<Product>> call, @NonNull Throwable t) {
                         Log.e("API Error", "Call API error: " + t.getMessage(), t);

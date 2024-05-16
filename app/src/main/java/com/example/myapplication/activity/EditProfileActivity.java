@@ -95,7 +95,7 @@ public class EditProfileActivity extends AppCompatActivity {
         });
     }
     private void savaInforUser(String fullname, String email, String phoneNumber) {
-        APIService.apiService.savaInforUser(username, fullname, email, phoneNumber).enqueue(new Callback<Void>() {
+        APIService.apiService.saveInforUser(username, fullname, email, phoneNumber).enqueue(new Callback<Void>() {
             @Override
             public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
                 if (response.isSuccessful()) {
