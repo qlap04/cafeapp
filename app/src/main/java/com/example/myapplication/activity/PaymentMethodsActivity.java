@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -33,6 +34,8 @@ public class PaymentMethodsActivity extends AppCompatActivity implements Payment
     private PaymentMethodAdapter adapter;
     private List<PaymentMethod> paymentMethods;
     private String username;
+    private String selectedPaymentMethod = null;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,16 +64,26 @@ public class PaymentMethodsActivity extends AppCompatActivity implements Payment
         getUsernameFromSharedPreferences();
         ImageView backButton = findViewById(R.id.backButton);
         backButton.setOnClickListener(v -> onBackPressed());
+
+        Button paymentBtn = findViewById(R.id.paymentBtn);
+        paymentBtn.setOnClickListener(v -> {
+            if (selectedPaymentMethod != null) {
+                setPaymentMethodInCart(selectedPaymentMethod);
+                setProductInCartIsOdered();
+                Intent intent = new Intent(PaymentMethodsActivity.this, OrderSuccessActivity.class);
+                startActivity(intent);
+            } else {
+                Toast.makeText(PaymentMethodsActivity.this, "Vui lòng chọn phương thức thanh toán", Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 
     @Override
     public void onItemClick(String title) {
-        setPaymentMethodInCart(title);
-        setProductInCartIsOdered();
-        finish();
-        Intent intent = new Intent(PaymentMethodsActivity.this, OrderSuccessActivity.class);
-        startActivity(intent);
+        selectedPaymentMethod = title; // Lưu phương thức thanh toán được chọn
     }
+
     private void getUsernameFromSharedPreferences() {
         SharedPreferences sharedPreferences = getSharedPreferences("user_prefs", MODE_PRIVATE);
         username = sharedPreferences.getString("username", "");

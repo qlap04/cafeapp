@@ -37,14 +37,12 @@ import com.example.myapplication.api.APIService;
 import com.example.myapplication.activity.CartActivity;
 import com.example.myapplication.activity.ListProductActivity;
 import com.example.myapplication.activity.ListProductCategory;
-import com.example.myapplication.activity.MainActivity;
 import com.example.myapplication.adapter.CategoryAdapter;
 import com.example.myapplication.adapter.ProductAdapter;
 import com.example.myapplication.model.Cart;
 import com.example.myapplication.model.Category;
 import com.example.myapplication.model.Product;
 import com.example.myapplication.R;
-import com.example.myapplication.token.TokenManager;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -64,7 +62,7 @@ public class HomeFragment extends Fragment implements CategoryAdapter.OnCategory
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_home, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_home_client, container, false);
         ImageSlider imageSlider = rootView.findViewById(R.id.imageSlider);
         ArrayList<SlideModel> slideModels = new ArrayList<>();
         slideModels.add(new SlideModel(R.drawable.image1, ScaleTypes.FIT));

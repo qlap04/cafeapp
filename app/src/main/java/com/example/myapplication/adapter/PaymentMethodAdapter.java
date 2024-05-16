@@ -21,6 +21,7 @@ public class PaymentMethodAdapter extends RecyclerView.Adapter<PaymentMethodAdap
     private final List<PaymentMethod> paymentMethods;
     private final OnItemClickListener listener;
     private int selectedPosition = -1;
+
     public interface OnItemClickListener {
         void onItemClick(String title);
     }
@@ -29,6 +30,7 @@ public class PaymentMethodAdapter extends RecyclerView.Adapter<PaymentMethodAdap
         this.paymentMethods = paymentMethods;
         this.listener = listener;
     }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -46,15 +48,19 @@ public class PaymentMethodAdapter extends RecyclerView.Adapter<PaymentMethodAdap
         holder.radioButton.setChecked(position == selectedPosition);
 
         holder.itemView.setOnClickListener(v -> {
+            int previousPosition = selectedPosition;
             selectedPosition = holder.getAdapterPosition();
             listener.onItemClick(paymentMethod.getTitle());
-            notifyItemChanged(selectedPosition);
+            notifyItemChanged(previousPosition); // Cập nhật trạng thái của mục trước đó
+            notifyItemChanged(selectedPosition); // Cập nhật trạng thái của mục mới được chọn
         });
 
         holder.radioButton.setOnClickListener(v -> {
+            int previousPosition = selectedPosition;
             selectedPosition = holder.getAdapterPosition();
             listener.onItemClick(paymentMethod.getTitle());
-            notifyItemChanged(selectedPosition);
+            notifyItemChanged(previousPosition); // Cập nhật trạng thái của mục trước đó
+            notifyItemChanged(selectedPosition); // Cập nhật trạng thái của mục mới được chọn
         });
     }
 

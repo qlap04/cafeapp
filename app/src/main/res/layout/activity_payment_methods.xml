@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
-    tools:context=".RateActivity">
+    tools:context=".activity.PaymentMethodsActivity">
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -34,9 +34,26 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="395dp"
+        android:layout_height="304dp"
         android:layout_below="@+id/linearLayout"
         android:layout_marginTop="2dp"
         android:paddingTop="16dp" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/paymentBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="47dp"
+        android:layout_below="@+id/recyclerView"
+        android:layout_alignParentStart="true"
+        android:layout_gravity="center"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="90dp"
+        android:background="@drawable/brown_button_background"
+        android:paddingLeft="32dp"
+        android:paddingRight="32dp"
+        android:text="Xác nhận đặt hàng"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="15dp" />
 </RelativeLayout>
