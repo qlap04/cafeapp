@@ -37,6 +37,8 @@ public class OrderSuccessActivity extends AppCompatActivity {
     private Address address;
     private String username;
     private String strName, strPhone, strAddress;
+    private ImageView backBtn;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +55,7 @@ public class OrderSuccessActivity extends AppCompatActivity {
         phoneNumTxt = findViewById(R.id.phoneNumTxt);
         addressTxt = findViewById(R.id.addressTxt);
         paymentMethodTxt = findViewById(R.id.paymentMethodTxt);
-        ImageView backBtn = findViewById(R.id.backBtn);
+        backBtn = findViewById(R.id.backBtn);
         GridLayoutManager linearLayoutManager = new GridLayoutManager(this, 1);
         rcProduct.setLayoutManager(linearLayoutManager);
         getUsernameFromSharedPreferences();
@@ -62,10 +64,14 @@ public class OrderSuccessActivity extends AppCompatActivity {
         getPaymentMethodForBill(-1);
         callApiGetAddress();
         backBtn.setOnClickListener(v -> {
-            finish();
+            navigateToHome();
         });
     }
-
+    private void navigateToHome() {
+        finish();
+        Intent intent = new Intent(OrderSuccessActivity.this, HomeActivity.class);
+        startActivity(intent);
+    }
     private void getUsernameFromSharedPreferences() {
         SharedPreferences sharedPreferences = getSharedPreferences("user_prefs", MODE_PRIVATE);
         username = sharedPreferences.getString("username", "");
