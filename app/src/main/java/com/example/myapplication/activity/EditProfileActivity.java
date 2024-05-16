@@ -1,16 +1,26 @@
 package com.example.myapplication.activity;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.Manifest;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,9 +37,10 @@ public class EditProfileActivity extends AppCompatActivity {
     private User user;
     private String username;
     private ImageView backBtn , image;
+    private LinearLayout linearLayoutImage;
     private TextView idTxt, usernameTxT, roleTxt;
-    private EditText nameEdt, emailEdt, phoneNumEdt;
-    private Button saveBtn;
+    private EditText nameEdt, emailEdt, phoneNumEdt, imageEdt;
+    private Button saveBtn, uploadBtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,7 +52,7 @@ public class EditProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit_profile);
 
         backBtn = findViewById(R.id.backBtn);
-        image = findViewById(R.id.image);
+        uploadBtn = findViewById(R.id.uploadBtn);
         idTxt = findViewById(R.id.idTxt);
         usernameTxT = findViewById(R.id.usernameTxT);
         roleTxt = findViewById(R.id.roleTxt);
@@ -51,11 +62,8 @@ public class EditProfileActivity extends AppCompatActivity {
         saveBtn = findViewById(R.id.saveBtn);
         getUsernameFromSharedPreferences();
         getInforUser(username);
-
         backBtn.setOnClickListener(v -> finish());
-        saveBtn.setOnClickListener(v -> {
-            savaInforUser(nameEdt.getText().toString(), emailEdt.getText().toString().trim(), phoneNumEdt.getText().toString().trim());
-        });
+        saveBtn.setOnClickListener(v -> savaInforUser(nameEdt.getText().toString(), emailEdt.getText().toString().trim(), phoneNumEdt.getText().toString().trim()));
     }
     private void getUsernameFromSharedPreferences() {
         SharedPreferences sharedPreferences = getSharedPreferences("user_prefs", MODE_PRIVATE);
@@ -67,15 +75,6 @@ public class EditProfileActivity extends AppCompatActivity {
             public void onResponse(@NonNull Call<User> call, @NonNull Response<User> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     user = response.body();
-
-                    String imageUrl = user.getImageUrl();
-                    Log.d("ImageUrl", "Image URL: " + imageUrl);
-                    if (imageUrl != null && !imageUrl.isEmpty()) {
-                        Picasso.get().load(imageUrl).into(image);
-                    } else {
-                        Log.e("EditProfileActivity", "Empty image URL");
-                    }
-
                     idTxt.setText(String.valueOf(user.getUserId()));
                     usernameTxT.setText(user.getUsername());
                     roleTxt.setText(user.getRole());
@@ -95,7 +94,7 @@ public class EditProfileActivity extends AppCompatActivity {
         });
     }
     private void savaInforUser(String fullname, String email, String phoneNumber) {
-        APIService.apiService.savaInforUser(username, fullname, email, phoneNumber).enqueue(new Callback<Void>() {
+        APIService.apiService.saveInforUser(username, fullname, email, phoneNumber).enqueue(new Callback<Void>() {
             @Override
             public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
                 if (response.isSuccessful()) {
@@ -111,5 +110,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
             }
         });
+
     }
+
 }
