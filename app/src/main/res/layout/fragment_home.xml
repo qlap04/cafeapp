@@ -78,35 +78,35 @@
                     app:srcCompat="@drawable/mic_icon" />
 
                 <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/brown_background"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/searchTxt"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
                     android:background="@drawable/brown_background"
-                    android:orientation="horizontal">
+                    android:ems="10"
+                    android:hint="Bạn muốn uống gì..."
+                    android:inputType="text"
+                    android:padding="8dp"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textColorHint="@android:color/white"
+                    android:textSize="16dp" />
 
-                    <EditText
-                        android:id="@+id/searchTxt"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="@drawable/brown_background"
-                        android:ems="10"
-                        android:hint="Bạn muốn uống gì..."
-                        android:inputType="text"
-                        android:padding="8dp"
-                        android:textAlignment="center"
-                        android:textColor="@color/white"
-                        android:textColorHint="@android:color/white"
-                        android:textSize="16dp" />
+                <ImageView
+                    android:id="@+id/searchBtn"
+                    android:layout_width="60dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:padding="12dp"
+                    app:srcCompat="@drawable/search" />
 
-                    <ImageView
-                        android:id="@+id/searchBtn"
-                        android:layout_width="60dp"
-                        android:layout_height="50dp"
-                        android:layout_gravity="center"
-                        android:padding="12dp"
-                        app:srcCompat="@drawable/search" />
-
-                </LinearLayout>
+            </LinearLayout>
 
                 <ImageView
                     android:id="@+id/cartBtn"

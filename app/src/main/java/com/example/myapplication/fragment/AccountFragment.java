@@ -18,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.example.myapplication.activity.AddStaffActivity;
 import com.example.myapplication.activity.AttendanceActivity;
 import com.example.myapplication.activity.ChangePasswordActivity;
 import com.example.myapplication.activity.ContactActivity;
@@ -58,7 +59,10 @@ public class AccountFragment extends Fragment {
             Intent intent = new Intent(requireContext(), EditProfileActivity.class);
             startActivity(intent);
         });
-
+        addTxt.setOnClickListener(v -> {
+            Intent intent = new Intent(requireContext(), AddStaffActivity.class);
+            startActivity(intent);
+        });
         attendanceTxt.setOnClickListener(v -> {
             Intent intent = new Intent(requireContext(), AttendanceActivity.class);
             startActivity(intent);
