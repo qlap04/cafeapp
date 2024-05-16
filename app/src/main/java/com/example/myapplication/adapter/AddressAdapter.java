@@ -1,4 +1,5 @@
 package com.example.myapplication.adapter;
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,17 +10,21 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
+import com.example.myapplication.interface1.OnAddressClickListener;
 import com.example.myapplication.model.Address;
 
 import java.util.List;
 
 public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.AddressViewHolder>{
     private final List<Address> listAddress;
-    private boolean isNewRadioButtonChecked = false;
-    private int lastCheckedPositon = -1;
-    public AddressAdapter(List<Address> listAddress) {
+    private final OnAddressClickListener onAddressClickListener;
+
+    private int selectedPosition = -1;
+    public AddressAdapter(List<Address> listAddress, OnAddressClickListener onAddressClickListener) {
         this.listAddress = listAddress;
+        this.onAddressClickListener = onAddressClickListener;
     }
+
 
     @NonNull
     @Override
@@ -28,24 +33,26 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.AddressV
         return new AddressViewHolder(view);
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     @Override
-    public void onBindViewHolder(@NonNull AddressAdapter.AddressViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull AddressViewHolder holder, int position) {
         Address address = listAddress.get(position);
-        if (address == null) {
-            return;
-        }
         holder.nameTxt.setText(address.getName());
         holder.phoneTxt.setText(address.getPhone());
         holder.addressTxt.setText(address.getAddress());
-        if (isNewRadioButtonChecked) {
-            holder.radioButton.setChecked(address.isSelected());
-        } else {
-            if (holder.getAdapterPosition() == 0) {
-                holder.radioButton.setChecked(true);
-                lastCheckedPositon = 0;
-            }
-        }
+        holder.radioButton.setChecked(position == selectedPosition);
 
+        holder.itemView.setOnClickListener(v -> {
+            selectedPosition = holder.getAdapterPosition();
+            onAddressClickListener.onAddressClick(selectedPosition);
+            notifyDataSetChanged();
+        });
+
+        holder.radioButton.setOnClickListener(v -> {
+            selectedPosition = holder.getAdapterPosition();
+            onAddressClickListener.onAddressClick(selectedPosition);
+            notifyDataSetChanged();
+        });
     }
 
     @Override
@@ -60,7 +67,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.AddressV
         private final TextView nameTxt;
         private final TextView phoneTxt;
         private final TextView addressTxt;
-        private RadioButton radioButton;
+        private final RadioButton radioButton;
         public AddressViewHolder(@NonNull View itemView) {
             super(itemView);
             nameTxt = itemView.findViewById(R.id.nameTxt);
@@ -70,11 +77,14 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.AddressV
             radioButton.setOnClickListener(v -> handleRadioButtonChecks(getAdapterPosition()));
         }
     }
+
+    @SuppressLint("NotifyDataSetChanged")
     private void handleRadioButtonChecks(int adapterPosition) {
-        isNewRadioButtonChecked = true;
-        listAddress.get(lastCheckedPositon).setSelected(false);
+        boolean isNewRadioButtonChecked = true;
+        listAddress.get(selectedPosition).setSelected(false);
         listAddress.get(adapterPosition).setSelected(true);
-        lastCheckedPositon = adapterPosition;
+        selectedPosition = adapterPosition;
         notifyDataSetChanged();
     }
+
 }

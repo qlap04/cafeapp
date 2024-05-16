@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.Image;
@@ -23,6 +24,7 @@ import com.example.myapplication.api.APIService;
 import com.example.myapplication.model.Address;
 
 import java.util.List;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -31,8 +33,7 @@ import retrofit2.Response;
 public class AddressActivity extends AppCompatActivity {
     private RecyclerView rcAddress;
     private List<Address> addressList;
-    private ImageView backBtn;
-    private Button nextBtn, addAddressBtn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,9 +44,9 @@ public class AddressActivity extends AppCompatActivity {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_address);
         rcAddress = findViewById(R.id.rcAddress);
-        backBtn = findViewById(R.id.backBtn);
-        nextBtn = findViewById(R.id.nextBtn);
-        addAddressBtn = findViewById(R.id.addAddressBtn);
+        ImageView backBtn = findViewById(R.id.backBtn);
+        Button nextBtn = findViewById(R.id.nextBtn);
+        Button addAddressBtn = findViewById(R.id.addAddressBtn);
         GridLayoutManager linearLayoutManager = new GridLayoutManager(this, 1);
         rcAddress.setLayoutManager(linearLayoutManager);
         callApiToGetAddress();
@@ -113,9 +114,11 @@ public class AddressActivity extends AppCompatActivity {
             public void onResponse(@NonNull Call<List<Address>> call, @NonNull Response<List<Address>> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     addressList = response.body();
-                    AddressAdapter addressAdapter = new AddressAdapter(addressList);
+                    AddressAdapter addressAdapter = new AddressAdapter(addressList, position -> {
+                        // Xử lý sự kiện khi một hàng được chọn
+                        handleAddressSelection(position);
+                    });
                     rcAddress.setAdapter(addressAdapter);
-                    addressAdapter.notifyDataSetChanged();
                     Log.e("Address Activity", "Call api to get address successfully");
                 } else {
                     Log.e("Address Activity", "Call api to get address failed");
@@ -128,4 +131,15 @@ public class AddressActivity extends AppCompatActivity {
             }
         });
     }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private void handleAddressSelection(int position) {
+        // Cập nhật trạng thái của các hàng trong danh sách địa chỉ
+        for (int i = 0; i < addressList.size(); i++) {
+            addressList.get(i).setSelected(i == position);
+        }
+        // Cập nhật lại adapter sau khi có sự thay đổi
+        Objects.requireNonNull(rcAddress.getAdapter()).notifyDataSetChanged();
+    }
+
 }
