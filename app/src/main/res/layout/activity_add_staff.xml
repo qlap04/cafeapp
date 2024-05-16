@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="59dp"
+        tools:layout_editor_absoluteY="-338dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <ImageView
+                android:id="@+id/backBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/arrow"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"/>
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="match_parent"
+                android:layout_height="160dp"
+                android:layout_marginTop="16dp"
+                app:srcCompat="@drawable/logo_cafe_main2" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="16dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:text="Cafe"
+                    android:textColor="@color/blue_grey"
+                    android:textSize="45sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="App"
+                    android:textColor="@color/blue_grey"
+                    android:textSize="45sp" />
+            </LinearLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/userContainer"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_marginHorizontal="30dp"
+                app:helperTextTextColor="#CC0000"
+                app:startIconDrawable="@drawable/ic_person"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="18dp"
+                app:boxStrokeColor="@color/brown"
+                >
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/userEdt"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:lines="1"
+                    android:inputType="text"
+                    android:hint="Username"
+                    android:paddingStart="48dp"
+                    android:textColor="@color/brown"
+                    android:textColorHint="@color/brown"
+                    >
+
+                </com.google.android.material.textfield.TextInputEditText>
+
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/emailContainer"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_marginHorizontal="30dp"
+                app:helperTextTextColor="#CC0000"
+                app:endIconMode="custom"
+                app:endIconDrawable="@drawable/ic_checkmark"
+                app:startIconDrawable="@drawable/ic_email"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="18dp"
+                app:boxStrokeColor="@color/brown"
+                >
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/emailEdt"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:lines="1"
+                    android:inputType="text"
+                    android:hint="Enter your email..."
+                    android:paddingStart="48dp"
+                    android:textColor="@color/brown"
+                    android:textColorHint="@color/brown"
+                    >
+
+                </com.google.android.material.textfield.TextInputEditText>
+
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/phoneNumContainer"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_marginHorizontal="30dp"
+                app:helperTextTextColor="#CC0000"
+                app:endIconMode="custom"
+                app:startIconDrawable="@drawable/ic_phone"
+                app:prefixText="+84"
+                app:prefixTextColor="@color/md_grey_500"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="18dp"
+                app:boxStrokeColor="@color/brown"
+                >
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/phoneNumEdt"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:lines="1"
+                    android:inputType="number"
+                    android:hint="Phone number..."
+                    android:paddingStart="48dp"
+                    android:paddingEnd="4dp"
+                    android:textColor="@color/brown"
+                    android:textColorHint="@color/brown"
+                    >
+
+                </com.google.android.material.textfield.TextInputEditText>
+
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/passwordContainer"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_marginHorizontal="30dp"
+                app:helperTextTextColor="#CC0000"
+                app:startIconDrawable="@drawable/ic_password"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:passwordToggleEnabled="true"
+                app:counterEnabled="true"
+                app:counterMaxLength="16"
+                android:layout_marginTop="18dp"
+                app:boxStrokeColor="@color/brown"
+                >
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/passEdt"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:lines="1"
+                    android:maxLength="16"
+                    android:inputType="textPassword"
+                    android:hint="Enter your password..."
+                    android:paddingStart="48dp"
+                    android:textColor="@color/brown"
+                    android:textColorHint="@color/brown"
+                    >
+
+                </com.google.android.material.textfield.TextInputEditText>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/addStaffBtn"
+                style="@style/Widget.AppCompat.Button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="32dp"
+                android:background="@drawable/brown_button_background"
+                android:text="Thêm nhân viên"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold">
+
+            </androidx.appcompat.widget.AppCompatButton>
+
+        </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

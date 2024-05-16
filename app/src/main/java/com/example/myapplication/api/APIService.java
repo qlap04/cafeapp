@@ -19,20 +19,19 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.Retrofit;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
-import retrofit2.http.Field;
 import retrofit2.http.GET;
 import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
-//nghiaa
+
 public interface APIService {
     Gson gson = new GsonBuilder()
             .setDateFormat("yyyy-MM-dd HH:mm:ss")
             .create();
     APIService apiService = new Retrofit.Builder()
-            .baseUrl("http://192.168.1.3:3001/")
+            .baseUrl("http://192.168.56.1:3001/")
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
             .create(APIService.class);
@@ -138,8 +137,4 @@ public interface APIService {
     Call<Void> deleteProduct(@Query("user") String user, @Query("_id") int _id);
     @DELETE("/cart/delete-all-products-in-cart")
     Call<Void> cancelOrder(@Query("_id") int _id);
-    Call<Void> updatePopularStatus(
-            @Field("productName") String productName,
-            @Field("popularStatus") String popularStatus
-    );
 }
