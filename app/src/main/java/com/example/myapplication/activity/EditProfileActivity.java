@@ -6,13 +6,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,9 +27,8 @@ public class EditProfileActivity extends AppCompatActivity {
     private User user;
     private String username;
     private ImageView backBtn , image;
-    private LinearLayout linearLayoutImage;
     private TextView idTxt, usernameTxT, roleTxt;
-    private EditText nameEdt, emailEdt, phoneNumEdt, imageEdt;
+    private EditText nameEdt, emailEdt, phoneNumEdt;
     private Button saveBtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,26 +41,19 @@ public class EditProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit_profile);
 
         backBtn = findViewById(R.id.backBtn);
-        linearLayoutImage = findViewById(R.id.linearLayoutImage);
         image = findViewById(R.id.image);
         idTxt = findViewById(R.id.idTxt);
         usernameTxT = findViewById(R.id.usernameTxT);
         roleTxt = findViewById(R.id.roleTxt);
         nameEdt = findViewById(R.id.nameEdt);
         emailEdt = findViewById(R.id.emailEdt);
-        imageEdt = findViewById(R.id.imageEdt);
         phoneNumEdt = findViewById(R.id.phoneNumEdt);
         saveBtn = findViewById(R.id.saveBtn);
         getUsernameFromSharedPreferences();
         getInforUser(username);
-        image.setOnClickListener(v -> {
-            linearLayoutImage.setVisibility(View.VISIBLE);
-        });
+
         backBtn.setOnClickListener(v -> finish());
         saveBtn.setOnClickListener(v -> {
-            if (!imageEdt.getText().toString().isEmpty()) {
-                saveImageUser(imageEdt.getText().toString().trim());
-            }
             savaInforUser(nameEdt.getText().toString(), emailEdt.getText().toString().trim(), phoneNumEdt.getText().toString().trim());
         });
     }
@@ -112,27 +102,6 @@ public class EditProfileActivity extends AppCompatActivity {
                     Toast.makeText(EditProfileActivity.this, "Lưu thành công", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(EditProfileActivity.this, "Lưu thất bại", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
-                Log.e("API Error", "Call API error: " + t.getMessage(), t);
-
-            }
-        });
-
-    }
-    private void saveImageUser(String imageUrl) {
-        APIService.apiService.saveImageUser(username, imageUrl).enqueue(new Callback<Void>() {
-            @Override
-            public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
-                if (response.isSuccessful()) {
-                    Log.e("EditProfileActivity", "Save image user successfully");
-
-                } else {
-                    Log.e("EditProfileActivity", "Save image user failed");
-
                 }
             }
 
