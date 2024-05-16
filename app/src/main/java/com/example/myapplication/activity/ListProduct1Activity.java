@@ -61,7 +61,7 @@ public class ListProduct1Activity extends AppCompatActivity {
                             ProductAdapter1 product1Adapter = new ProductAdapter1(productList);
                             rcProducts.setAdapter(product1Adapter);
 
-                            // Khởi tạo ItemTouchHelper và gắn vào RecyclerView
+                            // Initialize ItemTouchHelper and attach to RecyclerView
                             ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new SwipeActivity(product1Adapter));
                             itemTouchHelper.attachToRecyclerView(rcProducts);
 
@@ -75,4 +75,5 @@ public class ListProduct1Activity extends AppCompatActivity {
                     }
                 });
     }
+
 }

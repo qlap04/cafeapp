@@ -71,6 +71,9 @@ public class ProductAdapter1 extends RecyclerView.Adapter<ProductAdapter1.Produc
             // Optional: Hide buttons after click
             // hideButtons(holder);
         });
+
+        // Hide edit and delete buttons when ViewHolder is recycled
+        hideButtons(holder);
     }
 
     @Override
