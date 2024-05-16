@@ -6,7 +6,6 @@ import com.example.myapplication.model.Email;
 import com.example.myapplication.model.Product;
 import com.example.myapplication.model.Reply;
 import com.example.myapplication.model.User;
-import com.example.myapplication.modelRequest.ProductRequest;
 import com.example.myapplication.modelResponse.AddressResponse;
 import com.example.myapplication.modelResponse.TotalPriceResponse;
 import com.google.gson.Gson;
@@ -26,12 +25,13 @@ import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
+
 public interface APIService {
     Gson gson = new GsonBuilder()
             .setDateFormat("yyyy-MM-dd HH:mm:ss")
             .create();
     APIService apiService = new Retrofit.Builder()
-            .baseUrl("http://192.168.200.203:3001/")
+            .baseUrl("http://192.168.56.1:3001/")
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
             .create(APIService.class);
@@ -71,8 +71,6 @@ public interface APIService {
     Call<List<Product>> getProductsByCategory(@Query("category") String category);
     @GET("/products/set-best-product")
     Call<Void> updateProductPopularStatus(@Query("title") String title, @Query("popular") String popular);
-    @POST("/products/add-product")
-    Call<Void> addProduct(@Body ProductRequest productRequest);
     @GET("/cart/products-in-cart")
     Call<List<Cart>> getListProductsIncart(@Query("username") String username);
     @GET("/cart/set-orderId-product")
@@ -115,8 +113,6 @@ public interface APIService {
     Call<Void> setPaymentMethodInCart(@Query("username") String username, @Query("paymentMethod") String paymentMethod);
     @POST("/login/signup")
     Call<User> signUpUser(@Body User user);
-    @POST("/login/add-staff")
-    Call<User> addStaff(@Body User user);
     @POST("/reply/save-content-reply")
     Call<Void> saveDataReply(@Body Reply reply);
     @POST("/users/save-infor-user")
