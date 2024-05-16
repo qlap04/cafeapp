@@ -71,7 +71,6 @@
                 android:padding="15dp"
                 android:background="@drawable/round_back_white"
                 >
-                <!-- DarkMode / Night Mode -->
                 <RelativeLayout
                     android:id="@+id/addTxt"
                     android:layout_width="match_parent"

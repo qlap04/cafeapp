@@ -24,7 +24,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ProductAdapter1 extends RecyclerView.Adapter<ProductAdapter1.Product1ViewHolder> {
-    private final List<Product> productList;
+    private List<Product> productList;
 
     public ProductAdapter1(List<Product> productList) {
         this.productList = productList;
@@ -66,7 +66,10 @@ public class ProductAdapter1 extends RecyclerView.Adapter<ProductAdapter1.Produc
         }
         return 0;
     }
-
+    public void updateData(List<Product> newProductList) {
+        productList = newProductList;
+        notifyDataSetChanged();
+    }
     public static class Product1ViewHolder extends RecyclerView.ViewHolder {
         private ImageView image;
         private TextView nameProductTxt;
