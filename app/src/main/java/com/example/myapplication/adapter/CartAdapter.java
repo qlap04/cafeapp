@@ -61,8 +61,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             if (currentQuantity > 1) {
                 currentQuantity--;
                 double total = cart.getPrice() * currentQuantity;
+                holder.quantityTxt.setText(String.valueOf(currentQuantity));
                 holder.totalTxt.setText(decimalFormat.format(cart.getTotal() * 1000));
-                holder.totalTxt.setText(decimalFormat.format(cart.getTotal()));
                 if (onQuantityChangeListener != null) {
                     onQuantityChangeListener.onQuantityChange(holder.getAdapterPosition(), currentQuantity);
                 }

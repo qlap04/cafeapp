@@ -22,6 +22,7 @@ import com.example.myapplication.activity.AttendanceActivity;
 import com.example.myapplication.activity.ChangePasswordActivity;
 import com.example.myapplication.activity.ContactActivity;
 import com.example.myapplication.activity.EditProfileActivity;
+import com.example.myapplication.activity.ListProduct1Activity;
 import com.example.myapplication.activity.LoginActivity;
 import com.example.myapplication.activity.ReplyActivity;
 import com.example.myapplication.R;
@@ -32,7 +33,7 @@ public class AccountFragment extends Fragment {
     private TextView usernameTxt;
     private Button editBtn;
     private LinearLayout linearLayout1;
-    private RelativeLayout addTxt, attendanceTxt, listStaffTxt, replyTxT, contactTxt, changePassTxt, logoutTxT;
+    private RelativeLayout addTxt, attendanceTxt, listProductTxt, listStaffTxt, replyTxT, contactTxt, changePassTxt, logoutTxT;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -43,6 +44,7 @@ public class AccountFragment extends Fragment {
         editBtn = rootView.findViewById(R.id.editBtn);
         addTxt = rootView.findViewById(R.id.addTxt);
         attendanceTxt = rootView.findViewById(R.id.attendanceTxt);
+        listProductTxt = rootView.findViewById(R.id.listProductTxt);
         listStaffTxt = rootView.findViewById(R.id.listStaffTxt);
         replyTxT = rootView.findViewById(R.id.replyTxt);
         contactTxt = rootView.findViewById(R.id.contactTxt);
@@ -59,6 +61,11 @@ public class AccountFragment extends Fragment {
 
         attendanceTxt.setOnClickListener(v -> {
             Intent intent = new Intent(requireContext(), AttendanceActivity.class);
+            startActivity(intent);
+        });
+
+        listProductTxt.setOnClickListener(v -> {
+            Intent intent = new Intent(requireContext(), ListProduct1Activity.class);
             startActivity(intent);
         });
 
@@ -97,6 +104,7 @@ public class AccountFragment extends Fragment {
             if ("staff".equals(userRole)) {
                 addTxt.setVisibility(View.GONE);
                 listStaffTxt.setVisibility(View.GONE);
+                listProductTxt.setVisibility(View.GONE);
             } else if ("admin".equals(userRole)) {
                 attendanceTxt.setVisibility(View.GONE);
             }

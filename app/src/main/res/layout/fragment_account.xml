@@ -26,6 +26,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingBottom="30dp"
         >
         <LinearLayout
             android:layout_width="match_parent"
@@ -102,7 +103,6 @@
                         />
 
                 </RelativeLayout>
-                <!-- Notification -->
                 <RelativeLayout
                     android:id="@+id/attendanceTxt"
                     android:layout_marginTop="10dp"
@@ -134,7 +134,37 @@
                         android:src="@drawable/right_icon"
                         />
                 </RelativeLayout>
-                <!-- Private -->
+                <RelativeLayout
+                    android:id="@+id/listProductTxt"
+                    android:layout_marginTop="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    >
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/icon_list_product"
+                        android:id="@+id/listProductID"
+                        android:padding="12dp"
+                        android:background="@drawable/round_back_notification"
+                        />
+                    <TextView
+                        android:layout_marginStart="20dp"
+                        android:layout_centerVertical="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Kho của tôi"
+                        android:textColor="#FFFFFF"
+                        android:textStyle="bold"
+                        android:layout_toEndOf="@+id/listProductID"/>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/right_icon"
+                        />
+                </RelativeLayout>
                 <RelativeLayout
                     android:id="@+id/listStaffTxt"
                     android:layout_marginTop="10dp"
@@ -269,6 +299,7 @@
                         android:src="@drawable/right_icon"
                         />
                 </RelativeLayout>
+
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"

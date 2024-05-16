@@ -65,8 +65,8 @@ public class PaymentMethodsActivity extends AppCompatActivity implements Payment
 
     @Override
     public void onItemClick(String title) {
-        setProductInCartIsOdered();
         setPaymentMethodInCart(title);
+        setProductInCartIsOdered();
         finish();
         Intent intent = new Intent(PaymentMethodsActivity.this, OrderSuccessActivity.class);
         startActivity(intent);
