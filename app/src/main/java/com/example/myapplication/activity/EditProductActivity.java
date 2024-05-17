@@ -1,5 +1,7 @@
 package com.example.myapplication.activity;
 
+import static com.example.myapplication.utils.ToastUtils.showCustomToast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -61,7 +63,7 @@ public class EditProductActivity extends AppCompatActivity {
         String price = priceEdt.getText().toString();
         String category = categoryEdt.getText().toString();
         if (urlImage.isEmpty() || title.isEmpty() || price.isEmpty() || category.isEmpty()) {
-            Toast.makeText(this, "Vui lòng điền đầy đủ thông tin", Toast.LENGTH_SHORT).show();
+            showCustomToast(this, "Vui lòng điền đầy đủ thông tin");
             return;
         }
         ProductRequest product = new ProductRequest();
@@ -74,10 +76,9 @@ public class EditProductActivity extends AppCompatActivity {
             @Override
             public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
                 if (response.isSuccessful()) {
-                    Toast.makeText(EditProductActivity.this, "Cập nhật thành công", Toast.LENGTH_SHORT).show();
+                    showCustomToast(EditProductActivity.this, "Cập nhật thành công");
                 } else {
-                    Toast.makeText(EditProductActivity.this, "Cập nhật thất bại", Toast.LENGTH_SHORT).show();
-
+                    showCustomToast(EditProductActivity.this, "Cập nhật thất bại");
                 }
             }
 

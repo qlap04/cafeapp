@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.Retrofit;
@@ -96,6 +97,9 @@ public interface APIService {
     Call<User> getUserByUsername(@Query("username") String username);
     @GET("/users/get-password")
     Call<User> addStaff(@Body User user);
+    @Multipart
+    @POST("/users/upload")
+    Call<User> uploadProfileImage(@Part MultipartBody.Part profileImage, @Part("username") RequestBody username);
     @GET("/address/get-address")
     Call<List<Address>> getListAddress(@Query("username") String username);
     @GET("/cart/get-product-in-complete")
