@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.myapplication.api.APIService;
 import com.example.myapplication.model.User;
 import com.example.myapplication.R;
+import com.example.myapplication.utils.ToastUtils;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.io.IOException;
@@ -177,11 +178,11 @@ public class SignupActivity extends AppCompatActivity {
         String password = strPassword.getText().toString().trim();
 
         if (username.isEmpty() || email.isEmpty() || phoneNum.isEmpty() || password.isEmpty()) {
-            Toast.makeText(SignupActivity.this, "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_LONG).show();
+            ToastUtils.showCustomToast(SignupActivity.this, "Vui lòng nhập đầy đủ thông tin");
             return;
         }
         if(checkUsername || checkEmail || checkPhoneNumber || checkPassword) {
-            Toast.makeText(SignupActivity.this, "Vui lòng nhập đúng thông tin", Toast.LENGTH_LONG).show();
+            ToastUtils.showCustomToast(SignupActivity.this, "Vui lòng nhập đúng thông tin");
             return;
         }
 
@@ -195,7 +196,7 @@ public class SignupActivity extends AppCompatActivity {
                         if (response.isSuccessful()) {
                             clickTextSignup();
                         } else {
-                            Toast.makeText(SignupActivity.this, "Đăng ký thất bại", Toast.LENGTH_LONG).show();
+                            ToastUtils.showCustomToast(SignupActivity.this, "Đăng kí thất bại");
                             try {
                                 assert response.errorBody() != null;
                                 Log.e("SignupActivity", "Lỗi khi đăng ký: " + response.errorBody().string());

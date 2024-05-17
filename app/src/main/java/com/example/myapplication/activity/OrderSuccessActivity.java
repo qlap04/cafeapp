@@ -23,6 +23,7 @@ import com.example.myapplication.model.Address;
 import com.example.myapplication.model.Cart;
 import com.example.myapplication.modelResponse.AddressResponse;
 import com.example.myapplication.modelResponse.TotalPriceResponse;
+import com.example.myapplication.utils.ToastUtils;
 
 import java.text.DecimalFormat;
 import java.util.List;
@@ -92,7 +93,7 @@ public class OrderSuccessActivity extends AppCompatActivity {
                             double totalPrice = totalPriceResponse.getTotalPrice() * 1000;
                             priceTxt.setText(decimalFormat.format(totalPrice));
                         } else {
-                            Toast.makeText(OrderSuccessActivity.this, "Failed to get total price", Toast.LENGTH_SHORT).show();
+                            ToastUtils.showCustomToast(OrderSuccessActivity.this, "Failed to get total price");
                         }
                     }
 
@@ -145,7 +146,7 @@ public class OrderSuccessActivity extends AppCompatActivity {
                     strAddress = address.getAddress();
                     saveAddressForBill();
                 } else {
-                    Toast.makeText(OrderSuccessActivity.this, "Failed to get address", Toast.LENGTH_SHORT).show();
+                    ToastUtils.showCustomToast(OrderSuccessActivity.this, "Failed to get address");
                 }
             }
 

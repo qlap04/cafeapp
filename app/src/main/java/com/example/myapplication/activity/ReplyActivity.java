@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.example.myapplication.api.APIService;
 import com.example.myapplication.model.Reply;
 import com.example.myapplication.R;
+import com.example.myapplication.utils.ToastUtils;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -60,9 +61,9 @@ public class ReplyActivity extends AppCompatActivity {
             @Override
             public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
                 if (response.isSuccessful()) {
-                    Toast.makeText(ReplyActivity.this, "Gửi phàn hồi thành công", Toast.LENGTH_SHORT).show();
+                    ToastUtils.showCustomToast(ReplyActivity.this, "Gửi phản hồi thành công");
                 } else {
-                    Toast.makeText(ReplyActivity.this, "Gửi phàn hồi thất bại", Toast.LENGTH_SHORT).show();
+                    ToastUtils.showCustomToast(ReplyActivity.this, "Gửi phản hồi thất bại");
                 }
             }
 

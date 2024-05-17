@@ -24,6 +24,7 @@ import com.example.myapplication.model.Address;
 import com.example.myapplication.model.Cart;
 import com.example.myapplication.modelResponse.AddressResponse;
 import com.example.myapplication.modelResponse.TotalPriceResponse;
+import com.example.myapplication.utils.ToastUtils;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -137,7 +138,7 @@ public class BillActivity extends AppCompatActivity {
                     phoneNumTxt.setText(address.getPhone());
                     addressTxt.setText(address.getAddress());
                 } else {
-                    Toast.makeText(BillActivity.this, "Failed to get address", Toast.LENGTH_SHORT).show();
+                    ToastUtils.showCustomToast(BillActivity.this, "Lấy địa chỉ thất bại");
                 }
             }
 

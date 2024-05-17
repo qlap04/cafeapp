@@ -27,6 +27,7 @@ import android.widget.Toast;
 import com.example.myapplication.R;
 import com.example.myapplication.api.APIService;
 import com.example.myapplication.model.User;
+import com.example.myapplication.utils.ToastUtils;
 import com.squareup.picasso.Picasso;
 
 import retrofit2.Call;
@@ -98,9 +99,9 @@ public class EditProfileActivity extends AppCompatActivity {
             @Override
             public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
                 if (response.isSuccessful()) {
-                    Toast.makeText(EditProfileActivity.this, "Lưu thành công", Toast.LENGTH_SHORT).show();
+                    ToastUtils.showCustomToast(EditProfileActivity.this, "Lưu thành công");
                 } else {
-                    Toast.makeText(EditProfileActivity.this, "Lưu thất bại", Toast.LENGTH_SHORT).show();
+                    ToastUtils.showCustomToast(EditProfileActivity.this, "Lưu thất bại");
                 }
             }
 

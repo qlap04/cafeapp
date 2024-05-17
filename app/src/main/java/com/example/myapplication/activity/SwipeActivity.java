@@ -27,7 +27,6 @@ public class SwipeActivity extends ItemTouchHelper.SimpleCallback {
     @Override
     public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
         if (direction == ItemTouchHelper.RIGHT) {
-            adapter.hideButtons((ProductAdapter1.Product1ViewHolder) viewHolder);
         }
         adapter.notifyItemChanged(viewHolder.getAdapterPosition());
     }
@@ -42,9 +41,7 @@ public class SwipeActivity extends ItemTouchHelper.SimpleCallback {
         View itemView = viewHolder.itemView;
 
         if (dX > 0) {
-            adapter.hideButtons((ProductAdapter1.Product1ViewHolder) viewHolder);
         } else if (dX < 0) {
-            adapter.showButtons((ProductAdapter1.Product1ViewHolder) viewHolder);
         }
 
         // Override onTouchEvent to handle swipe length
@@ -61,7 +58,6 @@ public class SwipeActivity extends ItemTouchHelper.SimpleCallback {
                         float x = event.getX();
                         float delta = x - dx;
                         if (delta < -200) { // set your desired threshold for swipe length
-                            adapter.hideButtons((ProductAdapter1.Product1ViewHolder) viewHolder);
                             return true; // consume the event to prevent RecyclerView from scrolling
                         }
                         break;
