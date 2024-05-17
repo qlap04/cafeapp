@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.Retrofit;
@@ -38,7 +37,7 @@ public interface APIService {
             .setDateFormat("yyyy-MM-dd HH:mm:ss")
             .create();
     APIService apiService = new Retrofit.Builder()
-            .baseUrl("http://192.168.1.3:3001/")
+            .baseUrl("http://192.168.56.1:3001/")
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
             .create(APIService.class);
@@ -81,8 +80,7 @@ public interface APIService {
     Call<Product> getInforProduct(@Query("_id") int _id);
     @GET("/products/set-best-product")
     Call<Void> updateProductPopularStatus(@Query("title") String title, @Query("popular") String popular);
-    @POST("/products/add-product")
-    Call<Void> addProduct(@Body ProductRequest productRequest);
+
     @PUT("/products/update-infor-product")
     Call<Void> updateInforProduct( @Query("_id") int id,@Body ProductRequest productRequest);
     @GET("/cart/products-in-cart")
