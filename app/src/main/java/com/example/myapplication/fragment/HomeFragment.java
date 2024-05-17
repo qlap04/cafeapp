@@ -2,6 +2,8 @@ package com.example.myapplication.fragment;
 
 import static android.app.Activity.RESULT_OK;
 
+import static com.example.myapplication.utils.ToastUtils.showCustomToast;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -337,17 +339,6 @@ public class HomeFragment extends Fragment implements CategoryAdapter.OnCategory
                     }
 
                 });
-    }
-    private void showCustomToast(Context context, String message) {
-        LayoutInflater inflater = LayoutInflater.from(context);
-        View layout = inflater.inflate(R.layout.custom_toast, null);
-        TextView text = layout.findViewById(R.id.text_toast_message);
-        text.setText(message);
-        Toast toast = new Toast(context);
-        toast.setDuration(Toast.LENGTH_LONG);
-        toast.setView(layout);
-        toast.setGravity(Gravity.BOTTOM, 0, 100);
-        toast.show();
     }
 
 }
