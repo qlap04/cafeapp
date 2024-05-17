@@ -77,12 +77,11 @@ public interface APIService {
     @GET("/products/products-in-category")
     Call<List<Product>> getProductsByCategory(@Query("category") String category);
     @GET("/products/get-infor-product")
-    Call<Product> getInforProduct(@Query("_id") int _id);
+    Call<Product> getInforProduct(@Query("title") String title);
     @GET("/products/set-best-product")
     Call<Void> updateProductPopularStatus(@Query("title") String title, @Query("popular") String popular);
-
     @PUT("/products/update-infor-product")
-    Call<Void> updateInforProduct( @Query("_id") int id,@Body ProductRequest productRequest);
+    Call<Void> updateInforProduct( @Query("title") String title,@Body ProductRequest productRequest);
     @GET("/cart/products-in-cart")
     Call<List<Cart>> getListProductsIncart(@Query("username") String username);
     @POST("/products/add-product")
@@ -158,7 +157,5 @@ public interface APIService {
     Call<Void> deleteProduct(@Query("user") String user, @Query("_id") int _id);
     @DELETE("/cart/delete-all-products-in-cart")
     Call<Void> cancelOrder(@Query("_id") int _id);
-    @FormUrlEncoded
-    @POST("/updatePopularStatus")
-    Call<Void> updatePopularStatus(@Field("productTitle") String productTitle, @Field("popularStatus") String popularStatus);
+
 }

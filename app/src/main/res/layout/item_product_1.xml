@@ -108,7 +108,6 @@
             </LinearLayout>
         </LinearLayout>
 
-        <!-- Phần nút vuốt -->
         <LinearLayout
             android:id="@+id/swipe_buttons"
             android:layout_width="wrap_content"
@@ -120,7 +119,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/item_view">
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btnEdit"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -128,7 +127,7 @@
                 android:text="Edit"
                 android:textColor="@android:color/white"/>
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btnDelete"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -136,6 +135,5 @@
                 android:text="Delete"
                 android:textColor="@android:color/white"/>
         </LinearLayout>
-        <!-- Kết thúc phần nút vuốt -->
 
     </FrameLayout>

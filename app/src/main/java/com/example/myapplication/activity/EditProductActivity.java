@@ -24,9 +24,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class EditProductActivity extends AppCompatActivity {
-    private int _id;
+    private String titleProduct;
     private Product product;
-    private ImageView image;
+    private ImageView image, backBtn;
     private EditText titleEdt, priceEdt, categoryEdt, urlImageEdt;
     private Button saveBtn;
     @Override
@@ -38,6 +38,7 @@ public class EditProductActivity extends AppCompatActivity {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_edit_product);
 
+        backBtn = findViewById(R.id.backBtn);
         image = findViewById(R.id.image);
         titleEdt = findViewById(R.id.titleEdt);
         priceEdt = findViewById(R.id.priceEdt);
@@ -46,16 +47,15 @@ public class EditProductActivity extends AppCompatActivity {
         saveBtn = findViewById(R.id.saveBtn);
 
         Intent intent = getIntent();
-        if (intent != null && intent.hasExtra("ID-USER")) {
-            _id = intent.getIntExtra("ID-USER", 1);
-            callApiGetInforProduct(_id);
+        if (intent != null && intent.hasExtra("TITLE-PRODUCT")) {
+            titleProduct = intent.getStringExtra("TITLE-PRODUCT");
+            callApiGetInforProduct(titleProduct);
         }
-        saveBtn.setOnClickListener(v -> {
-            callapiUpdateInforProduct(_id);
-        });
+        backBtn.setOnClickListener(v -> finish());
+        saveBtn.setOnClickListener(v -> callapiUpdateInforProduct(titleProduct));
     }
 
-    private void callapiUpdateInforProduct(int id) {
+    private void callapiUpdateInforProduct(String titleProduct) {
         String urlImage = urlImageEdt.getText().toString();
         String title = titleEdt.getText().toString();
         String price = priceEdt.getText().toString();
@@ -70,7 +70,7 @@ public class EditProductActivity extends AppCompatActivity {
         product.setPrice(Double.parseDouble(price));
         product.setCategory(category);
 
-        APIService.apiService.updateInforProduct(id, product).enqueue(new Callback<Void>() {
+        APIService.apiService.updateInforProduct(titleProduct, product).enqueue(new Callback<Void>() {
             @Override
             public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
                 if (response.isSuccessful()) {
@@ -89,8 +89,8 @@ public class EditProductActivity extends AppCompatActivity {
         });
     }
 
-    private void callApiGetInforProduct(int id) {
-        APIService.apiService.getInforProduct(id).enqueue(new Callback<Product>() {
+    private void callApiGetInforProduct(String titleProduct) {
+        APIService.apiService.getInforProduct(titleProduct).enqueue(new Callback<Product>() {
             @Override
             public void onResponse(@NonNull Call<Product> call, @NonNull Response<Product> response) {
                 if (response.isSuccessful()) {
