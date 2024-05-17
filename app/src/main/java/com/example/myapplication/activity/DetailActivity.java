@@ -68,7 +68,7 @@ public class DetailActivity extends AppCompatActivity {
             ratingBar.setRating(product.getStar().floatValue());
             priceTxt.setText(product.getPrice() + "00đ");
             totalTxt.setText(product.getPrice() + "00đ");
-            starTxt.setText(product.getStar() + " Rating");
+            starTxt.setText(product.getStar() + " đánh giá");
             Picasso.get().load(product.getImage()).into(imageView);
             if (product.getCategory().equals("cake")) {
                 LinearLayout linearLayout = findViewById(R.id.optionLayout);

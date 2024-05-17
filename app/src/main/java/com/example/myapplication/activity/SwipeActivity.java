@@ -41,9 +41,9 @@ public class SwipeActivity extends ItemTouchHelper.SimpleCallback {
     public void onChildDraw(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
         View itemView = viewHolder.itemView;
 
-        if (dX > 0) { // Swiping to the right
+        if (dX > 0) {
             adapter.hideButtons((ProductAdapter1.Product1ViewHolder) viewHolder);
-        } else if (dX < 0) { // Swiping to the left
+        } else if (dX < 0) {
             adapter.showButtons((ProductAdapter1.Product1ViewHolder) viewHolder);
             itemView.setTranslationX(dX);
         }

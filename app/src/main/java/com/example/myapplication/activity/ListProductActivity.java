@@ -59,6 +59,9 @@ public class ListProductActivity extends AppCompatActivity {
         } else if (intent != null && intent.hasExtra("EVALUATE_VALUE")) {
             String evaluateValue = intent.getStringExtra("EVALUATE_VALUE");
             callApiGetProductsWithStarValue(evaluateValue);
+        } else if (intent != null && intent.hasExtra("CATEGORY_VALUE")) {
+            String categoryValue = intent.getStringExtra("CATEGORY_VALUE");
+            callApiGetCategory(categoryValue);
         } else {
             callApiGetProducts();
         }
@@ -67,9 +70,29 @@ public class ListProductActivity extends AppCompatActivity {
         backBtn.setOnClickListener(v -> backBtnOnClick());
     }
 
+
     private void backBtnOnClick() {
         Intent intent = new Intent(ListProductActivity.this, HomeActivity.class);
         startActivity(intent);
+    }
+    private void callApiGetCategory(String categoryValue) {
+        APIService.apiService.getProductsByCategory(categoryValue)
+                .enqueue(new Callback<List<Product>>() {
+                    @Override
+                    public void onResponse(@NonNull Call<List<Product>> call, @NonNull Response<List<Product>> response) {
+                        progressBar.setVisibility(View.GONE);
+                        productList = response.body();
+                        ListProductAdapter listProductAdapter = new ListProductAdapter(productList);
+                        listProductAdapter.setOnItemClickListener(product -> openDetailActivity(product));
+                        rcProducts.setAdapter(listProductAdapter);
+                    }
+
+                    @Override
+                    public void onFailure(@NonNull Call<List<Product>> call, @NonNull Throwable t) {
+                        progressBar.setVisibility(View.GONE);
+                        Log.e("API Error", "Call API error: " + t.getMessage(), t);
+                    }
+                });
     }
     private void callApiGetProductsWithStarValue(String evaluateValue) {
         APIService.apiService.callApiGetProductsWithEvaluateValue(evaluateValue)

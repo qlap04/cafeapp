@@ -89,36 +89,61 @@
                 app:tint="@color/md_green_500" />
 
             <ImageView
-                android:id="@+id/imageView8"
+                android:id="@+id/imageStage2"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_marginTop="50dp"
                 android:src="@drawable/ic_checkmark"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/imageView7"
                 app:layout_constraintTop_toBottomOf="@+id/imageView7"
+                app:layout_constraintVertical_bias="0.432"
+                app:tint="@color/md_grey_500" />
+
+            <ImageView
+                android:id="@+id/imageView9"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="66dp"
+                android:src="@drawable/ic_checkmark"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/imageStage2"
+                app:layout_constraintTop_toBottomOf="@+id/imageStage2"
+                app:layout_constraintVertical_bias="1.0"
                 app:tint="@color/md_grey_500" />
 
             <ProgressBar
                 android:id="@+id/progressBar"
                 style="?android:attr/progressBarStyleHorizontal"
-                android:layout_marginTop="8dp"
                 android:layout_width="80dp"
                 android:layout_height="0dp"
                 android:progress="100"
                 android:progressTint="@color/md_grey_500"
                 android:rotation="90"
-                app:layout_constraintBottom_toTopOf="@+id/imageView8"
+                app:layout_constraintBottom_toTopOf="@+id/imageStage2"
                 app:layout_constraintEnd_toEndOf="@+id/imageView7"
                 app:layout_constraintStart_toStartOf="@+id/imageView7"
-                app:layout_constraintTop_toBottomOf="@+id/imageView7" />
+                app:layout_constraintTop_toBottomOf="@+id/imageView7"
+                app:layout_constraintVertical_bias="0.0" />
 
+            <ProgressBar
+                android:id="@+id/progressBar1"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="80dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="8dp"
+                android:progress="100"
+                android:progressTint="@color/md_grey_500"
+                android:rotation="90"
+                app:layout_constraintBottom_toTopOf="@+id/imageView9"
+                app:layout_constraintEnd_toEndOf="@+id/imageStage2"
+                app:layout_constraintStart_toStartOf="@+id/imageStage2"
+                app:layout_constraintTop_toBottomOf="@+id/imageStage2" />
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/materialTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:text="Đặt hàng"
+                android:text="Chờ xác nhận"
                 android:textColor="@color/black"
                 android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@+id/imageView7"
@@ -129,7 +154,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="Đặt hàng"
+                android:text="Xác nhận thành công"
                 android:textColor="@color/md_grey_500"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="@+id/materialTextView"
@@ -153,22 +178,46 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:text="Giao hàng"
+                android:text="Chuẩn bị đơn hàng"
                 android:textColor="@color/black"
                 android:textStyle="bold"
-                app:layout_constraintStart_toEndOf="@+id/imageView8"
-                app:layout_constraintTop_toTopOf="@+id/imageView8" />
+                app:layout_constraintStart_toEndOf="@+id/imageStage2"
+                app:layout_constraintTop_toTopOf="@+id/imageStage2" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="Giao hàng thành công"
+                android:text="Chuẩn bị đơn hàng thành công"
                 android:textColor="@color/md_grey_500"
                 android:textStyle="bold"
-                app:layout_constraintStart_toEndOf="@+id/imageView8"
+                app:layout_constraintStart_toEndOf="@+id/imageStage2"
                 app:layout_constraintTop_toBottomOf="@+id/materialTextView1" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="Monda Sep, 2022"
+                android:textColor="@color/md_grey_500"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/materialTextView2"
+                app:layout_constraintTop_toTopOf="@+id/materialTextView2" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/materialTextView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="Giao hàng"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView9"
+                app:layout_constraintStart_toEndOf="@+id/imageView9"
+                app:layout_constraintTop_toTopOf="@+id/imageView9" />
+
+
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/deliverDateTxt"
@@ -180,7 +229,6 @@
                 android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@+id/materialTextView1"
                 app:layout_constraintTop_toTopOf="@+id/materialTextView1" />
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <View
@@ -211,7 +259,17 @@
                 android:text="Đã nhận hàng"
                 android:textColor="@color/white"
                 app:cornerRadius="5dp" />
-
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/receiveOrderForStaffBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_weight="1"
+                android:background="@drawable/brown_button_background"
+                android:text="Nhận hàng"
+                android:textColor="@color/white"
+                app:cornerRadius="5dp" />
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/cancelOrderBtn"
                 android:layout_width="match_parent"

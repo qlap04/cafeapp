@@ -24,6 +24,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -57,8 +58,10 @@ import retrofit2.Response;
 public class HomeFragment extends Fragment implements CategoryAdapter.OnCategoryClickListener, ProductAdapter.OnAddToCartClickListener{
     private static final int SPEECH_REQUEST_CODE = 0;
     private EditText searchTxt;
+    private TextView viewAllCafeTxt, viewAllCakeTxt;
     private ProgressBar prBestCafe, prBestCake;
     private RecyclerView rcCafe, rcCake;
+    private LinearLayout evaluateTxt, priceTxt;
     private List<Product> productCafeList, productCakeList;
     private ActivityResultLauncher<Intent> launcher;
     @Override
@@ -71,6 +74,10 @@ public class HomeFragment extends Fragment implements CategoryAdapter.OnCategory
         slideModels.add(new SlideModel(R.drawable.image2, ScaleTypes.FIT));
         slideModels.add(new SlideModel(R.drawable.image3, ScaleTypes.FIT));
         imageSlider.setImageList(slideModels, ScaleTypes.FIT);
+        evaluateTxt = rootView.findViewById(R.id.evaluateTxt);
+        priceTxt = rootView.findViewById(R.id.priceTxt);
+        viewAllCafeTxt = rootView.findViewById(R.id.viewAllCafeTxt);
+        viewAllCakeTxt = rootView.findViewById(R.id.viewAllCakeTxt);
         rcCafe = rootView.findViewById(R.id.rcCafes);
         rcCake = rootView.findViewById(R.id.rcCakes);
         prBestCafe = rootView.findViewById(R.id.prBestCafe);
@@ -81,8 +88,6 @@ public class HomeFragment extends Fragment implements CategoryAdapter.OnCategory
         ImageView searchBtn = rootView.findViewById(R.id.searchBtn);
         searchTxt = rootView.findViewById(R.id.searchTxt);
         ImageView micBtn = rootView.findViewById(R.id.micBtn);
-        Spinner evaluateSp = rootView.findViewById(R.id.timeSp);
-        Spinner priceSp = rootView.findViewById(R.id.priceSp);
         TextView nameTxt = rootView.findViewById(R.id.nameTxt);
 
         LinearLayoutManager linearLayoutManager1 = new LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false);
@@ -93,30 +98,10 @@ public class HomeFragment extends Fragment implements CategoryAdapter.OnCategory
 
         productCafeList = new ArrayList<>();
         productCakeList = new ArrayList<>();
-        List<String> evaluates = new ArrayList<>();
-        List<String> prices = new ArrayList<>();
 
 
-        evaluates.add("Đánh giá");
-        evaluates.add("Đánh giá tăng dần");
-        evaluates.add("Đánh giá giảm dần");
-
-        prices.add("Giá");
-        prices.add("Giá tăng dần");
-        prices.add("Giá giảm dần");
 
         nameTxt.setText(getUsernameFromSharedPreferences());
-
-        ArrayAdapter<String> adapter1 = new ArrayAdapter<>(requireContext(), R.layout.spinner_item_layout, evaluates);
-        ArrayAdapter<String> adapter2 = new ArrayAdapter<>(requireContext(), R.layout.spinner_item_layout, prices);
-
-
-
-        adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        evaluateSp.setAdapter(adapter1);
-        priceSp.setAdapter(adapter2);
 
         callApiGetListBestCafe();
         callApiGetListBestCake();
@@ -131,38 +116,32 @@ public class HomeFragment extends Fragment implements CategoryAdapter.OnCategory
             }
         });
 
+        evaluateTxt.setOnClickListener(v -> filterProductsByStar("Đánh giá giảm dần"));
+        priceTxt.setOnClickListener(v -> filterProductsByPrice("Giá tăng dần"));
+        viewAllCafeTxt.setOnClickListener(v -> getListCafe());
+        viewAllCakeTxt.setOnClickListener(v -> getListCake());
         viewAllTxt.setOnClickListener(v -> viewAllTxtOnClick());
         backBtn.setOnClickListener(v -> backBtnOnclick());
         cartBtn.setOnClickListener(v -> cartBtnOnClick());
         searchBtn.setOnClickListener(v -> searchBtnOnClick());
         micBtn.setOnClickListener(v -> startSpeechToText());
 
-        evaluateSp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-                String selectedEvaluate = adapterView.getItemAtPosition(position).toString();
-                filterProductsByStar(selectedEvaluate);
-            }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-        priceSp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-                String selectedPrice = adapterView.getItemAtPosition(position).toString();
-                filterProductsByPrice(selectedPrice);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
         return rootView;
     }
+
+    private void getListCake() {
+        Intent intent = new Intent(requireContext(), ListProductActivity.class);
+        intent.putExtra("CATEGORY_VALUE", "cake");
+        startActivity(intent);
+    }
+
+    private void getListCafe() {
+        Intent intent = new Intent(requireContext(), ListProductActivity.class);
+        intent.putExtra("CATEGORY_VALUE", "cafe");
+        startActivity(intent);
+    }
+
     private void filterProductsByPrice(String selectedPrice) {
         String priceValue;
         switch (selectedPrice) {

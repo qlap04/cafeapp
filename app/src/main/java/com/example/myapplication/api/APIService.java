@@ -6,6 +6,7 @@ import com.example.myapplication.model.Email;
 import com.example.myapplication.model.Product;
 import com.example.myapplication.model.Reply;
 import com.example.myapplication.model.User;
+import com.example.myapplication.modelRequest.ProductRequest;
 import com.example.myapplication.modelResponse.AddressResponse;
 import com.example.myapplication.modelResponse.TotalPriceResponse;
 import com.google.gson.Gson;
@@ -73,8 +74,14 @@ public interface APIService {
     Call<List<Product>> getListProductsWithSearchValue(@Query("searchValue") String searchValue);
     @GET("/products/products-in-category")
     Call<List<Product>> getProductsByCategory(@Query("category") String category);
+    @GET("/products/get-infor-product")
+    Call<Product> getInforProduct(@Query("_id") int _id);
     @GET("/products/set-best-product")
     Call<Void> updateProductPopularStatus(@Query("title") String title, @Query("popular") String popular);
+    @POST("/products/add-product")
+    Call<Void> addProduct(@Body ProductRequest productRequest);
+    @PUT("/products/update-infor-product")
+    Call<Void> updateInforProduct( @Query("_id") int id,@Body ProductRequest productRequest);
     @GET("/cart/products-in-cart")
     Call<List<Cart>> getListProductsIncart(@Query("username") String username);
     @GET("/cart/set-orderId-product")
@@ -83,13 +90,17 @@ public interface APIService {
     Call<Address> getAddress(@Query("username") String username);
     @GET("/users/get-password")
     Call<User> getUserByUsername(@Query("username") String username);
+    @GET("/users/get-password")
+    Call<User> addStaff(@Body User user);
     @GET("/address/get-address")
     Call<List<Address>> getListAddress(@Query("username") String username);
     @GET("/cart/get-product-in-complete")
     Call<List<Cart>> getProductInComplete(@Query("username") String username);
     @GET("/cart/get-product-in-complete-for-staff")
     Call<List<Cart>> getProductInCompleteForStaff();
-    @GET("/cart/set-ordered")
+    @PUT("/cart/set-confirmed")
+    Call<Void> setProductInCartIsConfirmed(@Query("username") String username);
+    @PUT("/cart/set-ordered")
     Call<Void> setProductInCartIsOdered(@Query("username") String username);
     @GET("/cart/total-price")
     Call<TotalPriceResponse> getTotalPrice(@Query("username") String username);

@@ -2,11 +2,13 @@ package com.example.myapplication.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -14,7 +16,9 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.myapplication.api.APIService;
 import com.example.myapplication.adapter.TrackingAdapter;
@@ -31,10 +35,12 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class TrackingActivity extends AppCompatActivity {
-    private String role;
-    private ImageView backBtn;
+    private String username, role;
+    private boolean isConfirmed, isOrdered;
+    private ImageView backBtn, imageStage2;
     private RecyclerView rcTracking;
-    private Button cancelOrderBtn, receiveOrderBtn;
+    private ProgressBar progressBar;
+    private Button cancelOrderBtn, receiveOrderBtn, receiveOrderForStaffBtn;
     private TextView orderDateTxt, deliverDateTxt, billTxt;
     private List<Cart> productListInCart;
     @Override
@@ -50,14 +56,18 @@ public class TrackingActivity extends AppCompatActivity {
         backBtn = findViewById(R.id.backBtn);
         orderDateTxt = findViewById(R.id.orderDateTxt);
         deliverDateTxt = findViewById(R.id.deliverDateTxt);
+        progressBar = findViewById(R.id.progressBar);
+        imageStage2 = findViewById(R.id.imageStage2);
         cancelOrderBtn = findViewById(R.id.cancelOrderBtn);
         receiveOrderBtn = findViewById(R.id.receiveOrderBtn);
+        receiveOrderForStaffBtn = findViewById(R.id.receiveOrderForStaffBtn);
         billTxt = findViewById(R.id.billTxt);
         rcTracking = findViewById(R.id.rcTracking);
 
         GridLayoutManager linearLayoutManager = new GridLayoutManager(this, 1);
         rcTracking.setLayoutManager(linearLayoutManager);
 
+        getUsernameFromSharedPreferences();
         getRoleFromSharedPreferences();
         Intent intent = getIntent();
 
@@ -76,15 +86,26 @@ public class TrackingActivity extends AppCompatActivity {
                 v.getContext().startActivity(intent1);
             });
         }
-
+        if (!role.equals("client")) {
+            receiveOrderBtn.setVisibility(View.GONE);
+        } else {
+            receiveOrderForStaffBtn.setVisibility(View.GONE);
+        }
         backBtn.setOnClickListener(v -> {
             finish();
         });
-
+        receiveOrderForStaffBtn.setOnClickListener(v -> {
+            Toast.makeText(this, "Nhận hàng thành công", Toast.LENGTH_SHORT).show();
+            finish();
+            setProductIncartIsOrdered();
+        });
     }
-    private String getUsernameFromSharedPreferences() {
+
+
+
+    private void getUsernameFromSharedPreferences() {
         SharedPreferences sharedPreferences = getSharedPreferences("user_prefs", MODE_PRIVATE);
-        return sharedPreferences.getString("username", "");
+        username = sharedPreferences.getString("username", "");
     }
     private void getRoleFromSharedPreferences() {
         SharedPreferences sharedPreferences = getSharedPreferences("user_prefs", MODE_PRIVATE);
@@ -133,8 +154,28 @@ public class TrackingActivity extends AppCompatActivity {
                     }
                 });
     }
+    private void setProductIncartIsOrdered() {
+        if (username.isEmpty()) {
+            return;
+        }
+        APIService.apiService.setProductInCartIsOdered(username)
+                .enqueue(new Callback<Void>() {
+                    @Override
+                    public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
+                        if (response.isSuccessful()) {
+                            Log.e("PaymentMethodActivity", "Set is ordered:  " + "Successfully");
+                        } else {
+                            Log.e("PaymentMethodActivity", "Set is ordered:  " + "Failed");
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
+                        Log.e("API Error", "Call API error: " + t.getMessage(), t);
+                    }
+                });
+    }
     private void callApiGetProductsInTraking(int id) {
-        String username = getUsernameFromSharedPreferences();
         if (username.isEmpty()) {
             return;
         }
@@ -143,6 +184,16 @@ public class TrackingActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(@NonNull Call<List<Cart>> call, @NonNull Response<List<Cart>> response) {
                         productListInCart = response.body();
+                        assert productListInCart != null;
+                        isOrdered = productListInCart.get(0).getOrdered();
+                        int progressColor = ContextCompat.getColor(TrackingActivity.this, R.color.md_green_500);
+                        if (isOrdered) {
+                            progressBar.getProgressDrawable().setColorFilter(progressColor, PorterDuff.Mode.SRC_IN);
+                            imageStage2.setColorFilter(progressColor, PorterDuff.Mode.SRC_IN);
+                            cancelOrderBtn.setVisibility(View.GONE);
+                            receiveOrderForStaffBtn.setVisibility(View.GONE);
+                            receiveOrderBtn.setVisibility(View.VISIBLE);
+                        }
                         TrackingAdapter trackingAdapter = new TrackingAdapter(productListInCart);
                         rcTracking.setAdapter(trackingAdapter);
                     }
@@ -159,6 +210,17 @@ public class TrackingActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(@NonNull Call<List<Cart>> call, @NonNull Response<List<Cart>> response) {
                         productListInCart = response.body();
+                        assert productListInCart != null;
+                        isOrdered = productListInCart.get(0).getOrdered();
+                        int progressColor = ContextCompat.getColor(TrackingActivity.this, R.color.md_green_500);
+                        if (isOrdered) {
+                            progressBar.getProgressDrawable().setColorFilter(progressColor, PorterDuff.Mode.SRC_IN);
+                            imageStage2.setColorFilter(progressColor, PorterDuff.Mode.SRC_IN);
+                            cancelOrderBtn.setVisibility(View.GONE);
+                            receiveOrderForStaffBtn.setVisibility(View.GONE);
+                            receiveOrderBtn.setVisibility(View.VISIBLE);
+                        }
+                        Log.e("Tracking Activity", "isOrdered" + isOrdered);
                         TrackingAdapter trackingAdapter = new TrackingAdapter(productListInCart);
                         rcTracking.setAdapter(trackingAdapter);
                     }

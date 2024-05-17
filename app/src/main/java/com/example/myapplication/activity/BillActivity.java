@@ -68,6 +68,7 @@ public class BillActivity extends AppCompatActivity {
             getPaymentMethodForBill(idValue);
             callApitGetAddress(idValue);
         }
+
         backBtn.setOnClickListener(v -> {
             navigateToHome();
         });

@@ -25,7 +25,7 @@
                 <ImageView
                     android:id="@+id/imageView5"
                     android:layout_width="match_parent"
-                    android:layout_height="400dp"
+                    android:layout_height="320dp"
                     android:scaleType="centerCrop"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -114,14 +114,16 @@
                     app:srcCompat="@drawable/time" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
+
             <LinearLayout
                 android:id="@+id/optionLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:layout_marginTop="8dp">
+                android:layout_marginBottom="8dp"
+                android:orientation="vertical">
 
 
                 <TextView
@@ -129,8 +131,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Tùy chỉnh"
-                    android:textStyle="bold"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
 
                 <!-- Drink options -->
@@ -160,9 +162,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent">
+                        app:layout_constraintTop_toTopOf="parent">
 
 
                         <RadioButton
@@ -171,8 +173,8 @@
                             android:layout_height="wrap_content"
                             android:background="@drawable/rectangle_selector"
                             android:button="@null"
-                            android:padding="8dp"
                             android:gravity="center"
+                            android:padding="8dp"
                             android:text="Đá" />
 
 
@@ -183,8 +185,8 @@
                             android:layout_marginStart="16dp"
                             android:background="@drawable/rectangle_selector"
                             android:button="@null"
-                            android:padding="8dp"
                             android:gravity="center"
+                            android:padding="8dp"
                             android:text="Nóng" />
                     </RadioGroup>
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -217,9 +219,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent">
+                        app:layout_constraintTop_toTopOf="parent">
 
 
                         <RadioButton
@@ -228,8 +230,8 @@
                             android:layout_height="wrap_content"
                             android:background="@drawable/rectangle_selector"
                             android:button="@null"
-                            android:padding="8dp"
                             android:gravity="center"
+                            android:padding="8dp"
                             android:text="Nhỏ" />
 
 
@@ -237,24 +239,24 @@
                             android:id="@+id/radio_medium"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
                             android:background="@drawable/rectangle_selector"
                             android:button="@null"
-                            android:padding="8dp"
-                            android:text="Vừa"
                             android:gravity="center"
-                            android:layout_marginStart="16dp" />
+                            android:padding="8dp"
+                            android:text="Vừa" />
 
 
                         <RadioButton
                             android:id="@+id/radio_large"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
                             android:background="@drawable/rectangle_selector"
                             android:button="@null"
-                            android:padding="8dp"
-                            android:text="Lớn"
                             android:gravity="center"
-                            android:layout_marginStart="16dp" />
+                            android:padding="8dp"
+                            android:text="Lớn" />
                     </RadioGroup>
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -286,9 +288,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent">
+                        app:layout_constraintTop_toTopOf="parent">
 
 
                         <RadioButton
@@ -297,8 +299,8 @@
                             android:layout_height="wrap_content"
                             android:background="@drawable/rectangle_selector"
                             android:button="@null"
-                            android:padding="8dp"
                             android:gravity="center"
+                            android:padding="8dp"
                             android:text="Bình thường" />
 
 
@@ -306,24 +308,24 @@
                             android:id="@+id/radio_sugar_less"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
                             android:background="@drawable/rectangle_selector"
                             android:button="@null"
-                            android:padding="8dp"
-                            android:text="Giảm bớt"
                             android:gravity="center"
-                            android:layout_marginStart="16dp" />
+                            android:padding="8dp"
+                            android:text="Giảm bớt" />
 
 
                         <RadioButton
                             android:id="@+id/radio_sugar_no"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
                             android:background="@drawable/rectangle_selector"
                             android:button="@null"
-                            android:padding="8dp"
-                            android:text="Không"
                             android:gravity="center"
-                            android:layout_marginStart="16dp" />
+                            android:padding="8dp"
+                            android:text="Không" />
                     </RadioGroup>
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -355,9 +357,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent">
+                        app:layout_constraintTop_toTopOf="parent">
 
 
                         <RadioButton
@@ -366,8 +368,8 @@
                             android:layout_height="wrap_content"
                             android:background="@drawable/rectangle_selector"
                             android:button="@null"
-                            android:padding="8dp"
                             android:gravity="center"
+                            android:padding="8dp"
                             android:text="Bình thường" />
 
 
@@ -375,24 +377,24 @@
                             android:id="@+id/radio_ice_less"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
                             android:background="@drawable/rectangle_selector"
                             android:button="@null"
-                            android:padding="8dp"
-                            android:text="Giảm bớt"
                             android:gravity="center"
-                            android:layout_marginStart="16dp" />
+                            android:padding="8dp"
+                            android:text="Giảm bớt" />
 
 
                         <RadioButton
                             android:id="@+id/radio_ice_no"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
                             android:background="@drawable/rectangle_selector"
                             android:button="@null"
-                            android:padding="8dp"
-                            android:text="Không"
                             android:gravity="center"
-                            android:layout_marginStart="16dp" />
+                            android:padding="8dp"
+                            android:text="Không" />
                     </RadioGroup>
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </LinearLayout>
