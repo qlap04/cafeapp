@@ -2,6 +2,7 @@ package com.example.myapplication.fragment;
 
 import static android.app.Activity.RESULT_OK;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -17,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.speech.RecognizerIntent;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,6 +61,7 @@ public class HomeFragment extends Fragment implements CategoryAdapter.OnCategory
     private RecyclerView rcCafe, rcCake;
     private List<Product> productCafeList, productCakeList;
     private ActivityResultLauncher<Intent> launcher;
+    TextView viewAllTxt;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -73,7 +76,7 @@ public class HomeFragment extends Fragment implements CategoryAdapter.OnCategory
         rcCake = rootView.findViewById(R.id.rcCakes);
         prBestCafe = rootView.findViewById(R.id.prBestCafe);
         prBestCake = rootView.findViewById(R.id.prBestCake);
-        TextView viewAllTxt = rootView.findViewById(R.id.viewAllTxt);
+        viewAllTxt = rootView.findViewById(R.id.viewAllTxt);
         ImageView backBtn = rootView.findViewById(R.id.backBtn);
         ImageView cartBtn = rootView.findViewById(R.id.cartBtn);
         ImageView searchBtn = rootView.findViewById(R.id.searchBtn);
@@ -82,7 +85,6 @@ public class HomeFragment extends Fragment implements CategoryAdapter.OnCategory
         Spinner evaluateSp = rootView.findViewById(R.id.timeSp);
         Spinner priceSp = rootView.findViewById(R.id.priceSp);
         TextView nameTxt = rootView.findViewById(R.id.nameTxt);
-
         LinearLayoutManager linearLayoutManager1 = new LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false);
         LinearLayoutManager linearLayoutManager2 = new LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false);
 
@@ -317,9 +319,9 @@ public class HomeFragment extends Fragment implements CategoryAdapter.OnCategory
                     @Override
                     public void onResponse(@NonNull Call<Cart> call, @NonNull Response<Cart> response) {
                         if (response.isSuccessful()) {
-                            Toast.makeText(requireContext(), "Thêm sản phẩm thành công", Toast.LENGTH_LONG).show();
-                        } else {
-                            Toast.makeText(requireContext(), "Thêm sản phẩm thấy bại", Toast.LENGTH_LONG).show();
+                            showCustomToast(requireContext(), "Thêm sản phẩm thành công");                      }
+                        else {
+                            showCustomToast(requireContext(), "Thêm sản phẩm thất bại");
                             try {
                                 assert response.errorBody() != null;
                                 Log.e("SignupActivity", "Lỗi khi thêm sản phẩm: " + response.errorBody().string());
@@ -336,4 +338,16 @@ public class HomeFragment extends Fragment implements CategoryAdapter.OnCategory
 
                 });
     }
+    private void showCustomToast(Context context, String message) {
+        LayoutInflater inflater = LayoutInflater.from(context);
+        View layout = inflater.inflate(R.layout.custom_toast, null);
+        TextView text = layout.findViewById(R.id.text_toast_message);
+        text.setText(message);
+        Toast toast = new Toast(context);
+        toast.setDuration(Toast.LENGTH_LONG);
+        toast.setView(layout);
+        toast.setGravity(Gravity.BOTTOM, 0, 100);
+        toast.show();
+    }
+
 }
