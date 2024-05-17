@@ -1,14 +1,18 @@
 package com.example.myapplication.adapter;
 
+import android.app.Dialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.myapplication.activity.CartActivity;
 import com.example.myapplication.model.Cart;
 import com.example.myapplication.R;
 import com.squareup.picasso.Picasso;
@@ -16,11 +20,16 @@ import com.squareup.picasso.Picasso;
 import java.text.DecimalFormat;
 import java.util.List;
 
+import retrofit2.Callback;
+
 
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder> {
     private final List<Cart> productsInCart;
     private OnQuantityChangeListener onQuantityChangeListener;
     private OnDeleteListener onDeleteListener;
+
+    private CartActivity cartActivity;
+
     public interface OnQuantityChangeListener {
         void onQuantityChange(int position, int newQuantity);
     }
@@ -32,6 +41,10 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     }
     public void setOnDeleteListener(OnDeleteListener listener) {
         this.onDeleteListener = listener;
+    }
+    public CartAdapter(List<Cart> productsInCart, CartActivity cartActivity) {
+        this.cartActivity = cartActivity;
+        this.productsInCart = productsInCart;
     }
     public CartAdapter(List<Cart> productsInCart) {
         this.productsInCart = productsInCart;
@@ -67,12 +80,27 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
                     onQuantityChangeListener.onQuantityChange(holder.getAdapterPosition(), currentQuantity);
                 }
             } else {
-                // Nếu số lượng là 1, thực hiện xóa item
-                if (onDeleteListener != null) {
-                    onDeleteListener.onDelete(holder.getAdapterPosition(), productsInCart.get(holder.getAdapterPosition()));
-                }
+
+                // Tạo một hộp thoại xác nhận xóa
+                Dialog dialog = new Dialog(holder.itemView.getContext());
+                dialog.setContentView(R.layout.custom_dialog_delete);
+                Button btnYes = dialog.findViewById(R.id.btnDialogDelete);
+                Button btnNo = dialog.findViewById(R.id.btnDialogCancel);
+
+                btnYes.setOnClickListener(v1 -> {
+                    if (onDeleteListener != null) {
+                        onDeleteListener.onDelete(holder.getAdapterPosition(), productsInCart.get(holder.getAdapterPosition()));
+                    }
+                    dialog.dismiss();
+                });
+
+                btnNo.setOnClickListener(v12 -> dialog.dismiss());
+
+                dialog.show();
             }
         });
+
+
         holder.addBtn.setOnClickListener(v -> {
             int currentQuantity = Integer.parseInt(holder.quantityTxt.getText().toString());
             currentQuantity++;

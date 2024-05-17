@@ -16,7 +16,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -31,7 +30,6 @@ import com.example.myapplication.activity.LoginActivity;
 import com.example.myapplication.activity.ReplyActivity;
 import com.example.myapplication.R;
 import com.example.myapplication.activity.StaffInforActivity;
-import com.example.myapplication.activity.StaffInforEditActivity;
 
 public class AccountFragment extends Fragment {
     private TextView usernameTxt;
@@ -57,10 +55,10 @@ public class AccountFragment extends Fragment {
         changePassTxt = rootView.findViewById(R.id.changePassTxt);
         logoutTxT = rootView.findViewById(R.id.logoutTxt);
         dialog = new Dialog(getContext());
-        dialog.setContentView(R.layout.custom_dialog_box);
+        dialog.setContentView(R.layout.custom_dialog_logout);
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog.getWindow().setBackgroundDrawable(getDrawable(getContext(),R.drawable.custom_dialog_bg));
-        dialog.setCancelable(false);
+        dialog.setCancelable(true);
 
         btnDialogLogout = dialog.findViewById(R.id.btnDialogLogout);
         btnDialogCancel = dialog.findViewById(R.id.btnDialogCancel);
