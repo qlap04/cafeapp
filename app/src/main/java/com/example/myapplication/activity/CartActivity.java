@@ -70,6 +70,7 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.OnQua
                 startActivity(intent);
             }
         });
+
     }
 
     private void backBtnOnClick() {

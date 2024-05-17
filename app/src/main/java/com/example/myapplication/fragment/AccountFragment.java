@@ -2,6 +2,9 @@ package com.example.myapplication.fragment;
 
 import static android.content.Context.MODE_PRIVATE;
 
+import static androidx.appcompat.content.res.AppCompatResources.getDrawable;
+
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -35,6 +38,8 @@ public class AccountFragment extends Fragment {
     private Button editBtn;
     private LinearLayout linearLayout1;
     private RelativeLayout addTxt, attendanceTxt, listProductTxt, listStaffTxt, replyTxT, contactTxt, changePassTxt, logoutTxT;
+    Dialog dialog;
+    Button btnDialogCancel, btnDialogLogout;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -51,7 +56,29 @@ public class AccountFragment extends Fragment {
         contactTxt = rootView.findViewById(R.id.contactTxt);
         changePassTxt = rootView.findViewById(R.id.changePassTxt);
         logoutTxT = rootView.findViewById(R.id.logoutTxt);
+        dialog = new Dialog(getContext());
+        dialog.setContentView(R.layout.custom_dialog_box);
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setBackgroundDrawable(getDrawable(getContext(),R.drawable.custom_dialog_bg));
+        dialog.setCancelable(false);
 
+        btnDialogLogout = dialog.findViewById(R.id.btnDialogLogout);
+        btnDialogCancel = dialog.findViewById(R.id.btnDialogCancel);
+        btnDialogCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        btnDialogLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clearSavedUsername();
+                clearSavedUserRole();
+                Intent intent = new Intent(requireContext(), LoginActivity.class);
+                startActivity(intent);
+            }
+        });
         String username = getUsernameFromSharedPreferences();
         usernameTxt.setText(username);
 
@@ -94,10 +121,7 @@ public class AccountFragment extends Fragment {
         });
 
         logoutTxT.setOnClickListener(v -> {
-            clearSavedUsername();
-            clearSavedUserRole();
-            Intent intent = new Intent(requireContext(), LoginActivity.class);
-            startActivity(intent);
+                dialog.show();
         });
 
         String userRole = getUsernameRoleSharedPreferences();

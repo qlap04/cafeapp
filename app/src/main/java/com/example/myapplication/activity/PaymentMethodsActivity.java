@@ -1,11 +1,14 @@
 package com.example.myapplication.activity;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -35,7 +38,6 @@ public class PaymentMethodsActivity extends AppCompatActivity implements Payment
     private List<PaymentMethod> paymentMethods;
     private String username;
     private String selectedPaymentMethod = null;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +75,7 @@ public class PaymentMethodsActivity extends AppCompatActivity implements Payment
                 Intent intent = new Intent(PaymentMethodsActivity.this, OrderSuccessActivity.class);
                 startActivity(intent);
                 finish();
+
             } else {
                 Toast.makeText(PaymentMethodsActivity.this, "Vui lòng chọn phương thức thanh toán", Toast.LENGTH_SHORT).show();
             }
