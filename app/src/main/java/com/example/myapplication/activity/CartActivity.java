@@ -23,6 +23,7 @@ import com.example.myapplication.R;
 import com.example.myapplication.modelResponse.TotalPriceResponse;
 import com.example.myapplication.token.TokenManager;
 import com.example.myapplication.token.TokenValidator;
+import com.example.myapplication.utils.ToastUtils;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -62,7 +63,7 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.OnQua
         backBtn.setOnClickListener(v -> backBtnOnClick());
         orderBtn.setOnClickListener(v -> {
             if (productListInCart.isEmpty()) {
-                Toast.makeText(CartActivity.this, "Vui lòng thêm sản phẩm trước khi đặt hàng", Toast.LENGTH_SHORT).show();
+                ToastUtils.showCustomToast(this, "Vui lòng thêm sản phẩm trước khi đặt hàng");
             } else {
                 finish();
                 setOrderIdForProductInCart();
@@ -120,7 +121,7 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.OnQua
                             totalTxt.setText(decimalFormat.format(totalPrice));
                             subTotalTxt.setText(decimalFormat.format(totalPrice));
                         } else {
-                            Toast.makeText(CartActivity.this, "Failed to get total price", Toast.LENGTH_SHORT).show();
+                            ToastUtils.showCustomToast(CartActivity.this, "Lấy tổng giá trị đơn hàng thất bại");
                         }
                     }
 

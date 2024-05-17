@@ -24,6 +24,7 @@ import com.example.myapplication.api.APIService;
 import com.example.myapplication.adapter.TrackingAdapter;
 import com.example.myapplication.model.Cart;
 import com.example.myapplication.R;
+import com.example.myapplication.utils.ToastUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -95,7 +96,7 @@ public class TrackingActivity extends AppCompatActivity {
             finish();
         });
         receiveOrderForStaffBtn.setOnClickListener(v -> {
-            Toast.makeText(this, "Nhận hàng thành công", Toast.LENGTH_SHORT).show();
+            ToastUtils.showCustomToast(TrackingActivity.this, "Nhận hàng thành công");
             finish();
             setProductIncartIsOrdered();
         });

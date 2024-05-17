@@ -23,6 +23,7 @@ import com.example.myapplication.api.APIService;
 import com.example.myapplication.model.Cart;
 import com.example.myapplication.model.Product;
 import com.example.myapplication.R;
+import com.example.myapplication.utils.ToastUtils;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
@@ -136,9 +137,9 @@ public class DetailActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(@NonNull Call<Cart> call, @NonNull Response<Cart> response) {
                         if (response.isSuccessful()) {
-                            Toast.makeText(DetailActivity.this, "Thêm sản phẩm thành công", Toast.LENGTH_LONG).show();
+                            ToastUtils.showCustomToast(DetailActivity.this, "Thêm sản phẩm thành công");
                         } else {
-                            Toast.makeText(DetailActivity.this, "Thêm sản phẩm thấy bại", Toast.LENGTH_LONG).show();
+                            ToastUtils.showCustomToast(DetailActivity.this, "Thêm sản phẩm thất bại");
                             try {
                                 Log.e("DetailActivity", "Lỗi khi thêm sản phẩm: " + response.errorBody().string());
                             } catch (IOException e) {

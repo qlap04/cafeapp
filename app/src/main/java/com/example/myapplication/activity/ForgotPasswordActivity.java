@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.example.myapplication.api.APIService;
 import com.example.myapplication.model.Email;
 import com.example.myapplication.R;
+import com.example.myapplication.utils.ToastUtils;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.security.MessageDigest;
@@ -52,7 +53,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
             if(!emailEdt.getText().toString().isEmpty()) {
                 callApiToGetResetPassWord(emailEdt.getText().toString());
             } else {
-                Toast.makeText(ForgotPasswordActivity.this, "Vui lòng nhập email", Toast.LENGTH_SHORT).show();
+                ToastUtils.showCustomToast(ForgotPasswordActivity.this, "Vui lòng nhập email");
             }
         });
     }
@@ -68,7 +69,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                             assert resetPassword != null;
                             updatePassword(resetPassword.getResetPassword());
                         } else {
-                            Toast.makeText(ForgotPasswordActivity.this, "Reset failed", Toast.LENGTH_SHORT).show();
+                            ToastUtils.showCustomToast(ForgotPasswordActivity.this, "Reset Failed");
                         }
                     }
 
@@ -88,7 +89,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                             Intent intent = new Intent(ForgotPasswordActivity.this, LoginActivity.class);
                             startActivity(intent);
                         } else {
-                            Toast.makeText(ForgotPasswordActivity.this, "Reset failed", Toast.LENGTH_SHORT).show();
+                            ToastUtils.showCustomToast(ForgotPasswordActivity.this, "Reset Failed");
                         }
                     }
 

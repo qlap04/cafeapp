@@ -14,8 +14,6 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.example.myapplication.R;
 import com.example.myapplication.api.APIService;
 import com.example.myapplication.model.User;

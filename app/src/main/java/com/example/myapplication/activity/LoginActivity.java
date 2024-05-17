@@ -21,6 +21,7 @@ import com.example.myapplication.R;
 
 import com.example.myapplication.token.TokenManager;
 import com.example.myapplication.token.TokenProvider;
+import com.example.myapplication.utils.ToastUtils;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.security.MessageDigest;
@@ -89,7 +90,7 @@ public class LoginActivity extends AppCompatActivity {
         forgetPassTxt.setOnClickListener(v -> {
             String strUsername;
             if (username.getText().toString().isEmpty()) {
-                Toast.makeText(LoginActivity.this, "Vui lòng nhập email", Toast.LENGTH_SHORT).show();
+                ToastUtils.showCustomToast(LoginActivity.this, "Vui lòng nhập email");
                 return;
             } else {
                 strUsername = username.getText().toString().toLowerCase();
@@ -107,7 +108,7 @@ public class LoginActivity extends AppCompatActivity {
         String strUsername = username.getText().toString().trim();
         String strPassword = password.getText().toString().trim();
         if (strUsername.isEmpty() || strPassword.isEmpty()) {
-            Toast.makeText(LoginActivity.this, "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_LONG).show();
+            ToastUtils.showCustomToast(LoginActivity.this, "Vui lòng nhập đấy đủ thông tin");
             return;
         }
         if (mListUser == null || mListUser.isEmpty()) {
@@ -130,7 +131,7 @@ public class LoginActivity extends AppCompatActivity {
             intent.putExtras(bundle);
             startActivity(intent);
         } else {
-            Toast.makeText(this, "Username or password incorrect!", Toast.LENGTH_SHORT).show();
+            ToastUtils.showCustomToast(LoginActivity.this, "Sai tài khoản hoặc mật khẩu");
         }
     }
 

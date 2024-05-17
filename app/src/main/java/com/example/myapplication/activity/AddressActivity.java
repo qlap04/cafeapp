@@ -22,6 +22,7 @@ import com.example.myapplication.R;
 import com.example.myapplication.adapter.AddressAdapter;
 import com.example.myapplication.api.APIService;
 import com.example.myapplication.model.Address;
+import com.example.myapplication.utils.ToastUtils;
 
 import java.util.List;
 import java.util.Objects;
@@ -70,9 +71,9 @@ public class AddressActivity extends AppCompatActivity {
                 startActivity(intent);
             } else {
                 if(addressList == null ) {
-                    Toast.makeText(AddressActivity.this, "Vui lòng thêm địa chỉ", Toast.LENGTH_SHORT).show();
+                    ToastUtils.showCustomToast(this, "Vui lòng thêm địa chỉ");
                 } else {
-                    Toast.makeText(AddressActivity.this, "Vui chọn địa chỉ để giao hàng", Toast.LENGTH_SHORT).show();
+                    ToastUtils.showCustomToast(this, "Vui lòng chọn địa chỉ giao hàng");
                 }
             }
         });

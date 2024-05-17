@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.example.myapplication.api.APIService;
 import com.example.myapplication.model.User;
 import com.example.myapplication.R;
+import com.example.myapplication.utils.ToastUtils;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -80,9 +81,9 @@ public class ChangePasswordActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
                         if (response.isSuccessful()) {
-                            Toast.makeText(ChangePasswordActivity.this, "Cập nhật thành công", Toast.LENGTH_SHORT).show();
+                            ToastUtils.showCustomToast(ChangePasswordActivity.this, "Cập nhật thành công");
                         } else {
-                            Toast.makeText(ChangePasswordActivity.this, "Cập nhật thất bại", Toast.LENGTH_SHORT).show();
+                            ToastUtils.showCustomToast(ChangePasswordActivity.this, "Cập nhật thất bại");
                         }
                     }
 
