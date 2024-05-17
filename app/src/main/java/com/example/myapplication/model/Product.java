@@ -7,15 +7,13 @@ public class Product implements Serializable {
     private String title;
     private Double price;
     private Double star;
-    private String time;
     private String category;
     private String popular;
-    public Product(String image, String title, Double price, Double star, String time, String category, String popular) {
+    public Product(String image, String title, Double price, Double star, String category, String popular) {
         this.image = image;
         this.title = title;
         this.price = price;
         this.star = star;
-        this.time = time;
         this.category = category;
         this.popular = popular;
     }
@@ -51,13 +49,6 @@ public class Product implements Serializable {
         this.star = star;
     }
 
-    public String getTime() {
-        return time;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
-    }
     public String getCategory() {
         return category;
     }
