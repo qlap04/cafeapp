@@ -41,10 +41,12 @@ public class SwipeActivity extends ItemTouchHelper.SimpleCallback {
         View itemView = viewHolder.itemView;
 
         if (dX > 0) {
+            adapter.hideButtons((ProductAdapter1.Product1ViewHolder) viewHolder);
         } else if (dX < 0) {
+            adapter.showButtons((ProductAdapter1.Product1ViewHolder) viewHolder);
+            itemView.setTranslationX(dX);
         }
 
-        // Override onTouchEvent to handle swipe length
         itemView.setOnTouchListener(new View.OnTouchListener() {
             float dx = 0f;
 
@@ -57,12 +59,13 @@ public class SwipeActivity extends ItemTouchHelper.SimpleCallback {
                     case MotionEvent.ACTION_MOVE:
                         float x = event.getX();
                         float delta = x - dx;
-                        if (delta < -200) { // set your desired threshold for swipe length
-                            return true; // consume the event to prevent RecyclerView from scrolling
+                        if (delta < -200) {
+                            adapter.hideButtons((ProductAdapter1.Product1ViewHolder) viewHolder);
+                            return true;
                         }
                         break;
                 }
-                return false; // don't consume the event
+                return false;
             }
         });
 
