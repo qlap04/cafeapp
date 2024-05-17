@@ -72,6 +72,7 @@ public class PaymentMethodsActivity extends AppCompatActivity implements Payment
                 setProductInCartIsOdered();
                 Intent intent = new Intent(PaymentMethodsActivity.this, OrderSuccessActivity.class);
                 startActivity(intent);
+                finish();
             } else {
                 Toast.makeText(PaymentMethodsActivity.this, "Vui lòng chọn phương thức thanh toán", Toast.LENGTH_SHORT).show();
             }
