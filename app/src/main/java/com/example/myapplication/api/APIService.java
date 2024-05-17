@@ -82,6 +82,8 @@ public interface APIService {
     Call<Void> updateProductPopularStatus(@Query("title") String title, @Query("popular") String popular);
     @PUT("/products/update-infor-product")
     Call<Void> updateInforProduct( @Query("title") String title,@Body ProductRequest productRequest);
+    @DELETE("/products/delete-product")
+    Call<Void> deleteProduct( @Query("title") String title);
     @GET("/cart/products-in-cart")
     Call<List<Cart>> getListProductsIncart(@Query("username") String username);
     @POST("/products/add-product")

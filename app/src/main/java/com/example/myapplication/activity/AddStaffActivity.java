@@ -1,5 +1,7 @@
 package com.example.myapplication.activity;
 
+import static com.example.myapplication.utils.ToastUtils.showCustomToast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -178,11 +180,11 @@ public class AddStaffActivity extends AppCompatActivity {
         String password = strPassword.getText().toString().trim();
 
         if (username.isEmpty() || email.isEmpty() || phoneNum.isEmpty() || password.isEmpty()) {
-            Toast.makeText(AddStaffActivity.this, "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_LONG).show();
+            showCustomToast(AddStaffActivity.this, "Vui lòng nhập đầy đủ thông tin");
             return;
         }
         if(checkUsername || checkEmail || checkPhoneNumber || checkPassword) {
-            Toast.makeText(AddStaffActivity.this, "Vui lòng nhập đúng thông tin", Toast.LENGTH_LONG).show();
+            showCustomToast(AddStaffActivity.this, "Vui lòng nhập đúng thông tin");
             return;
         }
 

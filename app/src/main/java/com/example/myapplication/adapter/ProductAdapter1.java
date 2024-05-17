@@ -1,5 +1,7 @@
 package com.example.myapplication.adapter;
 
+import static com.example.myapplication.utils.ToastUtils.showCustomToast;
+
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -19,6 +21,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
+import com.example.myapplication.activity.AddProductActivity;
 import com.example.myapplication.activity.EditProductActivity;
 import com.example.myapplication.api.APIService;
 import com.example.myapplication.model.Product;
@@ -75,7 +78,7 @@ public class ProductAdapter1 extends RecyclerView.Adapter<ProductAdapter1.Produc
         });
 
         holder.btnDelete.setOnClickListener(v -> {
-            Toast.makeText(context, "click delete", Toast.LENGTH_SHORT).show();
+            deleteProduct(product.getTitle());
         });
         showButtons(holder);
         hideButtons(holder);
@@ -150,7 +153,23 @@ public class ProductAdapter1 extends RecyclerView.Adapter<ProductAdapter1.Produc
     public void hideButtons(Product1ViewHolder viewHolder) {
         viewHolder.swipeButtons.setVisibility(View.GONE);
     }
+    private void deleteProduct(String productName) {
+        APIService.apiService.deleteProduct(productName).enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
+                if (response.isSuccessful()) {
+                    showCustomToast(context, "Xóa sản phẩm thành công");
+                } else {
+                    showCustomToast(context, "Xóa sản phẩm thất bại");
+                }
+            }
 
+            @Override
+            public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
+                Log.e("API Error", "Call API error: " + t.getMessage(), t);
+            }
+        });
+    }
     private void updatePopularStatus(String productName, String popularStatus) {
         APIService.apiService.updateProductPopularStatus(productName, popularStatus)
                 .enqueue(new Callback<Void>() {
@@ -166,7 +185,6 @@ public class ProductAdapter1 extends RecyclerView.Adapter<ProductAdapter1.Produc
                     @Override
                     public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
                         Log.e("API Error", "Call API error: " + t.getMessage(), t);
-
                     }
                 });
     }

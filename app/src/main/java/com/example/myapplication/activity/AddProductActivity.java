@@ -1,5 +1,7 @@
 package com.example.myapplication.activity;
 
+import static com.example.myapplication.utils.ToastUtils.showCustomToast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -66,10 +68,10 @@ public class AddProductActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
                         if (response.isSuccessful()) {
-                            Toast.makeText(AddProductActivity.this, "Thêm sản phẩm thành công", Toast.LENGTH_SHORT).show();
+                            showCustomToast(AddProductActivity.this, "Thêm sản phẩm thành công");
                             finish();
                         } else {
-                            Toast.makeText(AddProductActivity.this, "Thêm sản phẩm thất bại", Toast.LENGTH_SHORT).show();
+                            showCustomToast(AddProductActivity.this, "Thêm sản phẩm thất bại");
                         }
                     }
 
