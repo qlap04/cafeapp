@@ -80,23 +80,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
                     onQuantityChangeListener.onQuantityChange(holder.getAdapterPosition(), currentQuantity);
                 }
             } else {
-
-                // Tạo một hộp thoại xác nhận xóa
-                Dialog dialog = new Dialog(holder.itemView.getContext());
-                dialog.setContentView(R.layout.custom_dialog_delete);
-                Button btnYes = dialog.findViewById(R.id.btnDialogDelete);
-                Button btnNo = dialog.findViewById(R.id.btnDialogCancel);
-
-                btnYes.setOnClickListener(v1 -> {
-                    if (onDeleteListener != null) {
-                        onDeleteListener.onDelete(holder.getAdapterPosition(), productsInCart.get(holder.getAdapterPosition()));
-                    }
-                    dialog.dismiss();
-                });
-
-                btnNo.setOnClickListener(v12 -> dialog.dismiss());
-
-                dialog.show();
+                showDeleteConfirmationDialog(holder);
             }
         });
 
@@ -112,9 +96,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             }
         });
         holder.trashBtn.setOnClickListener(v -> {
-            if (onDeleteListener != null) {
-                onDeleteListener.onDelete(holder.getAdapterPosition(), productsInCart.get(holder.getAdapterPosition()));
-            }
+            showDeleteConfirmationDialog(holder);
         });
 
     }
@@ -147,5 +129,23 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             trashBtn = itemView.findViewById(R.id.trashBtn);
         }
     }
+    private void showDeleteConfirmationDialog(CartViewHolder holder) {
+        Dialog dialog = new Dialog(holder.itemView.getContext());
+        dialog.setContentView(R.layout.custom_dialog_delete);
+        Button btnDelete = dialog.findViewById(R.id.btnDialogDelete);
+        Button btnCancel = dialog.findViewById(R.id.btnDialogCancel);
+
+        btnDelete.setOnClickListener(v1 -> {
+            if (onDeleteListener != null) {
+                onDeleteListener.onDelete(holder.getAdapterPosition(), productsInCart.get(holder.getAdapterPosition()));
+            }
+            dialog.dismiss();
+        });
+
+        btnCancel.setOnClickListener(v12 -> dialog.dismiss());
+
+        dialog.show();
+    }
+
 
 }
