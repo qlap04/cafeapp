@@ -66,6 +66,11 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
                 if (onQuantityChangeListener != null) {
                     onQuantityChangeListener.onQuantityChange(holder.getAdapterPosition(), currentQuantity);
                 }
+            } else {
+                // Nếu số lượng là 1, thực hiện xóa item
+                if (onDeleteListener != null) {
+                    onDeleteListener.onDelete(holder.getAdapterPosition(), productsInCart.get(holder.getAdapterPosition()));
+                }
             }
         });
         holder.addBtn.setOnClickListener(v -> {
