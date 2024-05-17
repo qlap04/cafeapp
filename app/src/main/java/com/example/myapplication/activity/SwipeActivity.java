@@ -3,10 +3,10 @@ package com.example.myapplication.activity;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.view.MotionEvent;
 import android.view.View;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.myapplication.adapter.ProductAdapter1;
 
 public class SwipeActivity extends ItemTouchHelper.SimpleCallback {
@@ -45,8 +45,30 @@ public class SwipeActivity extends ItemTouchHelper.SimpleCallback {
             adapter.hideButtons((ProductAdapter1.Product1ViewHolder) viewHolder);
         } else if (dX < 0) {
             adapter.showButtons((ProductAdapter1.Product1ViewHolder) viewHolder);
-            itemView.setTranslationX(dX);
         }
+
+        // Override onTouchEvent to handle swipe length
+        itemView.setOnTouchListener(new View.OnTouchListener() {
+            float dx = 0f;
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        dx = event.getX();
+                        break;
+                    case MotionEvent.ACTION_MOVE:
+                        float x = event.getX();
+                        float delta = x - dx;
+                        if (delta < -200) { // set your desired threshold for swipe length
+                            adapter.hideButtons((ProductAdapter1.Product1ViewHolder) viewHolder);
+                            return true; // consume the event to prevent RecyclerView from scrolling
+                        }
+                        break;
+                }
+                return false; // don't consume the event
+            }
+        });
 
         super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
     }

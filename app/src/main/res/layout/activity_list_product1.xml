@@ -36,56 +36,25 @@
                     app:srcCompat="@drawable/arrow" />
 
                 <TextView
-                    android:id="@+id/myWarehouseTxt"
-                    android:layout_width="0dp"
+                    android:id="@+id/textView6"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginStart="8dp"
-                    android:layout_weight="1"
                     android:gravity="center"
                     android:text="Kho của tôi"
-                    android:textColor="@color/black"
                     android:textSize="18sp" />
-                <androidx.appcompat.widget.SearchView
-                    android:id="@+id/searchView"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="8dp"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:queryHint="Search"
-                    android:visibility="gone" />
-                <ImageView
-                    android:id="@+id/searchIcon"
-                    android:layout_width="24dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    app:srcCompat="@drawable/ic_search"
-                    android:layout_marginEnd="16dp"/>
             </LinearLayout>
+        <View
+            android:id="@+id/view4"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@color/md_grey_500"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
-
-            <View
-                android:id="@+id/view4"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp"
-                android:background="@color/md_grey_500"
-                app:layout_constraintTop_toBottomOf="@+id/searchView"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/addBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/grey_button_background"
-                android:text="Thêm sản phẩm"
-                android:textAllCaps="false"
-                android:paddingStart="12dp"
-                android:paddingEnd="12dp"
-                android:layout_marginBottom="16dp"
-                android:textColor="@color/black"
-                android:layout_marginStart="8dp"/>
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
@@ -94,11 +63,11 @@
                     android:id="@+id/rcProducts"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="8dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </LinearLayout>

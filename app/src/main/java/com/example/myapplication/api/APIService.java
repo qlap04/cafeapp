@@ -22,6 +22,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.Retrofit;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.PATCH;
@@ -36,10 +38,11 @@ public interface APIService {
             .setDateFormat("yyyy-MM-dd HH:mm:ss")
             .create();
     APIService apiService = new Retrofit.Builder()
-            .baseUrl("http://192.168.56.1:3001/")
+            .baseUrl("http://192.168.1.3:3001/")
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
             .create(APIService.class);
+
     @GET("/login/login")
     Call<List<User>> getListUsers();
     @GET("/users/list-user-online")
@@ -84,6 +87,8 @@ public interface APIService {
     Call<Void> updateInforProduct( @Query("_id") int id,@Body ProductRequest productRequest);
     @GET("/cart/products-in-cart")
     Call<List<Cart>> getListProductsIncart(@Query("username") String username);
+    @POST("/products/add-product")
+    Call<Void> addProduct(@Body ProductRequest productRequest);
     @GET("/cart/set-orderId-product")
     Call<Void> setOrderIdProduct(@Query("username") String username);
     @GET("/address/get-address-for-user")
@@ -155,4 +160,7 @@ public interface APIService {
     Call<Void> deleteProduct(@Query("user") String user, @Query("_id") int _id);
     @DELETE("/cart/delete-all-products-in-cart")
     Call<Void> cancelOrder(@Query("_id") int _id);
+    @FormUrlEncoded
+    @POST("/updatePopularStatus")
+    Call<Void> updatePopularStatus(@Field("productTitle") String productTitle, @Field("popularStatus") String popularStatus);
 }

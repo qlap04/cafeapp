@@ -1,14 +1,18 @@
 package com.example.myapplication.adapter;
 
+import android.app.Dialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.myapplication.activity.CartActivity;
 import com.example.myapplication.model.Cart;
 import com.example.myapplication.R;
 import com.squareup.picasso.Picasso;
@@ -16,11 +20,16 @@ import com.squareup.picasso.Picasso;
 import java.text.DecimalFormat;
 import java.util.List;
 
+import retrofit2.Callback;
+
 
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder> {
     private final List<Cart> productsInCart;
     private OnQuantityChangeListener onQuantityChangeListener;
     private OnDeleteListener onDeleteListener;
+
+    private CartActivity cartActivity;
+
     public interface OnQuantityChangeListener {
         void onQuantityChange(int position, int newQuantity);
     }
@@ -32,6 +41,10 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     }
     public void setOnDeleteListener(OnDeleteListener listener) {
         this.onDeleteListener = listener;
+    }
+    public CartAdapter(List<Cart> productsInCart, CartActivity cartActivity) {
+        this.cartActivity = cartActivity;
+        this.productsInCart = productsInCart;
     }
     public CartAdapter(List<Cart> productsInCart) {
         this.productsInCart = productsInCart;
@@ -66,8 +79,12 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
                 if (onQuantityChangeListener != null) {
                     onQuantityChangeListener.onQuantityChange(holder.getAdapterPosition(), currentQuantity);
                 }
+            } else {
+                showDeleteConfirmationDialog(holder);
             }
         });
+
+
         holder.addBtn.setOnClickListener(v -> {
             int currentQuantity = Integer.parseInt(holder.quantityTxt.getText().toString());
             currentQuantity++;
@@ -79,9 +96,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             }
         });
         holder.trashBtn.setOnClickListener(v -> {
-            if (onDeleteListener != null) {
-                onDeleteListener.onDelete(holder.getAdapterPosition(), productsInCart.get(holder.getAdapterPosition()));
-            }
+            showDeleteConfirmationDialog(holder);
         });
 
     }
@@ -114,5 +129,23 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             trashBtn = itemView.findViewById(R.id.trashBtn);
         }
     }
+    private void showDeleteConfirmationDialog(CartViewHolder holder) {
+        Dialog dialog = new Dialog(holder.itemView.getContext());
+        dialog.setContentView(R.layout.custom_dialog_delete);
+        Button btnDelete = dialog.findViewById(R.id.btnDialogDelete);
+        Button btnCancel = dialog.findViewById(R.id.btnDialogCancel);
+
+        btnDelete.setOnClickListener(v1 -> {
+            if (onDeleteListener != null) {
+                onDeleteListener.onDelete(holder.getAdapterPosition(), productsInCart.get(holder.getAdapterPosition()));
+            }
+            dialog.dismiss();
+        });
+
+        btnCancel.setOnClickListener(v12 -> dialog.dismiss());
+
+        dialog.show();
+    }
+
 
 }

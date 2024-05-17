@@ -2,6 +2,9 @@ package com.example.myapplication.fragment;
 
 import static android.app.Activity.RESULT_OK;
 
+import static com.example.myapplication.utils.ToastUtils.showCustomToast;
+
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -17,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.speech.RecognizerIntent;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,14 +42,12 @@ import com.example.myapplication.api.APIService;
 import com.example.myapplication.activity.CartActivity;
 import com.example.myapplication.activity.ListProductActivity;
 import com.example.myapplication.activity.ListProductCategory;
-import com.example.myapplication.activity.MainActivity;
 import com.example.myapplication.adapter.CategoryAdapter;
 import com.example.myapplication.adapter.ProductAdapter;
 import com.example.myapplication.model.Cart;
 import com.example.myapplication.model.Category;
 import com.example.myapplication.model.Product;
 import com.example.myapplication.R;
-import com.example.myapplication.token.TokenManager;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -64,10 +66,11 @@ public class HomeFragment extends Fragment implements CategoryAdapter.OnCategory
     private LinearLayout evaluateTxt, priceTxt;
     private List<Product> productCafeList, productCakeList;
     private ActivityResultLauncher<Intent> launcher;
+    TextView viewAllTxt;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_home, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_home_client, container, false);
         ImageSlider imageSlider = rootView.findViewById(R.id.imageSlider);
         ArrayList<SlideModel> slideModels = new ArrayList<>();
         slideModels.add(new SlideModel(R.drawable.image1, ScaleTypes.FIT));
@@ -82,14 +85,13 @@ public class HomeFragment extends Fragment implements CategoryAdapter.OnCategory
         rcCake = rootView.findViewById(R.id.rcCakes);
         prBestCafe = rootView.findViewById(R.id.prBestCafe);
         prBestCake = rootView.findViewById(R.id.prBestCake);
-        TextView viewAllTxt = rootView.findViewById(R.id.viewAllTxt);
+        viewAllTxt = rootView.findViewById(R.id.viewAllTxt);
         ImageView backBtn = rootView.findViewById(R.id.backBtn);
         ImageView cartBtn = rootView.findViewById(R.id.cartBtn);
         ImageView searchBtn = rootView.findViewById(R.id.searchBtn);
         searchTxt = rootView.findViewById(R.id.searchTxt);
         ImageView micBtn = rootView.findViewById(R.id.micBtn);
         TextView nameTxt = rootView.findViewById(R.id.nameTxt);
-
         LinearLayoutManager linearLayoutManager1 = new LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false);
         LinearLayoutManager linearLayoutManager2 = new LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false);
 
@@ -298,9 +300,9 @@ public class HomeFragment extends Fragment implements CategoryAdapter.OnCategory
                     @Override
                     public void onResponse(@NonNull Call<Cart> call, @NonNull Response<Cart> response) {
                         if (response.isSuccessful()) {
-                            Toast.makeText(requireContext(), "Thêm sản phẩm thành công", Toast.LENGTH_LONG).show();
-                        } else {
-                            Toast.makeText(requireContext(), "Thêm sản phẩm thấy bại", Toast.LENGTH_LONG).show();
+                            showCustomToast(requireContext(), "Thêm sản phẩm thành công");                      }
+                        else {
+                            showCustomToast(requireContext(), "Thêm sản phẩm thất bại");
                             try {
                                 assert response.errorBody() != null;
                                 Log.e("SignupActivity", "Lỗi khi thêm sản phẩm: " + response.errorBody().string());
@@ -317,4 +319,5 @@ public class HomeFragment extends Fragment implements CategoryAdapter.OnCategory
 
                 });
     }
+
 }

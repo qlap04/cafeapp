@@ -66,7 +66,7 @@ public class PaymentMethodsActivity extends AppCompatActivity implements Payment
     @Override
     public void onItemClick(String title) {
         setPaymentMethodInCart(title);
-        setProductInCartIsConfirmed();
+        setProductInCartIsOdered();
         finish();
         Intent intent = new Intent(PaymentMethodsActivity.this, OrderSuccessActivity.class);
         startActivity(intent);
@@ -75,11 +75,11 @@ public class PaymentMethodsActivity extends AppCompatActivity implements Payment
         SharedPreferences sharedPreferences = getSharedPreferences("user_prefs", MODE_PRIVATE);
         username = sharedPreferences.getString("username", "");
     }
-    private void setProductInCartIsConfirmed() {
+    private void setProductInCartIsOdered() {
         if (username.isEmpty()) {
             return;
         }
-        APIService.apiService.setProductInCartIsConfirmed(username)
+        APIService.apiService.setProductInCartIsOdered(username)
                 .enqueue(new Callback<Void>() {
                     @Override
                     public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
