@@ -18,7 +18,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.myapplication.api.APIService;
 import com.example.myapplication.adapter.TrackingAdapter;
@@ -26,10 +25,7 @@ import com.example.myapplication.model.Cart;
 import com.example.myapplication.R;
 import com.example.myapplication.utils.ToastUtils;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -107,8 +103,6 @@ public class TrackingActivity extends AppCompatActivity {
         });
     }
 
-
-
     private void getUsernameFromSharedPreferences() {
         SharedPreferences sharedPreferences = getSharedPreferences("user_prefs", MODE_PRIVATE);
         username = sharedPreferences.getString("username", "");
@@ -116,11 +110,6 @@ public class TrackingActivity extends AppCompatActivity {
     private void getRoleFromSharedPreferences() {
         SharedPreferences sharedPreferences = getSharedPreferences("user_prefs", MODE_PRIVATE);
         role = sharedPreferences.getString("userRole", "");
-    }
-    private void navigateToHome() {
-        finish();
-        Intent intent = new Intent(TrackingActivity.this, HomeActivity.class);
-        startActivity(intent);
     }
     private void cancelOrder(int id) {
         APIService.apiService.cancelOrder(id)
@@ -196,6 +185,8 @@ public class TrackingActivity extends AppCompatActivity {
                             cancelOrderBtn.setVisibility(View.GONE);
                             receiveOrderForStaffBtn.setVisibility(View.GONE);
                             receiveOrderBtn.setVisibility(View.VISIBLE);
+                        } else {
+                            receiveOrderBtn.setVisibility(View.GONE);
                         }
                         TrackingAdapter trackingAdapter = new TrackingAdapter(productListInCart);
                         rcTracking.setAdapter(trackingAdapter);
