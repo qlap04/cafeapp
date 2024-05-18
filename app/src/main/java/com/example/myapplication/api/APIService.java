@@ -2,7 +2,9 @@ package com.example.myapplication.api;
 
 import com.example.myapplication.model.Address;
 import com.example.myapplication.model.Cart;
+import com.example.myapplication.model.Discount;
 import com.example.myapplication.model.Email;
+import com.example.myapplication.model.Order;
 import com.example.myapplication.model.Product;
 import com.example.myapplication.model.Reply;
 import com.example.myapplication.model.User;
@@ -116,8 +118,6 @@ public interface APIService {
     Call<List<Cart>> getProductInProcessing(@Query("username") String username);
     @GET("/cart/get-product-in-processing-for-staff")
     Call<List<Cart>> getProductInProcessingForStaff();
-    @GET("/orders/total-price-for-bill")
-    Call<TotalPriceResponse> getTotalPriceForBill(@Query("username") String username);
     @GET("/cart/receive-order")
     Call<Void> receiveOrder(@Query("_id") int _id);
     @GET("/cart/get-product-in-tracking")
@@ -128,14 +128,10 @@ public interface APIService {
     Call<String> getPaymentMethodForBill(@Query("username") String username, @Query("_id") int _id);
     @GET("/cart/get-product-for-bill")
     Call<List<Cart>> getProductForBill(@Query("_id") int _id);
-    @GET("/orders/get-address-for-bill")
-    Call<AddressResponse> getAddressForBill( @Query("_id") int _id);
     @GET("/cart/get-price-for-bill")
     Call<TotalPriceResponse> getPriceForBill(@Query("_id") int _id);
     @POST("/cart/evaluate-product")
     Call<Void> evaluateProduct(@Query("_id") int _id, @Query("starEvaluate") double star, @Query("contentEvaluate") String contentEvaluate);
-    @GET("/orders/set-payment-method")
-    Call<Void> setPaymentMethodInCart(@Query("username") String username, @Query("paymentMethod") String paymentMethod);
     @POST("/login/signup")
     Call<User> signUpUser(@Body User user);
     @POST("/reply/save-content-reply")
@@ -159,12 +155,25 @@ public interface APIService {
     Call<Void> updatePassword(@Query("username") String username, @Query("password") String password);
     @POST("/cart/update-cart-item/{username}/{cartId}")
     Call<Void> updateCartItem(@Path("username") String username, @Path("cartId") int cartId, @Body Cart cart);
+    @GET("/orders/total-price-for-bill")
+    Call<TotalPriceResponse> getTotalPriceForBill(@Query("username") String username);
+    @GET("/orders/get-address-for-bill")
+    Call<AddressResponse> getAddressForBill( @Query("_id") int _id);
+    @PATCH("/orders/set-payment-method")
+    Call<Void> setPaymentMethodInCart(@Query("username") String username, @Query("paymentMethod") String paymentMethod);
+    @PATCH("/orders/set-value-discount")
+    Call<Void> setValueDiscount(@Query("username") String username, @Query("valueDiscount") int valueDiscount);
     @POST("/orders/save-address-for-cart")
     Call<Void> saveAddressForCart(@Query("username") String username, @Query("_id") int _id, @Body AddressResponse addressResponse);
+    @GET("/orders/get-infor-for-bill")
+    Call<Order> getInforForBill(@Query("username") String username);
+    @GET("/orders/get-infor-for-bill-1")
+    Call<Order> getInforForBill1(@Query("_id") int _id);
     @DELETE("/cart/delete-product")
     Call<Void> deleteProduct(@Query("user") String user, @Query("_id") int _id);
     @DELETE("/cart/delete-all-products-in-cart")
     Call<Void> cancelOrder(@Query("_id") int _id);
-    //update
+    @GET("/discounts/get-all-discounts")
+    Call<List<Discount>> getAllDiscoutns();
 
 }
