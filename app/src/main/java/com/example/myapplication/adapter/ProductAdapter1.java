@@ -170,6 +170,7 @@ public class ProductAdapter1 extends RecyclerView.Adapter<ProductAdapter1.Produc
             }
         });
     }
+    //huhu
     private void updatePopularStatus(String productName, String popularStatus) {
         APIService.apiService.updateProductPopularStatus(productName, popularStatus)
                 .enqueue(new Callback<Void>() {
