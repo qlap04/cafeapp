@@ -308,31 +308,6 @@
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/evaluateBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="24dp"
-                android:background="@drawable/brown_button_background"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp"
-                android:text="Đánh giá đơn hàng"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="12sp"
-                android:layout_gravity="center"
-                android:contentDescription="Theo dõi đơn hàng"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/rcProduct"
-                android:importantForAccessibility="yes"
-                android:clickable="true"/>
-
         </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

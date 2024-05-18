@@ -79,7 +79,7 @@ public class PaymentMethodsActivity extends AppCompatActivity implements Payment
         if (username.isEmpty()) {
             return;
         }
-        APIService.apiService.setProductInCartIsOdered(username)
+        APIService.apiService.setProductInCartIsConfirmed(username)
                 .enqueue(new Callback<Void>() {
                     @Override
                     public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {

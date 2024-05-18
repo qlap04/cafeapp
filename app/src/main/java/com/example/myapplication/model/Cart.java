@@ -16,10 +16,12 @@ public class Cart implements Serializable {
     private Double total;
     private ArrayList<String> options;
     private String paymentMethod;
+    private float starEvaluate;
+    private String contentEvaluate;
     private Boolean isConfirmed;
     private Boolean isOrdered;
     private Boolean isCompleted;
-    public Cart(int _id, String orderId, String user, String image, String title, Double price, int quantity, Double total, ArrayList<String> options, String paymentMethod, Boolean isConfirmed, Boolean isOrdered, Boolean isCompleted, Date updatedAt) {
+    public Cart(int _id, String orderId, String user, String image, String title, Double price, int quantity, Double total, ArrayList<String> options, String paymentMethod, float starEvaluate, String contentEvaluate, Boolean isConfirmed, Boolean isOrdered, Boolean isCompleted, Date updatedAt) {
         this._id = _id;
         this.orderId = orderId;
         this.user = user;
@@ -30,6 +32,8 @@ public class Cart implements Serializable {
         this.total = total;
         this.options = options;
         this.paymentMethod = paymentMethod;
+        this.starEvaluate = starEvaluate;
+        this.contentEvaluate = contentEvaluate;
         this.isConfirmed = isConfirmed;
         this.isOrdered = isOrdered;
         this.isCompleted = isCompleted;
@@ -120,6 +124,14 @@ public class Cart implements Serializable {
     public void setPaymentMethod(String paymentMethod) {
         this.paymentMethod = paymentMethod;
     }
+    public float getStarEvaluate() {
+        return starEvaluate;
+    }
+
+    public String getContentEvaluate() {
+        return contentEvaluate;
+    }
+
     public Boolean getConfirmed() {
         return isConfirmed;
     }

@@ -51,6 +51,8 @@ public class CompleteAdapter extends RecyclerView.Adapter<CompleteAdapter.Proces
             intent.putExtra("ID-PRODUCT", product.get_id());
             v.getContext().startActivity(intent);
         });
+        holder.starTxt.setText(String.valueOf(product.getStarEvaluate()));
+        holder.evaluateTxt.setText(product.getContentEvaluate());
     }
 
     @Override
@@ -68,6 +70,8 @@ public class CompleteAdapter extends RecyclerView.Adapter<CompleteAdapter.Proces
         private final TextView priceTxt;
         private final TextView quantityTxt;
         private final TextView billTxt;
+        private TextView starTxt;
+        private TextView evaluateTxt;
         public ProcessingViewHolder(@NonNull View itemView) {
             super(itemView);
             image = itemView.findViewById(R.id.image);
@@ -76,6 +80,8 @@ public class CompleteAdapter extends RecyclerView.Adapter<CompleteAdapter.Proces
             priceTxt = itemView.findViewById(R.id.priceTxt);
             quantityTxt = itemView.findViewById(R.id.quantityTxt);
             billTxt = itemView.findViewById(R.id.billTxt);
+            starTxt = itemView.findViewById(R.id.starTxt);
+            evaluateTxt = itemView.findViewById(R.id.evaluateTxt);
         }
     }
 }

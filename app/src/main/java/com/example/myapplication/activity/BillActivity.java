@@ -40,7 +40,6 @@ public class BillActivity extends AppCompatActivity {
     private List<Cart> productListInCart;
     private AddressResponse address;
     private ImageView backBtn;
-    private Button evaluateBtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,7 +56,6 @@ public class BillActivity extends AppCompatActivity {
         addressTxt = findViewById(R.id.addressTxt);
         paymentMethodTxt = findViewById(R.id.paymentMethodTxt);
         backBtn = findViewById(R.id.backBtn);
-        evaluateBtn = findViewById(R.id.evaluateBtn);
         productListInCart = new ArrayList<>();
         GridLayoutManager linearLayoutManager = new GridLayoutManager(this, 1);
         rcProduct.setLayoutManager(linearLayoutManager);
@@ -73,15 +71,9 @@ public class BillActivity extends AppCompatActivity {
         backBtn.setOnClickListener(v -> {
             navigateToHome();
         });
-        evaluateBtn.setOnClickListener(v -> navigateToEvaluate());
     }
     private void navigateToHome() {
         finish();
-    }
-    private void navigateToEvaluate() {
-        finish();
-        Intent intent = new Intent(BillActivity.this, EvaluateActivity.class);
-        startActivity(intent);
     }
     private String getUsernameFromSharedPreferences() {
         SharedPreferences sharedPreferences = getSharedPreferences("user_prefs", MODE_PRIVATE);

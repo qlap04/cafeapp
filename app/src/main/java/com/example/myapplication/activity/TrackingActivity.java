@@ -80,7 +80,17 @@ public class TrackingActivity extends AppCompatActivity {
                 callApiGetProductsInTrakingForStaff(idValue);
             }
             cancelOrderBtn.setOnClickListener(v -> cancelOrder(idValue));
-            receiveOrderBtn.setOnClickListener(v -> receiveOrder(idValue));
+            receiveOrderBtn.setOnClickListener(v -> {
+                receiveOrder(idValue);
+                Intent intent1 = new Intent(TrackingActivity.this, EvaluateActivity.class);
+                intent1.putExtra("ID-PRODUCT", idValue);
+                startActivity(intent1);
+            });
+            receiveOrderForStaffBtn.setOnClickListener(v -> {
+                ToastUtils.showCustomToast(TrackingActivity.this, "Nhận hàng thành công");
+                setProductIncartIsOrdered(idValue);
+                finish();
+            });
             billTxt.setOnClickListener(v -> {
                 Intent intent1 = new Intent(v.getContext(), BillActivity.class);
                 intent1.putExtra("ID-PRODUCT", idValue);
@@ -94,11 +104,6 @@ public class TrackingActivity extends AppCompatActivity {
         }
         backBtn.setOnClickListener(v -> {
             finish();
-        });
-        receiveOrderForStaffBtn.setOnClickListener(v -> {
-            ToastUtils.showCustomToast(TrackingActivity.this, "Nhận hàng thành công");
-            finish();
-            setProductIncartIsOrdered();
         });
     }
 
@@ -123,7 +128,7 @@ public class TrackingActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
                         if (response.isSuccessful()) {
-                            navigateToHome();
+                            finish();
                             Log.e("Tracking Activity", "Cancel order" + "Cancel order successfully");
                         } else {
                             Log.e("Tracking Activity", "Cancel order" + "Cancel order failed");
@@ -142,7 +147,6 @@ public class TrackingActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
                         if (response.isSuccessful()) {
-                            navigateToHome();
                             Log.e("Tracking Activity", "Receive order: " + "Receive order successfully");
                         } else {
                             Log.e("Tracking Activity", "Receive order: " + "Receive order failed");
@@ -155,11 +159,9 @@ public class TrackingActivity extends AppCompatActivity {
                     }
                 });
     }
-    private void setProductIncartIsOrdered() {
-        if (username.isEmpty()) {
-            return;
-        }
-        APIService.apiService.setProductInCartIsOdered(username)
+    private void setProductIncartIsOrdered(int id) {
+
+        APIService.apiService.setProductInCartIsOdered(id)
                 .enqueue(new Callback<Void>() {
                     @Override
                     public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {

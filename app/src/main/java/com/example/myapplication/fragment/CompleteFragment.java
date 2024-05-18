@@ -102,6 +102,7 @@ public class CompleteFragment extends Fragment {
                         productListInCart = response.body();
                         CompleteAdapter completeAdapter = new CompleteAdapter(productListInCart);
                         rcComplete.setAdapter(completeAdapter);
+                        swipeRefreshLayout.setRefreshing(false);
                     }
 
                     @Override
@@ -118,6 +119,7 @@ public class CompleteFragment extends Fragment {
                         productListInCart = response.body();
                         CompleteAdapter completeAdapter = new CompleteAdapter(productListInCart);
                         rcComplete.setAdapter(completeAdapter);
+                        swipeRefreshLayout.setRefreshing(false);
                     }
 
                     @Override

@@ -109,7 +109,7 @@ public interface APIService {
     @PUT("/cart/set-confirmed")
     Call<Void> setProductInCartIsConfirmed(@Query("username") String username);
     @PUT("/cart/set-ordered")
-    Call<Void> setProductInCartIsOdered(@Query("username") String username);
+    Call<Void> setProductInCartIsOdered(@Query("_id") int _id);
     @GET("/cart/total-price")
     Call<TotalPriceResponse> getTotalPrice(@Query("username") String username);
     @GET("/cart/get-product-in-processing")
@@ -132,6 +132,8 @@ public interface APIService {
     Call<AddressResponse> getAddressForBill( @Query("_id") int _id);
     @GET("/cart/get-price-for-bill")
     Call<TotalPriceResponse> getPriceForBill(@Query("_id") int _id);
+    @POST("/cart/evaluate-product")
+    Call<Void> evaluateProduct(@Query("_id") int _id, @Query("starEvaluate") double star, @Query("contentEvaluate") String contentEvaluate);
     @GET("/orders/set-payment-method")
     Call<Void> setPaymentMethodInCart(@Query("username") String username, @Query("paymentMethod") String paymentMethod);
     @POST("/login/signup")

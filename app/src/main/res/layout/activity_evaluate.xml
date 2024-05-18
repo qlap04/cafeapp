@@ -115,6 +115,7 @@
                     android:textColor="@color/brown"/>
 
                 <RatingBar
+                    android:id="@+id/ratingBar"
                     android:layout_marginTop="8dp"
                     android:layout_gravity="center"
                     android:progressTint="#FFC106"
