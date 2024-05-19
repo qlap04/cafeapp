@@ -64,7 +64,7 @@ public class AddressActivity extends AppCompatActivity {
             if (selectedAddress != null) {
                 updateDataAddress(selectedAddress);
                 finish();
-                Intent intent = new Intent(AddressActivity.this, PaymentMethodsActivity.class);
+                Intent intent = new Intent(AddressActivity.this, DiscountActivity.class);
                 startActivity(intent);
             } else {
                 if(addressList == null ) {

@@ -18,6 +18,7 @@ import com.example.myapplication.R;
 import com.example.myapplication.adapter.TrackingAdapter;
 import com.example.myapplication.api.APIService;
 import com.example.myapplication.model.Cart;
+import com.example.myapplication.model.Order;
 import com.example.myapplication.modelResponse.AddressResponse;
 import com.example.myapplication.modelResponse.TotalPriceResponse;
 import com.example.myapplication.utils.ToastUtils;
@@ -31,11 +32,14 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class BillActivity extends AppCompatActivity {
-    private TextView priceTxt, nameTxt, phoneNumTxt, addressTxt, paymentMethodTxt;
+    private TextView priceTxt, discountTxt, totalPriceTxt, nameTxt, phoneNumTxt, addressTxt, paymentMethodTxt;
     private RecyclerView rcProduct;
     private List<Cart> productListInCart;
     private AddressResponse address;
     private ImageView backBtn;
+    private String username;
+    private double total;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +51,8 @@ public class BillActivity extends AppCompatActivity {
         setContentView(R.layout.activity_bill); setContentView(R.layout.activity_bill);
         rcProduct = findViewById(R.id.rcProduct);
         priceTxt = findViewById(R.id.priceTxt);
+        discountTxt = findViewById(R.id.discountTxt);
+        totalPriceTxt = findViewById(R.id.totalPriceTxt);
         nameTxt = findViewById(R.id.nameTxt);
         phoneNumTxt = findViewById(R.id.phoneNumTxt);
         addressTxt = findViewById(R.id.addressTxt);
@@ -62,8 +68,9 @@ public class BillActivity extends AppCompatActivity {
             getPriceForBill(idValue);
             getPaymentMethodForBill(idValue);
             callApitGetAddress(idValue);
+            getInforForBill(idValue);
         }
-
+        getUsernameFromSharedPreferences();
         backBtn.setOnClickListener(v -> {
             navigateToHome();
         });
@@ -71,9 +78,9 @@ public class BillActivity extends AppCompatActivity {
     private void navigateToHome() {
         finish();
     }
-    private String getUsernameFromSharedPreferences() {
+    private void getUsernameFromSharedPreferences() {
         SharedPreferences sharedPreferences = getSharedPreferences("user_prefs", MODE_PRIVATE);
-        return sharedPreferences.getString("username", "");
+        username = sharedPreferences.getString("username", "");
     }
     private void callApiGetProductForBill(int id) {
         APIService.apiService.getProductForBill(id).enqueue(new Callback<List<Cart>>() {
@@ -102,6 +109,7 @@ public class BillActivity extends AppCompatActivity {
                 if (response.isSuccessful() && response.body() != null) {
                     DecimalFormat decimalFormat = new DecimalFormat("#,### đ");
                     TotalPriceResponse totalPriceResponse = response.body();
+                    total = totalPriceResponse.getTotalPrice();
                     double totalPrice = totalPriceResponse.getTotalPrice() * 1000;
                     priceTxt.setText(decimalFormat.format(totalPrice));
                     Log.e("Success", "Success" + "Success");
@@ -137,7 +145,7 @@ public class BillActivity extends AppCompatActivity {
         });
     }
     private void getPaymentMethodForBill(int id) {
-        APIService.apiService.getPaymentMethodForBill(getUsernameFromSharedPreferences(), id).enqueue(new Callback<String>() {
+        APIService.apiService.getPaymentMethodForBill(username, id).enqueue(new Callback<String>() {
             @Override
             public void onResponse(@NonNull Call<String> call, @NonNull Response<String> response) {
                 if (response.isSuccessful() && response.body() != null) {
@@ -149,6 +157,29 @@ public class BillActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(@NonNull Call<String> call, @NonNull Throwable t) {
+                Log.e("API Error", "Call API error: " + t.getMessage(), t);
+            }
+        });
+    }
+    private void getInforForBill(int id) {
+        APIService.apiService.getInforForBill1(id).enqueue(new Callback<Order>() {
+            @Override
+            public void onResponse(@NonNull Call<Order> call, @NonNull Response<Order> response) {
+                if (response.isSuccessful()) {
+                    DecimalFormat decimalFormat = new DecimalFormat("#,### đ");
+                    Order order = response.body();
+                    assert order != null;
+                    double discountPrice = (((double) order.getValueDiscount() * total) / 100.0) * 1000;
+                    String formattedDiscountPrice = decimalFormat.format(discountPrice);
+                    discountTxt.setText(String.format("-%s", formattedDiscountPrice));
+                    double totalPrice = (total*1000 - discountPrice);
+                    String formattedTotalPrice = decimalFormat.format(totalPrice);
+                    totalPriceTxt.setText(String.format("%s", formattedTotalPrice));
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<Order> call, @NonNull Throwable t) {
                 Log.e("API Error", "Call API error: " + t.getMessage(), t);
             }
         });

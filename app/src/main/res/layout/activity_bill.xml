@@ -141,7 +141,7 @@
                             android:textStyle="bold" />
 
                         <TextView
-                            android:id="@+id/textView39"
+                            android:id="@+id/discountTxt"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -167,7 +167,7 @@
                             android:textStyle="bold" />
 
                         <TextView
-                            android:id="@+id/textView41"
+                            android:id="@+id/totalPriceTxt"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"

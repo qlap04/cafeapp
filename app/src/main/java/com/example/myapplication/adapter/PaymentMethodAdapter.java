@@ -51,16 +51,16 @@ public class PaymentMethodAdapter extends RecyclerView.Adapter<PaymentMethodAdap
             int previousPosition = selectedPosition;
             selectedPosition = holder.getAdapterPosition();
             listener.onItemClick(paymentMethod.getTitle());
-            notifyItemChanged(previousPosition); // Cập nhật trạng thái của mục trước đó
-            notifyItemChanged(selectedPosition); // Cập nhật trạng thái của mục mới được chọn
+            notifyItemChanged(previousPosition);
+            notifyItemChanged(selectedPosition);
         });
 
         holder.radioButton.setOnClickListener(v -> {
             int previousPosition = selectedPosition;
             selectedPosition = holder.getAdapterPosition();
             listener.onItemClick(paymentMethod.getTitle());
-            notifyItemChanged(previousPosition); // Cập nhật trạng thái của mục trước đó
-            notifyItemChanged(selectedPosition); // Cập nhật trạng thái của mục mới được chọn
+            notifyItemChanged(previousPosition);
+            notifyItemChanged(selectedPosition);
         });
     }
 
