@@ -15,13 +15,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
-import com.example.myapplication.activity.AddProductActivity;
 import com.example.myapplication.activity.EditProductActivity;
 import com.example.myapplication.api.APIService;
 import com.example.myapplication.model.Product;

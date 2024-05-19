@@ -9,18 +9,14 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.myapplication.R;
 import com.example.myapplication.adapter.TrackingAdapter;
 import com.example.myapplication.api.APIService;
-import com.example.myapplication.model.Address;
 import com.example.myapplication.model.Cart;
 import com.example.myapplication.modelResponse.AddressResponse;
 import com.example.myapplication.modelResponse.TotalPriceResponse;

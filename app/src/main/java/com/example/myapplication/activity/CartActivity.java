@@ -14,15 +14,12 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.myapplication.adapter.CartAdapter;
 import com.example.myapplication.api.APIService;
 import com.example.myapplication.model.Cart;
 import com.example.myapplication.R;
 import com.example.myapplication.modelResponse.TotalPriceResponse;
-import com.example.myapplication.token.TokenManager;
-import com.example.myapplication.token.TokenValidator;
 import com.example.myapplication.utils.ToastUtils;
 
 import java.text.DecimalFormat;

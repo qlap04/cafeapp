@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.Retrofit;
@@ -38,7 +37,7 @@ public interface APIService {
             .setDateFormat("yyyy-MM-dd HH:mm:ss")
             .create();
     APIService apiService = new Retrofit.Builder()
-            .baseUrl("http://192.168.56.1:3001/")
+            .baseUrl("http://192.168.200.203:3001/")
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
             .create(APIService.class);
@@ -78,13 +77,12 @@ public interface APIService {
     @GET("/products/products-in-category")
     Call<List<Product>> getProductsByCategory(@Query("category") String category);
     @GET("/products/get-infor-product")
-    Call<Product> getInforProduct(@Query("title") String title);
+    Call<Product> getInforProduct(@Query("_id") int _id);
     @GET("/products/set-best-product")
     Call<Void> updateProductPopularStatus(@Query("title") String title, @Query("popular") String popular);
+
     @PUT("/products/update-infor-product")
-    Call<Void> updateInforProduct( @Query("title") String title,@Body ProductRequest productRequest);
-    @DELETE("/products/delete-product")
-    Call<Void> deleteProduct( @Query("title") String title);
+    Call<Void> updateInforProduct( @Query("_id") int id,@Body ProductRequest productRequest);
     @GET("/cart/products-in-cart")
     Call<List<Cart>> getListProductsIncart(@Query("username") String username);
     @POST("/products/add-product")
@@ -97,9 +95,6 @@ public interface APIService {
     Call<User> getUserByUsername(@Query("username") String username);
     @GET("/users/get-password")
     Call<User> addStaff(@Body User user);
-    @Multipart
-    @POST("/users/upload")
-    Call<User> uploadProfileImage(@Part MultipartBody.Part profileImage, @Part("username") RequestBody username);
     @GET("/address/get-address")
     Call<List<Address>> getListAddress(@Query("username") String username);
     @GET("/cart/get-product-in-complete")
@@ -163,8 +158,12 @@ public interface APIService {
     Call<Void> saveAddressForCart(@Query("username") String username, @Query("_id") int _id, @Body AddressResponse addressResponse);
     @DELETE("/cart/delete-product")
     Call<Void> deleteProduct(@Query("user") String user, @Query("_id") int _id);
+    @DELETE("/products/delete-product")
+    Call<Void> deleteProduct (@Query("title") String title);
     @DELETE("/cart/delete-all-products-in-cart")
     Call<Void> cancelOrder(@Query("_id") int _id);
     //update
-
+    @FormUrlEncoded
+    @POST("/updatePopularStatus")
+    Call<Void> updatePopularStatus(@Field("productTitle") String productTitle, @Field("popularStatus") String popularStatus);
 }
