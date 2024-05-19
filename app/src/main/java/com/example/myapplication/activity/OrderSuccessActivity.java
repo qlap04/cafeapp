@@ -51,6 +51,7 @@ public class OrderSuccessActivity extends AppCompatActivity {
         }
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_order_success);
+
         rcProduct = findViewById(R.id.rcProduct);
         priceTxt = findViewById(R.id.priceTxt);
         discountTxt = findViewById(R.id.discountTxt);
@@ -62,12 +63,14 @@ public class OrderSuccessActivity extends AppCompatActivity {
         backBtn = findViewById(R.id.backBtn);
         GridLayoutManager linearLayoutManager = new GridLayoutManager(this, 1);
         rcProduct.setLayoutManager(linearLayoutManager);
+
         getUsernameFromSharedPreferences();
         callApiGetProductsInTraking();
         getTotalPrice();
         getPaymentMethodForBill(-1);
         callApiGetAddress();
         getInforForBill();
+
         backBtn.setOnClickListener(v -> {
             navigateToHome();
         });

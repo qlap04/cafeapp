@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.example.myapplication.R;
 import com.example.myapplication.api.APIService;
 import com.example.myapplication.model.User;
+import com.squareup.picasso.Picasso;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -25,6 +26,7 @@ import retrofit2.Response;
 public class StaffInforEditActivity extends AppCompatActivity {
     private int userId;
     private User user;
+    private ImageView image;
     private ImageView backBtn;
     private TextView idTxt, nameTxt;
     String[] item = {"admin", "staff"};
@@ -40,6 +42,7 @@ public class StaffInforEditActivity extends AppCompatActivity {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_staff_infor_edit);
 
+        image = findViewById(R.id.image);
         idTxt = findViewById(R.id.idTxt);
         backBtn = findViewById(R.id.backBtn);
         nameTxt = findViewById(R.id.nameTxt);
@@ -105,7 +108,12 @@ public class StaffInforEditActivity extends AppCompatActivity {
                     user = response.body();
                     idTxt.setText(String.valueOf(user.getUserId()));
                     nameTxt.setText(user.getUsername());
-
+                    String imageUrl = user.getImageUrl();
+                    if (imageUrl != null && !imageUrl.isEmpty()) {
+                        Picasso.get().load(imageUrl).into(image);
+                    } else {
+                        Log.e("EditProfileActivity", "Get image user failed");
+                    }
                 } else {
                     Log.e("StaffInforEditActivity", "Cannot get infor user");
                 }

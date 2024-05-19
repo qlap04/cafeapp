@@ -3,6 +3,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.myapplication.R;
 import com.example.myapplication.activity.StaffInforEditActivity;
 import com.example.myapplication.model.User;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -36,6 +38,10 @@ public class StaffInforIsOnLineAdapter extends RecyclerView.Adapter<StaffInforIs
         if (user == null) {
             return;
         }
+        String imageUrl = user.getImageUrl();
+        if (imageUrl != null && !imageUrl.isEmpty()) {
+            Picasso.get().load(imageUrl).into(holder.image);
+        }
         holder.idTxt.setText(String.format("ID: %s", String.valueOf(user.getUserId())));
         holder.nameTxt.setText(String.format("Họ và tên: %s", user.getFullname()));
         holder.roleTxt.setText(String.format("SĐT: %s", user.getPhoneNumber()));
@@ -56,11 +62,13 @@ public class StaffInforIsOnLineAdapter extends RecyclerView.Adapter<StaffInforIs
     }
 
     public static class StaffInforIsOnLineViewHolder extends RecyclerView.ViewHolder {
+        private ImageView image;
         private TextView idTxt;
         private TextView nameTxt;
         private TextView roleTxt;
         public StaffInforIsOnLineViewHolder(@NonNull View itemView) {
             super(itemView);
+            image = itemView.findViewById(R.id.image);
             idTxt = itemView.findViewById(R.id.idTxt);
             nameTxt = itemView.findViewById(R.id.nameTxt);
             roleTxt = itemView.findViewById(R.id.roleTxt);

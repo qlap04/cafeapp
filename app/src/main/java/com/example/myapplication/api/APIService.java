@@ -19,6 +19,7 @@ import java.util.List;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.Retrofit;
@@ -97,7 +98,7 @@ public interface APIService {
     Call<Address> getAddress(@Query("username") String username);
     @GET("/users/get-password")
     Call<User> getUserByUsername(@Query("username") String username);
-    @GET("/users/get-password")
+    @POST("/login/add-staff")
     Call<User> addStaff(@Body User user);
     @Multipart
     @POST("/users/upload")
@@ -138,11 +139,12 @@ public interface APIService {
     Call<Void> saveDataReply(@Body Reply reply);
     @POST("/users/save-infor-user")
     Call<Void> saveInforUser(@Query("username") String username, @Query("fullname") String fullname, @Query("email") String email, @Query("phoneNumber") String phoneNumber);
-    @POST("/users/save-image-user")
-    Call<Void> saveImageUser(@Query("username") String username, @Query("imageUrl") String imageUrl);
     @Multipart
-    @POST("/users/upload-image")
-    Call<Void> uploadImage(@Part("username") String username, @Part MultipartBody.Part image);
+    @POST("/users/upload")
+    Call<ResponseBody> uploadImage(
+            @Part MultipartBody.Part image,
+            @Part("username") RequestBody username
+    );
     @POST("/address/save-data-address")
     Call<Void> saveDataAddress(@Body Address address);
     @POST("/emails/reset-password")

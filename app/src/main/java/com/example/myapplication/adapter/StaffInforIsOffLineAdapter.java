@@ -2,9 +2,11 @@ package com.example.myapplication.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -15,6 +17,7 @@ import com.example.myapplication.activity.StaffInforEditActivity;
 import com.example.myapplication.interface1.ItemTouchListener;
 import com.example.myapplication.interface1.SwipeListener;
 import com.example.myapplication.model.User;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -50,6 +53,10 @@ public class StaffInforIsOffLineAdapter extends RecyclerView.Adapter<StaffInforI
         if (user == null) {
             return;
         }
+        String imageUrl = user.getImageUrl();
+        if (imageUrl != null && !imageUrl.isEmpty()) {
+            Picasso.get().load(imageUrl).into(holder.image);
+        }
         holder.idTxt.setText(String.format("ID: %s", String.valueOf(user.getUserId())));
         holder.nameTxt.setText(String.format("Họ và tên: %s", user.getFullname()));
         holder.roleTxt.setText(String.format("SĐT: %s", user.getPhoneNumber()));
@@ -67,12 +74,14 @@ public class StaffInforIsOffLineAdapter extends RecyclerView.Adapter<StaffInforI
     }
 
     public class StaffInforIsOffLineViewHolder extends RecyclerView.ViewHolder {
+        private ImageView image;
         private TextView idTxt;
         private TextView nameTxt;
         private TextView roleTxt;
 
         public StaffInforIsOffLineViewHolder(@NonNull View itemView) {
             super(itemView);
+            image = itemView.findViewById(R.id.image);
             idTxt = itemView.findViewById(R.id.idTxt);
             nameTxt = itemView.findViewById(R.id.nameTxt);
             roleTxt = itemView.findViewById(R.id.roleTxt);
