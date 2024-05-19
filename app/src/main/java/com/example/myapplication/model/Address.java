@@ -1,6 +1,7 @@
 package com.example.myapplication.model;
 
 public class Address {
+    //
     private String username;
     private String name;
     private String phone;

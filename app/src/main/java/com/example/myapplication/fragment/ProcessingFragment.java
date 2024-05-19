@@ -28,7 +28,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ProcessingFragment extends Fragment {
-
+    //
     private String username, role;
     private boolean isOnline;
     private RecyclerView rcProcessing;

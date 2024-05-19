@@ -29,6 +29,7 @@ import retrofit2.Response;
 import androidx.appcompat.widget.SearchView;
 
 public class ListProduct1Activity extends AppCompatActivity {
+    //
     private RecyclerView rcProducts;
     private List<Product> productList;
     private ProgressBar progressBar1;

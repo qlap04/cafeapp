@@ -32,6 +32,7 @@ import com.example.myapplication.R;
 import com.example.myapplication.activity.StaffInforActivity;
 
 public class AccountFragment extends Fragment {
+    //
     private TextView usernameTxt;
     private Button editBtn;
     private LinearLayout linearLayout1;

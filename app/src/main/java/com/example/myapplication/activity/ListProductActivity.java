@@ -27,6 +27,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ListProductActivity extends AppCompatActivity {
+    //
     private RecyclerView rcProducts;
     private List<Product> productList;
     private ProgressBar progressBar;

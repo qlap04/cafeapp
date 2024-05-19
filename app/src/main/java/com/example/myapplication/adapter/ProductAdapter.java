@@ -16,6 +16,7 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
+    //
     private final List<Product> productList;
     private OnAddToCartClickListener addToCartClickListener;
 

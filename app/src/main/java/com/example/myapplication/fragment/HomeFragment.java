@@ -52,6 +52,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class HomeFragment extends Fragment implements CategoryAdapter.OnCategoryClickListener, ProductAdapter.OnAddToCartClickListener{
+    //
     private static final int SPEECH_REQUEST_CODE = 0;
     private EditText searchTxt;
     private TextView viewAllCafeTxt, viewAllCakeTxt;

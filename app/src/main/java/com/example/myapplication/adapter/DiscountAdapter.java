@@ -28,6 +28,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class DiscountAdapter extends RecyclerView.Adapter<DiscountAdapter.DiscountViewHolder>{
+    //
     private final List<Discount> discountList;
     private final DiscountAdapter.OnItemClickListener listener;
     private final Context mContext;

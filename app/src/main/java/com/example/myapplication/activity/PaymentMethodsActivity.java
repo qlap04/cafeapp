@@ -28,7 +28,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class PaymentMethodsActivity extends AppCompatActivity implements PaymentMethodAdapter.OnItemClickListener{
-
+    //
     private RecyclerView recyclerView;
     private PaymentMethodAdapter adapter;
     private List<PaymentMethod> paymentMethods;

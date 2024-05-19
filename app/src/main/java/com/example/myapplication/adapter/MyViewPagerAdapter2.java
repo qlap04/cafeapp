@@ -14,6 +14,7 @@ import com.example.myapplication.fragment.StaffOfflineFragment;
 import com.example.myapplication.fragment.StaffOnlineFragment;
 
 public class MyViewPagerAdapter2 extends FragmentStateAdapter {
+    //
 
     public MyViewPagerAdapter2(@NonNull FragmentActivity fragmentActivity) {
         super(fragmentActivity);

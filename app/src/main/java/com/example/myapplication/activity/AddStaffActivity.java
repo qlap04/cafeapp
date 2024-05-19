@@ -28,6 +28,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class AddStaffActivity extends AppCompatActivity {
+    //
     private boolean  checkUsername = true, checkEmail = true, checkPhoneNumber = true, checkPassword = true;
     private ImageView backBtn;
     private TextView strUsername;

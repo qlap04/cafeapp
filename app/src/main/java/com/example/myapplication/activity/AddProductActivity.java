@@ -22,6 +22,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class AddProductActivity extends AppCompatActivity {
+    //
     private EditText urlImageEdt;
     private EditText titleTxt;
     private EditText priceTxt;

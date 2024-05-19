@@ -25,6 +25,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class StaffOfflineFragment extends Fragment  {
+    //
     private RecyclerView rcStaff;
     private List<User> userList;
     @Nullable

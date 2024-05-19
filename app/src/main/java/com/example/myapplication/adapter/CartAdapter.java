@@ -24,6 +24,7 @@ import retrofit2.Callback;
 
 
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder> {
+    //
     private final List<Cart> productsInCart;
     private OnQuantityChangeListener onQuantityChangeListener;
     private OnDeleteListener onDeleteListener;

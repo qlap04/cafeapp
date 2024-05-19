@@ -3,6 +3,7 @@ package com.example.myapplication.model;
 import java.io.Serializable;
 
 public class User implements Serializable {
+    //
     private int userId;
     private String username;
     private String imageUrl;

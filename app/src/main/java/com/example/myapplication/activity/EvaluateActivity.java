@@ -23,6 +23,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class EvaluateActivity extends AppCompatActivity {
+    //
     private ImageView backBtn;
     private RatingBar ratingBar;
     private EditText contentEdt;

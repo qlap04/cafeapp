@@ -31,6 +31,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class CartActivity extends AppCompatActivity implements CartAdapter.OnQuantityChangeListener, CartAdapter.OnDeleteListener {
+    //
     private TextView totalTxt, subTotalTxt;
     private Button orderBtn;
     private RecyclerView rcProductsInCart;

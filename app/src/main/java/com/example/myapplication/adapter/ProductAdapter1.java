@@ -34,6 +34,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ProductAdapter1 extends RecyclerView.Adapter<ProductAdapter1.Product1ViewHolder> implements Filterable {
+    //
     private List<Product> productList;
     private List<Product> productListFull;
     private Context context;

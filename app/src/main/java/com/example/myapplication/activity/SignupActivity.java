@@ -27,6 +27,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class SignupActivity extends AppCompatActivity {
+    //
     private boolean  checkUsername = true, checkEmail = true, checkPhoneNumber = true, checkPassword = true;
     private TextView strUsername;
     private TextView strEmail;

@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.Locale;
 
 public class TrackingAdapter extends RecyclerView.Adapter<TrackingAdapter.TrackingViewHolder> {
+    //
     private final List<Cart> productsInCart;
 
     public TrackingAdapter(List<Cart> productsInCart) {

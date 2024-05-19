@@ -1,5 +1,6 @@
 package com.example.myapplication.model;
 public class PaymentMethod {
+    //
     private int icon;
     private String title;
     private String description;

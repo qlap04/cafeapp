@@ -2,7 +2,7 @@ package com.example.myapplication.model;
 import java.io.Serializable;
 
 public class Product implements Serializable {
-
+    //
     private String image;
     private String title;
     private Double price;

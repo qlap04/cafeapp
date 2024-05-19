@@ -1,6 +1,7 @@
 package com.example.myapplication.modelRequest;
 
 public class ProductRequest {
+    //
     private String imageUrl;
     private String name;
     private double price;

@@ -32,6 +32,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class OrderSuccessActivity extends AppCompatActivity {
+    //
     private TextView priceTxt, discountTxt, totalPriceTxt, nameTxt, phoneNumTxt, addressTxt, paymentMethodTxt;
     private RecyclerView rcProduct;
     private List<Cart> productListInCart;

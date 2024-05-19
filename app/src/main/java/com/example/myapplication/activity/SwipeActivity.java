@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.myapplication.adapter.ProductAdapter1;
 
 public class SwipeActivity extends ItemTouchHelper.SimpleCallback {
+    //
     private final ProductAdapter1 adapter;
     private final ColorDrawable background;
 

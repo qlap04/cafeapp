@@ -44,6 +44,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class EditProfileActivity extends AppCompatActivity {
+    //
     private User user;
     private String username;
     private ImageView backBtn, image;

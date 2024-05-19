@@ -33,6 +33,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class DetailActivity extends AppCompatActivity {
+    //
     private RatingBar ratingBar;
     private Button addBtn;
     private ImageView imageView, back1Btn;

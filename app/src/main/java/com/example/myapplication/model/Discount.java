@@ -1,6 +1,7 @@
 package com.example.myapplication.model;
 
 public class Discount {
+    //
     private int valueDiscount;
     private String conditionDiscount;
     private double conditionTotal;

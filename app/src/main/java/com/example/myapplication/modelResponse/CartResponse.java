@@ -5,6 +5,7 @@ import com.example.myapplication.model.Cart;
 import java.util.List;
 
 public class CartResponse {
+    //
     private List<Cart> listProductInCart;
     private double totalPrice;
     public CartResponse(List<Cart> listProductInCart, double totalPrice) {

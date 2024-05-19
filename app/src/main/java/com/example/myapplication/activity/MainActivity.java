@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.example.myapplication.R;
 
 public class MainActivity extends AppCompatActivity {
+    //
     private TextView startBtn;
     private TextView loginBtn;
 

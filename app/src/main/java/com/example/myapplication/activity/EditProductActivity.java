@@ -71,7 +71,7 @@ public class EditProductActivity extends AppCompatActivity {
         product.setPrice(Double.parseDouble(price));
         product.setCategory(category);
 
-        APIService.apiService.updateInforProduct(Integer.parseInt(titleProduct), product).enqueue(new Callback<Void>() {
+        APIService.apiService.updateInforProduct(titleProduct, product).enqueue(new Callback<Void>() {
             @Override
             public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
                 if (response.isSuccessful()) {
@@ -90,7 +90,7 @@ public class EditProductActivity extends AppCompatActivity {
     }
 
     private void callApiGetInforProduct(String titleProduct) {
-        APIService.apiService.getInforProduct(Integer.parseInt(titleProduct)).enqueue(new Callback<Product>() {
+        APIService.apiService.getInforProduct(titleProduct).enqueue(new Callback<Product>() {
             @Override
             public void onResponse(@NonNull Call<Product> call, @NonNull Response<Product> response) {
                 if (response.isSuccessful()) {

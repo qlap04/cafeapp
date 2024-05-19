@@ -19,6 +19,7 @@ import java.text.DecimalFormat;
 import java.util.List;
 
 public class ProcessingAdapter extends RecyclerView.Adapter<ProcessingAdapter.ProcessingViewHolder>{
+    //
     private final List<Cart> productList;
 
     public ProcessingAdapter(List<Cart> productList) {

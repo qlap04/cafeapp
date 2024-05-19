@@ -17,6 +17,7 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 public class StaffInforIsOnLineAdapter extends RecyclerView.Adapter<StaffInforIsOnLineAdapter.StaffInforIsOnLineViewHolder> {
+    //
     private List<User> userList;
 
     public StaffInforIsOnLineAdapter(List<User> userList) {

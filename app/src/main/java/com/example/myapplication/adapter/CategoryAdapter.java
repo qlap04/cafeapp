@@ -15,6 +15,7 @@ import com.example.myapplication.R;
 import java.util.List;
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>{
+    //
 
     private final List<Category> categoryList;
     private OnCategoryClickListener onCategoryClickListener;

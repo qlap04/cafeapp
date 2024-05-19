@@ -16,6 +16,7 @@ import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
 public class StaffInforActivity extends AppCompatActivity {
+    //
     private ImageView backBtn;
     private TabLayout mTabLayout;
     private ViewPager2 mViewPager;

@@ -1,6 +1,7 @@
 package com.example.myapplication.model;
 
 public class Category {
+    //
     private String title;
     private int imageResource;
 

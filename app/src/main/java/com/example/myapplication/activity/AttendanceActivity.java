@@ -22,7 +22,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class AttendanceActivity extends AppCompatActivity {
-
+    //
     private User user;
     private String username, role;
     private ImageView backBtn;

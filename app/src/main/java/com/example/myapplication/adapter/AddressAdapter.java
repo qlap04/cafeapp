@@ -16,6 +16,7 @@ import com.example.myapplication.model.Address;
 import java.util.List;
 
 public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.AddressViewHolder>{
+    //
     private final List<Address> listAddress;
     private final OnAddressClickListener onAddressClickListener;
 
@@ -24,7 +25,6 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.AddressV
         this.listAddress = listAddress;
         this.onAddressClickListener = onAddressClickListener;
     }
-
 
     @NonNull
     @Override

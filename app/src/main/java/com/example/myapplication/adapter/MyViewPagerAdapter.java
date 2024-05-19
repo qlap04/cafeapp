@@ -9,6 +9,7 @@ import com.example.myapplication.fragment.CompleteFragment;
 import com.example.myapplication.fragment.ProcessingFragment;
 
 public class MyViewPagerAdapter extends FragmentStateAdapter {
+    //
 
     public MyViewPagerAdapter(@NonNull FragmentActivity fragmentActivity) {
         super(fragmentActivity);

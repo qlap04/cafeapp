@@ -12,7 +12,7 @@ import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
 public class HistoryFragment extends Fragment {
-
+    //
     private TabLayout mTabLayout;
     private ViewPager2 mViewPager;
     private MyViewPagerAdapter myViewPagerAdapter;

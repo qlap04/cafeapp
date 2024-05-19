@@ -29,6 +29,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class AddressActivity extends AppCompatActivity {
+    //
     private RecyclerView rcAddress;
     private List<Address> addressList;
 

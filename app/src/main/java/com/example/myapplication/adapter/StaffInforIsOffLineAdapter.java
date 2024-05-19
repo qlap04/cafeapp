@@ -22,6 +22,7 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 public class StaffInforIsOffLineAdapter extends RecyclerView.Adapter<StaffInforIsOffLineAdapter.StaffInforIsOffLineViewHolder> {
+    //
     private List<User> userList;
     private Context context;
     private SwipeListener swipeListener;

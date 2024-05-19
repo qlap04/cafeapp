@@ -21,6 +21,7 @@ import java.text.DecimalFormat;
 import java.util.List;
 
 public class CompleteAdapter extends RecyclerView.Adapter<CompleteAdapter.ProcessingViewHolder>{
+    //
     private final List<Cart> productList;
 
     public CompleteAdapter(List<Cart> productList) {

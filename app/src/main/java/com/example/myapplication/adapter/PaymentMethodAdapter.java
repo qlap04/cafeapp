@@ -18,6 +18,7 @@ import java.util.List;
 
 public class PaymentMethodAdapter extends RecyclerView.Adapter<PaymentMethodAdapter.ViewHolder> {
 
+    //
     private final List<PaymentMethod> paymentMethods;
     private final OnItemClickListener listener;
     private int selectedPosition = -1;

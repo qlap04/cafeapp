@@ -27,6 +27,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class DiscountActivity extends AppCompatActivity implements DiscountAdapter.OnItemClickListener{
+    //
     private RecyclerView rcDiscount;
     private List<Discount> discountList;
     private String username;

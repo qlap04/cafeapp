@@ -17,6 +17,7 @@ import com.example.myapplication.fragment.HomeFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class HomeActivity extends AppCompatActivity {
+    //
     private BottomNavigationView bottomNavigationView;
     private FrameLayout frameLayout;
     @Override

@@ -1,6 +1,7 @@
 package com.example.myapplication.modelResponse;
 
 public class AddressResponse {
+    //
     private String name;
     private String phone;
     private String address;
